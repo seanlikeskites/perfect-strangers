@@ -43,8 +43,13 @@ extra-dependencies = [
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/perfect_strangers tests}"
 
+[tool.hatch.envs.hatch-test]
+extra-dependencies = [
+  "sympy"
+]
+
 [tool.coverage.run]
-source_pkgs = ["perfect_strangers", "tests"]
+source_pkgs = ["perfect_strangers"]
 branch = true
 parallel = true
 omit = [
@@ -53,7 +58,6 @@ omit = [
 
 [tool.coverage.paths]
 perfect_strangers = ["src/perfect_strangers", "*/perfect-strangers/src/perfect_strangers"]
-tests = ["tests", "*/perfect-strangers/tests"]
 
 [tool.coverage.report]
 exclude_lines = [
