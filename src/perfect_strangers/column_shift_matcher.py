@@ -26,39 +26,61 @@ def _least_prime_factor(n):
 
     return n
 
+def _shift_columns(base_matrix, stride):
+    g = base_matrix.copy()
+    n_blocks = g.shape[0] // stride
+    group_size = g.shape[1]
+
+    if n_blocks < group_size:
+        return []
+
+    lpf = _least_prime_factor(n_blocks)
+
+    if group_size <= lpf:
+        n_shifts = n_blocks - 1
+    else:
+        # In some cases we can get away with more shifts. Need to work out a good
+        # way of calculating this.
+        n_shifts = math.ceil(n_blocks / (group_size - 1)) - 1
+
+    shifts = []
+
+    for _ in range(n_shifts):
+        for c in range(1, group_size):
+            g[:, c] = np.roll(g[:, c], c * stride)
+
+        shifts.append(g.copy())
+
+    return shifts
 
 class ColumnShiftMatcher(BaseMatcher):
     def __init__(self, groups_per_round, group_size):
         super().__init__(groups_per_round, group_size)
 
     def _generate_rounds(self):
-        # Apply column shifts
-        def _shift_columns(g):
-            for c in range(1, g.shape[1]):
-                g[:, c] = np.roll(g[:, c], c)
+        # Apply initial column shifts.
+        self.group_matrices += _shift_columns(self.group_matrices[0], 1)
 
-            return g
+        # Apply submatrix transposition.
+        block_size = self.groups_per_round
+        n_blocks = 1
 
-        lpf = _least_prime_factor(self.groups_per_round)
-
-        if self.group_size <= lpf:
-            n_shifts = self.groups_per_round - 1
-        else:
-            # In some cases we can get away with more shifts. Need to work out a good
-            # way of calculating this.
-            n_shifts = math.ceil(self.groups_per_round / (self.group_size - 1)) - 1
-
-        for _ in range(n_shifts):
-            self.group_matrices.append(_shift_columns(self.group_matrices[-1].copy()))
-
-        # If possible apply a transpose.
-        if self.groups_per_round % self.group_size == 0:
+        while block_size % self.group_size == 0:
             g = self.group_matrices[0].copy()
 
-            for sub in range(self.groups_per_round // self.group_size):
-                start_col = sub * self.group_size
-                end_col = start_col + self.group_size
-                g[start_col:end_col, :] = g[start_col:end_col, :].transpose()
+            stride = block_size // self.group_size
+
+            for block in range(n_blocks):
+                block_start = block * block_size
+
+                for sub in range(stride):
+                    start_col = block_start + sub
+                    end_col = start_col + self.group_size * stride
+                    g[start_col:end_col:stride, :] = g[start_col:end_col:stride, :].transpose()
 
             self.group_matrices.append(g)
+            self.group_matrices += _shift_columns(g, block_size)
+            
+            block_size = stride
+            n_blocks *= self.group_size
 
