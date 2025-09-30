@@ -34,22 +34,26 @@ def _shift_columns(base_matrix, stride):
     if n_blocks < group_size:
         return []
 
-    lpf = _least_prime_factor(n_blocks)
-
-    if group_size <= lpf:
-        n_shifts = n_blocks - 1
-    else:
-        # In some cases we can get away with more shifts. Need to work out a good
-        # way of calculating this.
-        n_shifts = math.ceil(n_blocks / (group_size - 1)) - 1
+    max_shifts = n_blocks - 1
 
     shifts = []
+    column_positions = [0] * group_size
+    column_history = np.zeros((n_blocks, group_size - 1))
 
-    for _ in range(n_shifts):
+    for _ in range(max_shifts):
         for c in range(1, group_size):
             g[:, c] = np.roll(g[:, c], c * stride)
+            column_positions[c] = (column_positions[c] + c) % n_blocks
 
-        shifts.append(g.copy())
+        for c in range(1, group_size):
+            if column_history[column_positions[c], c - 1] != 0:
+                break
+        else:
+            for c in range(1, group_size):
+                column_history[column_positions[c], c - 1] = 1
+
+            if len(set(column_positions)) == group_size:
+                shifts.append(g.copy())
 
     return shifts
 
