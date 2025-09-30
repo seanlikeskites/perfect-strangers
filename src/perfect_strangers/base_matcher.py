@@ -1,8 +1,10 @@
 # SPDX-FileCopyrightText: 2025-present Sean Enderby <sean.enderby@gmail.com>
-#
+
 # SPDX-License-Identifier: MIT
 
 import numpy as np
+
+from perfect_strangers.util import is_round_pair_valid, is_round_valid
 
 
 class BaseMatcher:
@@ -34,3 +36,29 @@ class BaseMatcher:
     def _generate_rounds(self):
         pass
 
+    def _append_round(self, g):
+        if not is_round_valid(g, self.groups_per_round, self.group_size):
+            return False
+
+        for r in self.group_matrices:
+            if not is_round_pair_valid(r, g):
+                return False
+
+        self.group_matrices.append(g)
+        return True
+
+    def validate_rounds(self):
+        for i, current_round in enumerate(self.group_matrices):
+            # Check current round include all participants.
+            if not is_round_valid(current_round, self.groups_per_round, self.group_size):
+                return False
+
+            # Check all subsequent rounds preserve perfect stranger matching with
+            # current round.
+            for j in range(i + 1, self.max_rounds):
+                next_round = self.group_matrices[j]
+
+                if not is_round_pair_valid(current_round, next_round):
+                    return False
+
+        return True

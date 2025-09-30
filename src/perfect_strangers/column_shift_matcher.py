@@ -80,7 +80,7 @@ class ColumnShiftMatcher(BaseMatcher):
 
             self.group_matrices.append(g)
             self.group_matrices += _shift_columns(g, block_size)
-            
+
             block_size = stride
             n_blocks *= self.group_size
 

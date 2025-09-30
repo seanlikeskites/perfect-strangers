@@ -5,7 +5,7 @@
 import pytest
 
 from perfect_strangers import create_matcher
-from tests.matcher_verifications import verify_matcher
+from tests.matcher_validation import validate_matcher
 
 
 @pytest.mark.parametrize("groups_per_round", range(2, 21))
@@ -15,5 +15,5 @@ def test_round_robin(groups_per_round):
     # Round robin matching should always give the maximum possible rounds.
     assert matcher.max_rounds == 2 * groups_per_round - 1
 
-    # Verify generated rounds
-    verify_matcher(matcher)
+    # Validate generated rounds
+    validate_matcher(matcher)

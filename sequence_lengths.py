@@ -1,6 +1,7 @@
-from perfect_strangers import create_matcher
 import pandas as pd
 from tabulate import tabulate
+
+from perfect_strangers import create_matcher
 
 l = pd.DataFrame([], index=range(2, 31), columns=range(2, 7))
 
