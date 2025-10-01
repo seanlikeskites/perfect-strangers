@@ -2,13 +2,15 @@
 
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
 import numpy as np
 
 from perfect_strangers.util import is_round_pair_valid, is_round_valid
 
 
 class BaseMatcher:
-    def __init__(self, groups_per_round, group_size):
+    def __init__(self, groups_per_round: int, group_size: int):
         self.groups_per_round = groups_per_round
         self.group_size = group_size
         self.n_participants = groups_per_round * group_size
@@ -22,10 +24,10 @@ class BaseMatcher:
         self.next_round = 0
 
     @property
-    def max_rounds(self):
+    def max_rounds(self) -> int:
         return len(self.group_matrices)
 
-    def groups_for_next_round(self):
+    def groups_for_next_round(self) -> list[list[int]] | None:
         if self.next_round >= self.max_rounds:
             return None
 
@@ -47,7 +49,7 @@ class BaseMatcher:
         self.group_matrices.append(g)
         return True
 
-    def validate_rounds(self):
+    def validate_rounds(self) -> bool:
         for i, current_round in enumerate(self.group_matrices):
             # Check current round include all participants.
             if not is_round_valid(current_round, self.groups_per_round, self.group_size):

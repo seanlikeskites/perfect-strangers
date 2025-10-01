@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
 import math
 
 import numpy as np
@@ -9,7 +11,7 @@ import numpy as np
 from perfect_strangers.base_matcher import BaseMatcher
 
 
-def _least_prime_factor(n):
+def _least_prime_factor(n: int) -> int | None:
     if n < 2:
         return None
 
@@ -26,7 +28,7 @@ def _least_prime_factor(n):
 
     return n
 
-def _shift_columns(base_matrix, stride):
+def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> list[np.typing.NDArray]:
     g = base_matrix.copy()
     n_blocks = g.shape[0] // stride
     group_size = g.shape[1]
@@ -58,7 +60,7 @@ def _shift_columns(base_matrix, stride):
     return shifts
 
 class ColumnShiftMatcher(BaseMatcher):
-    def __init__(self, groups_per_round, group_size):
+    def __init__(self, groups_per_round: int, group_size: int):
         super().__init__(groups_per_round, group_size)
 
     def _generate_rounds(self):

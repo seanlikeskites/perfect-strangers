@@ -2,15 +2,17 @@
 #
 # SPDX-License-Identifier: MIT
 
+import numpy.typing as npt
 
-def is_round_valid(g, groups_per_round, group_size):
+
+def is_round_valid(g: npt.NDArray, groups_per_round: int, group_size: int):
     n_groups_check = g.shape[0] == groups_per_round
     group_size_check = g.shape[1] == group_size
     participants_check = set(g.flatten()) == set(range(g.size))
 
     return n_groups_check and group_size_check and participants_check
 
-def is_round_pair_valid(r1, r2):
+def is_round_pair_valid(r1: npt.NDArray, r2: npt.NDArray):
     for i in range(r1.shape[0]):
         g1 = set(r1[i, :])
 

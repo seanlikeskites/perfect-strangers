@@ -1,4 +1,5 @@
-from perfect_strangers import ColumnShiftMatcher, RadixMatcher
+from perfect_strangers import ColumnShiftMatcher
+from perfect_strangers.radix_matcher import RadixMatcher
 
 for s in range(3, 7):
     for e in range(2, 4):

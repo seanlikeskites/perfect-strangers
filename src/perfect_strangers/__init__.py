@@ -9,7 +9,7 @@ from perfect_strangers.round_robin_matcher import RoundRobinMatcher
 __all__ = ("__version__", "create_matcher")
 
 
-def create_matcher(groups_per_round, group_size):
+def create_matcher(groups_per_round: int, group_size: int):
     if group_size == 2:
         return RoundRobinMatcher(groups_per_round)
 

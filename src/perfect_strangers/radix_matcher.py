@@ -2,17 +2,21 @@
 #
 # SPDX-License-Identifier: MIT
 
+from __future__ import annotations
+
+from typing import Generator
+
 from perfect_strangers.base_matcher import BaseMatcher
 
 
-def _round_increments(group_size, exponent):
+def _round_increments(group_size, exponent) -> Generator[int]:
     for n in range(1, exponent):
         leading_one = group_size ** n
 
         for i in range(leading_one):
             yield leading_one + i
 
-def _non_carry_add_base_s(a, b, s):
+def _non_carry_add_base_s(a: int, b: int, s: int) -> int:
     n = 0
     c = 0
 
@@ -24,7 +28,7 @@ def _non_carry_add_base_s(a, b, s):
 
     return c
 
-def _make_group(group_size, first_member, increment):
+def _make_group(group_size: int, first_member: int, increment: int) -> list[int]:
     m = first_member
     remaining = group_size
 
@@ -38,7 +42,7 @@ def _make_group(group_size, first_member, increment):
     return group
 
 class RadixMatcher(BaseMatcher):
-    def __init__(self, group_size, exponent):
+    def __init__(self, group_size: int, exponent: int):
         self.exponent = exponent
         super().__init__(group_size ** (exponent - 1), group_size)
 

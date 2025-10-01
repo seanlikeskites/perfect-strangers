@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 
 import pytest
-from sympy import primefactors
+from sympy import primefactors  # type: ignore
 
 from perfect_strangers.column_shift_matcher import _least_prime_factor
 
