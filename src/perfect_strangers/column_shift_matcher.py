@@ -9,24 +9,8 @@ import math
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher
+from perfect_strangers.util import least_prime_factor
 
-
-def _least_prime_factor(n: int) -> int | None:
-    if n < 2:
-        return None
-
-    if n % 2 == 0:
-        return 2
-
-    f = 3
-
-    while f <= math.sqrt(n):
-        if n % f == 0:
-            return f
-
-        f += 2
-
-    return n
 
 def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> list[np.typing.NDArray]:
     g = base_matrix.copy()
@@ -36,7 +20,7 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> list[np.typin
     if n_blocks < group_size:
         return []
 
-    lpf = _least_prime_factor(n_blocks)
+    lpf = least_prime_factor(n_blocks)
 
     if group_size <= lpf:
         n_shifts = n_blocks - 1
