@@ -3,9 +3,15 @@
 # SPDX-License-Identifier: MIT
 
 import pytest
-from sympy.ntheory import isprime, primefactors, primerange  # type: ignore
+from sympy.ntheory import isprime, primefactors, primerange, primitive_root  # type: ignore
 
-from perfect_strangers.util import is_prime, least_prime_factor, unique_prime_factors, root_of_prime_power
+from perfect_strangers.util import (
+    is_prime,
+    least_prime_factor,
+    primitive_root_mod_n,
+    root_of_prime_power,
+    unique_prime_factors,
+)
 
 
 @pytest.mark.parametrize("n", range(101))
@@ -45,3 +51,8 @@ def test_prime_powers_composites(a, b, c):
         assert test_value == a
     else:
         assert test_value is None
+
+@pytest.mark.parametrize("n", range(2, 101))
+def test_primitive_root_mod_n(n):
+    assert primitive_root_mod_n(n) == primitive_root(n, True)
+

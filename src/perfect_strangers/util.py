@@ -82,5 +82,55 @@ def root_of_prime_power(n: int) -> int | None:
 
     if len(factors) != 1:
         return None
+
+    return factors.pop()
+
+def is_coprime(a: int, b: int) -> bool:
+    a_factors = unique_prime_factors(a)
+    b_factors = unique_prime_factors(b)
+
+    return len(a_factors & b_factors) == 0
+
+def n_coprime_integers_less_than_n(n: int) -> int:
+    return sum(1 for i in range(1, n) if is_coprime(i, n))
+
+def primitive_root_mod_n(n: int) -> int | None:
+    # Known cases.
+    if n == 2:
+        return 1
+
+    if n == 4:
+        return 3
+
+    # Other than 2 and 4, the only other numbers with a primitive root are of the
+    # form p^k or 2p^k where p is an odd prime.
+    if n % 2 != 0:
+        pk_root = root_of_prime_power(n)
     else:
-        return factors.pop()
+        pk_root = root_of_prime_power(n // 2)
+
+    if pk_root is None or pk_root == 2:
+        return None
+
+    # Test all numbers and return first valid primitive root.
+    for r in range(2, n):
+        # Skip candidate which are coprime with n.
+        if not is_coprime(r, n):
+            continue
+
+        m = 1
+        is_root = True
+
+        # A valid primitive root should pass through all integers coprime to n
+        # before returning to 1 when raised to successive powers.
+        for _ in range(n_coprime_integers_less_than_n(n) - 1):
+            m = (m * r) % n
+
+            if m < 2:
+                is_root = False
+                break
+
+        if is_root:
+            return r
+
+    return None
