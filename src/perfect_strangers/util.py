@@ -77,3 +77,10 @@ def least_prime_factor(n: int) -> int | None:
 
     return n
 
+def root_of_prime_power(n: int) -> int | None:
+    factors = unique_prime_factors(n)
+
+    if len(factors) != 1:
+        return None
+    else:
+        return factors.pop()
