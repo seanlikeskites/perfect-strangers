@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+from random import shuffle
 from typing import Sequence
 
 import numpy as np
@@ -23,8 +24,7 @@ class BaseMatcher:
         ]
 
         self._generate_rounds()
-
-        self.next_round = 0
+        self.shuffle_sequence()
 
     @property
     def max_rounds(self) -> int:
@@ -37,6 +37,13 @@ class BaseMatcher:
         g = self.group_matrices[self.next_round].tolist()
         self.next_round += 1
         return g
+
+    def restart(self):
+        self.next_round = 0
+
+    def shuffle_sequence(self):
+        shuffle(self.group_matrices)
+        self.restart()
 
     def _generate_rounds(self):
         pass
