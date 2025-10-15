@@ -4,58 +4,46 @@
 
 from __future__ import annotations
 
-import numpy as np
+from typing import Callable
+
 import galois
+import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
-from perfect_strangers.util import primitive_root_mod_n, root_of_prime_power
+from perfect_strangers.base_matcher import BaseMatcher, RoundSequence
 
+ParameterFuncReturn = tuple[int, int] | None
+RoundGenerator = Callable[[int, int], RoundSequence]
 
-def _t_parameter(q: int) -> int | None:
-    if q % 6 != 1:
+def _get_t_from_q(q: int) -> ParameterFuncReturn:
+    if not galois.is_prime_power(q) or q % 6 != 1:
         return None
 
-    return (q - 1) // 6
+    t = (q - 1) // 6
 
-def _first_method_kirkman_parameters(groups_per_round: int) -> tuple[int, int, int, int] | None:
-    if root_of_prime_power(groups_per_round) is None:
-        return None
+    return t, q
 
-    t = _t_parameter(groups_per_round)
+def _three_q_params(groups_per_round: int) -> ParameterFuncReturn:
+    return _get_t_from_q(groups_per_round)
 
-    if t is None:
-        return None
-
-    return t, groups_per_round, groups_per_round, 0
-
-def _second_method_kirkman_parameters(groups_per_round: int) -> tuple[int, int, int, int] | None:
+def _two_q_less_one_params(groups_per_round: int) -> ParameterFuncReturn:
     if groups_per_round % 2 == 0:
         return None
 
     q = (3 * groups_per_round - 1) // 2
 
-    if root_of_prime_power(q) is None:
-        return None
+    return _get_t_from_q(q)
 
-    t = _t_parameter(q)
+def _galois_field_elements(order: int) -> tuple[list[galois.FieldArray], galois.FieldArray]:
+    gf = galois.GF(order)
+    elements = [gf(i) for i in range(order)]
+    primitive_element = gf.primitive_element
 
-    if t is None:
-        return None
+    return elements, primitive_element
 
-    return t, q, groups_per_round, 1
-
-def get_kirkman_parameters(groups_per_round: int) -> tuple[int, int, int, int] | None:
-    params = _first_method_kirkman_parameters(groups_per_round)
-
-    if params is not None:
-        return params
-
-    return _second_method_kirkman_parameters(groups_per_round)
-
-def _first_method(t: int, q: int, g: galois.FieldArray):
+def _three_q_rounds(t: int, q: int) -> RoundSequence:
     labels = np.arange(3 * q).reshape(q, 3)
 
-    field_elements = [galois.GF(q)(i) for i in range(q)]
+    field_elements, g = _galois_field_elements(q)
 
     rounds = []
 
@@ -107,15 +95,15 @@ def _first_method(t: int, q: int, g: galois.FieldArray):
 
     return rounds
 
-def _second_method(t: int, q: int, g: galois.FieldArray):
+def _two_q_less_one_rounds(t: int, q: int) -> RoundSequence:
     labels = np.arange(2 * q).reshape(q, 2)
     inf = 2 * q
+
+    field_elements, g = _galois_field_elements(q)
 
     # Find m.
     target = (g ** t + galois.GF(q)(1)) / galois.GF(q)(2)
     m = target.log(g)
-
-    field_elements = [galois.GF(q)(i) for i in range(q)]
 
     rounds = []
 
@@ -154,21 +142,28 @@ def _second_method(t: int, q: int, g: galois.FieldArray):
 
 class KirkmanTripleMatcher(BaseMatcher):
     """ Implementation as per https://math.stackexchange.com/a/4510645"""
-    def __init__(self, params: tuple[int, int, int, int]):
-        self.t, self.q, _, self.method = params
-        super().__init__(params[2], 3)
+    def __init__(self, groups_per_round: int, t: int, q: int, round_generator: RoundGenerator):
+        self.t = t
+        self.q = q
+        self.round_generator = round_generator
+
+        super().__init__(groups_per_round, 3)
 
     def _generate_rounds(self):
-        g = galois.GF(self.q).primitive_element
-
-        if self.method == 0:
-            self.group_matrices = _first_method(self.t, self.q, g)
-        else:
-            self.group_matrices = _second_method(self.t, self.q, g)
+        self.group_matrices = self.round_generator(self.t, self.q)
 
     @classmethod
     def create_matcher(cls, groups_per_round: int):
-        if (kirkman_params := get_kirkman_parameters(groups_per_round)) is not None:
-            return KirkmanTripleMatcher(kirkman_params)
-        else:
-            return None
+        methods = [
+            (_three_q_params, _three_q_rounds),
+            (_two_q_less_one_params, _two_q_less_one_rounds)
+        ]
+
+        for parameter_func, round_generator in methods:
+            params = parameter_func(groups_per_round)
+
+            if params is not None:
+                t, q = params
+                return KirkmanTripleMatcher(groups_per_round, t, q, round_generator)
+
+        return None

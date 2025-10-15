@@ -8,11 +8,11 @@ import math
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
+from perfect_strangers.base_matcher import BaseMatcher, RoundSequence
 from perfect_strangers.util import least_prime_factor
 
 
-def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> list[np.typing.NDArray]:
+def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> RoundSequence:
     g = base_matrix.copy()
     n_blocks = g.shape[0] // stride
     group_size = g.shape[1]

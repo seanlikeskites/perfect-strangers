@@ -4,10 +4,13 @@
 
 from __future__ import annotations
 
+from typing import Sequence
+
 import numpy as np
 
 from perfect_strangers.util import is_round_pair_valid, is_round_valid
 
+RoundSequence = Sequence[np.typing.NDArray]
 
 class BaseMatcher:
     def __init__(self, groups_per_round: int, group_size: int):

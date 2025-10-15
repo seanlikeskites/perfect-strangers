@@ -3,18 +3,22 @@
 # SPDX-License-Identifier: MIT
 
 from perfect_strangers.__about__ import __version__
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.column_shift_matcher import ColumnShiftMatcher
-from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher, get_kirkman_parameters
+from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
 from perfect_strangers.round_robin_matcher import RoundRobinMatcher
 
 __all__ = ("__version__", "create_matcher")
 
 
-def create_matcher(groups_per_round: int, group_size: int):
+def create_matcher(groups_per_round: int, group_size: int) -> BaseMatcher:
     if group_size == 2:
         return RoundRobinMatcher(groups_per_round)
 
-    if group_size == 3 and (kirkman_params := get_kirkman_parameters(groups_per_round)) is not None:
-        return KirkmanTripleMatcher(kirkman_params)
+    if group_size == 3:
+        matcher = KirkmanTripleMatcher.create_matcher(groups_per_round)
+
+        if matcher is not None:
+            return matcher
 
     return ColumnShiftMatcher(groups_per_round, group_size)

@@ -45,11 +45,6 @@ extra-dependencies = [
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/perfect_strangers tests}"
 
-[tool.hatch.envs.hatch-test]
-extra-dependencies = [
-  "sympy"
-]
-
 [tool.coverage.run]
 source_pkgs = ["perfect_strangers"]
 branch = true
