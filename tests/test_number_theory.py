@@ -2,8 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
-import pytest
 import galois
+import pytest
 
 from perfect_strangers.util import least_prime_factor
 
