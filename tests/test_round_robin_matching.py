@@ -4,13 +4,13 @@
 
 import pytest
 
-from perfect_strangers import create_matcher
+from perfect_strangers import RoundRobinMatcher
 from tests.matcher_validation import validate_matcher
 
 
-@pytest.mark.parametrize("groups_per_round", range(2, 21))
+@pytest.mark.parametrize("groups_per_round", range(2, 31))
 def test_round_robin(groups_per_round):
-    matcher = create_matcher(groups_per_round, 2)
+    matcher = RoundRobinMatcher(groups_per_round)
 
     # Round robin matching should always give the maximum possible rounds.
     assert matcher.max_rounds == 2 * groups_per_round - 1

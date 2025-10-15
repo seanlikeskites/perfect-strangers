@@ -20,7 +20,7 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> list[np.typin
     if n_blocks < group_size:
         return []
 
-    lpf = least_prime_factor(n_blocks)
+    lpf = least_prime_factor(n_blocks) or 0
 
     if group_size <= lpf:
         n_shifts = n_blocks - 1

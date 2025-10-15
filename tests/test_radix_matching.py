@@ -8,8 +8,8 @@ from perfect_strangers.radix_matcher import RadixMatcher
 from tests.matcher_validation import validate_matcher
 
 
-@pytest.mark.parametrize("group_size", range(3, 7))
 @pytest.mark.parametrize("exponent", range(2, 4))
+@pytest.mark.parametrize("group_size", range(3, 7))
 def test_radix_matching(group_size, exponent):
     matcher = RadixMatcher(group_size, exponent)
 

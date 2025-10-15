@@ -25,7 +25,8 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "numpy~=2.0"
+  "numpy~=2.0",
+  "galois~=0.4"
 ]
 
 [project.urls]
