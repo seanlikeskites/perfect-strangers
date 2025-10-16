@@ -4,8 +4,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from random import shuffle
-from typing import Sequence
 
 import numpy as np
 
