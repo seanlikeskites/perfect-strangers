@@ -14,7 +14,17 @@ from perfect_strangers.base_matcher import BaseMatcher, RoundSequence
 ParameterFuncReturn = tuple[int, int] | None
 RoundGenerator = Callable[[int, int], RoundSequence]
 
+#######################################################################
+# Theorem 5 from Ray-Chaudhuri and Wilson (1971):
+#   Where q = 6t + 1 is a prime power construct a Kirkman triple
+#   system for 3q total participants.
+#######################################################################
 def _get_t_from_q(q: int) -> ParameterFuncReturn:
+    """
+    Check q is a prime power of the form 6t + 1 and return t and q if it is.
+
+        :return: Tuple of (t, q) if q is a prime power of the form 6t + 1, None otherwise.
+    """
     if not galois.is_prime_power(q) or q % 6 != 1:
         return None
 
@@ -22,23 +32,15 @@ def _get_t_from_q(q: int) -> ParameterFuncReturn:
 
     return t, q
 
-def _three_q_params(groups_per_round: int) -> ParameterFuncReturn:
-    return _get_t_from_q(groups_per_round)
-
-def _two_q_less_one_params(groups_per_round: int) -> ParameterFuncReturn:
-    if groups_per_round % 2 == 0:
-        return None
-
-    q = (3 * groups_per_round - 1) // 2
-
-    return _get_t_from_q(q)
-
 def _galois_field_elements(order: int) -> tuple[list[galois.FieldArray], galois.FieldArray]:
     gf = galois.GF(order)
     elements = [gf(i) for i in range(order)]
     primitive_element = gf.primitive_element
 
     return elements, primitive_element
+
+def _three_q_params(groups_per_round: int) -> ParameterFuncReturn:
+    return _get_t_from_q(groups_per_round)
 
 def _three_q_rounds(t: int, q: int) -> RoundSequence:
     labels = np.arange(3 * q).reshape(q, 3)
@@ -80,6 +82,19 @@ def _three_q_rounds(t: int, q: int) -> RoundSequence:
         rounds.append(new_round)
 
     return rounds
+
+#######################################################################
+# Theorem 6 from Ray-Chaudhuri and Wilson (1971)
+#   Where q = 6t + 1 is a prime power construct a Kirkman triple
+#   system for 2q + 1 total participants.
+#######################################################################
+def _two_q_less_one_params(groups_per_round: int) -> ParameterFuncReturn:
+    if groups_per_round % 2 == 0:
+        return None
+
+    q = (3 * groups_per_round - 1) // 2
+
+    return _get_t_from_q(q)
 
 def _two_q_less_one_rounds(t: int, q: int) -> RoundSequence:
     groups_per_round = (2 * q + 1) // 3
@@ -127,6 +142,9 @@ def _two_q_less_one_rounds(t: int, q: int) -> RoundSequence:
 
     return rounds
 
+#######################################################################
+# Matcher
+#######################################################################
 class KirkmanTripleMatcher(BaseMatcher):
     """ Implementation as per https://math.stackexchange.com/a/4510645"""
     def __init__(self, groups_per_round: int, t: int, q: int, round_generator: RoundGenerator):

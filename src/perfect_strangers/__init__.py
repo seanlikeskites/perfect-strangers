@@ -12,6 +12,14 @@ __all__ = ("__version__", "create_matcher")
 
 
 def create_matcher(groups_per_round: int, group_size: int) -> BaseMatcher:
+    """
+    Create a groups matcher for the given experiment parameters.
+
+    :param groups_per_round: The number of groups per round of the experiment.
+    :param group_size: The number of participants in each group.
+
+    :return: 
+    """
     if group_size == 2:
         return RoundRobinMatcher(groups_per_round)
 

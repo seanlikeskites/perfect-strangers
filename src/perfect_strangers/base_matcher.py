@@ -14,6 +14,9 @@ from perfect_strangers.util import is_round_pair_valid, is_round_valid
 RoundSequence = Sequence[np.typing.NDArray]
 
 class BaseMatcher:
+    """
+    Base class 
+    """
     def __init__(self, groups_per_round: int, group_size: int):
         self.groups_per_round = groups_per_round
         self.group_size = group_size
@@ -28,9 +31,17 @@ class BaseMatcher:
 
     @property
     def max_rounds(self) -> int:
+        """
+        The maximum number of rounds which can be conducted under perfect stranger matching conditions.
+        """
         return len(self.group_matrices)
 
     def groups_for_next_round(self) -> list[list[int]] | None:
+        """
+        Get the groups for the next round.
+
+        :return: A list of participants groupings for the next round, or None if there a no more rounds possible.
+        """
         if self.next_round >= self.max_rounds:
             return None
 
