@@ -1,8 +1,10 @@
 site_name: perfect-strangers
 
 nav:
+  - Home: index.md
   - Usage:
     - usage/quick_start.md
+    - usage/matcher_objects.md
   - Theory:
     - theory/overview.md
     - theory/kirkman.md

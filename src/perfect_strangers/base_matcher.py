@@ -15,7 +15,7 @@ RoundSequence = Sequence[np.typing.NDArray]
 
 class BaseMatcher:
     """
-    Base class 
+    Base class for all group matching methods.
     """
     def __init__(self, groups_per_round: int, group_size: int):
         self.groups_per_round = groups_per_round
@@ -32,7 +32,7 @@ class BaseMatcher:
     @property
     def max_rounds(self) -> int:
         """
-        The maximum number of rounds which can be conducted under perfect stranger matching conditions.
+        The maximum number of rounds this matcher will produce under perfect stranger matching conditions.
         """
         return len(self.group_matrices)
 
@@ -50,9 +50,15 @@ class BaseMatcher:
         return g
 
     def restart(self):
+        """
+        Reset the matcher to the first round.
+        """
         self.next_round = 0
 
     def shuffle_sequence(self):
+        """
+        Shuffle the list of rounds produced by this matcher.
+        """
         shuffle(self.group_matrices)
         self.restart()
 

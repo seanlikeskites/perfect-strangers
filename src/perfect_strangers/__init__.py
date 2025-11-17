@@ -18,7 +18,7 @@ def create_matcher(groups_per_round: int, group_size: int) -> BaseMatcher:
     :param groups_per_round: The number of groups per round of the experiment.
     :param group_size: The number of participants in each group.
 
-    :return: 
+    :return: A matcher object of a type which inherits from [`BaseMatcher`][perfect_strangers.BaseMatcher].
     """
     if group_size == 2:
         return RoundRobinMatcher(groups_per_round)
