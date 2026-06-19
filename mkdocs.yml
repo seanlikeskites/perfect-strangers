@@ -1,21 +1,29 @@
 site_name: perfect-strangers
+repo_url: https://github.com/seanlikeskites/perfect-strangers
+copyright: "Copyright &copy; 2026 Sean Enderby"
+
+extra:
+  generator: false
 
 nav:
   - Home: index.md
   - Usage:
     - usage/quick_start.md
     - usage/matcher_objects.md
-  - Theory:
-    - theory/overview.md
-    - theory/kirkman.md
+#  - Theory:
+#    - theory/overview.md
+#    - theory/kirkman.md
 
 
 theme:
-  name: material
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
+  palette:
+    scheme: default
 
 markdown_extensions:
+  - attr_list
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -25,7 +33,6 @@ markdown_extensions:
   - pymdownx.superfences
 
 plugins:
-  - search: null
   - mkdocstrings:
       default_handler: python
       handlers:

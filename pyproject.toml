@@ -68,9 +68,10 @@ exclude_lines = [
 [tool.hatch.envs.docs]
 dependencies = [
   "mkdocstrings-python",
-  "mkdocs-material"
+  "zensical"
 ]
 
 [tool.hatch.envs.docs.scripts]
-serve = "mkdocs serve --livereload"
+serve = "zensical serve"
+build = "zensical build"
 

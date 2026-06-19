@@ -1,5 +1,12 @@
 # Quick Start
-To get started import the `create_matcher()` function:
+## Installation
+
+```Shell
+pip install perfect-strangers
+```
+
+## Create a Matcher
+To get started import the [`create_matcher()`](matcher_objects.md#perfect_strangers.create_matcher) function:
 
 ```Python
 from perfect_strangers import create_matcher
@@ -15,7 +22,9 @@ group_size = 3 # Number of participants per group.
 matcher = create_matcher(groups_per_round, group_size)
 ```
 
-For each round of the experiment call `groups_for_next_round()` on the matcher object to get the participant groupings.
+For each round of the experiment call
+[`groups_for_next_round()`](matcher_objects.md#perfect_strangers.BaseMatcher.groups_for_next_round) on the matcher object to
+get the participant groupings.
 
 ```Python
 groups = matcher.groups_for_next_round()
