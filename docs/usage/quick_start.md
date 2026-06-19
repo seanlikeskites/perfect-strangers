@@ -29,4 +29,3 @@ get the participant groupings.
 ```Python
 groups = matcher.groups_for_next_round()
 ```
-
