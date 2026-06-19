@@ -52,7 +52,7 @@ def _three_q_rounds(t: int, q: int) -> RoundSequence:
     rounds = []
 
     for shift in field_elements:
-        new_round = np.empty((q, 3))
+        new_round = np.empty((q, 3), dtype="int")
         new_round[0, :] = labels[shift, :]
         group_idx = 1
 
@@ -74,7 +74,7 @@ def _three_q_rounds(t: int, q: int) -> RoundSequence:
         if (i // t) % 2 != 0:
             continue
 
-        new_round = np.empty((q, 3))
+        new_round = np.empty((q, 3), dtype="int")
 
         for shift in field_elements:
             new_round[shift, :] = next_group(shift, i)
@@ -110,7 +110,7 @@ def _two_q_less_one_rounds(t: int, q: int) -> RoundSequence:
     rounds = []
 
     for shift in field_elements:
-        new_round = np.empty((groups_per_round, 3))
+        new_round = np.empty((groups_per_round, 3), dtype="int")
 
         new_round[0, :] = [
             labels[shift, 0],
