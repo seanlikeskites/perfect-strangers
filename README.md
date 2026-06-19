@@ -8,6 +8,7 @@
 ## Table of Contents
 
 - [Installation](#installation)
+- [Quick Start](#quick-start)
 - [License](#license)
 
 ## Installation
