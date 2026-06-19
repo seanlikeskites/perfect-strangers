@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "perfect-strangers"
 dynamic = ["version"]
-description = 'Algorithms for perfect stranger matching in multi-round experiments.'
+description = "Non-search based routines for perfect stranger matching in behavioural studies."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -19,6 +19,8 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
@@ -28,7 +30,7 @@ dependencies = [
 ]
 
 [project.urls]
-Documentation = "https://github.com/seanlikeskites/perfect-strangers#readme"
+Documentation = "https://senderby.co.uk/perfect-strangers"
 Issues = "https://github.com/seanlikeskites/perfect-strangers/issues"
 Source = "https://github.com/seanlikeskites/perfect-strangers"
 
@@ -36,7 +38,7 @@ Source = "https://github.com/seanlikeskites/perfect-strangers"
 path = "src/perfect_strangers/__about__.py"
 
 [[tool.hatch.envs.hatch-test.matrix]]
-python = ["3.10", "3.11", "3.12", "3.13"]
+python = ["3.10", "3.11", "3.12", "3.13", "3.14"]
 
 [tool.hatch.envs.types]
 extra-dependencies = [
@@ -75,3 +77,18 @@ dependencies = [
 serve = "zensical serve"
 build = "zensical build"
 
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/docs",
+  "/mkdocs.yml"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/perfect_strangers"]
+
+[publish.index.repos.main]
+url = "https://upload.pypi.org/legacy/"
+
+[publish.index.repos.test]
+url = "https://test.pypi.org/legacy/"
