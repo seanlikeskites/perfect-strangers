@@ -22,7 +22,7 @@ def format_row(row):
 
 
 def format_first_row(row, num_rows):
-    return f'<tr><th rowspan="{num_rows}" class="vertical-title"><p>Groups per Round</p></th>' + format_row(row) + "</tr>"
+    return f'<tr><th rowspan="{num_rows}" class="vertical-title"><div>Groups per Round</div></th>' + format_row(row) + "</tr>"
 
 
 def format_other_row(row):
