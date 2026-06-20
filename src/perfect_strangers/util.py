@@ -12,7 +12,11 @@ if TYPE_CHECKING:
 
 
 def sequence_length_upper_bound(groups_per_round: int, group_size: int) -> bool:
-    return (groups_per_round * group_size - 1) // (group_size - 1)
+    if groups_per_round < group_size:
+        return 1
+    else:
+        return (groups_per_round * group_size - 1) // (group_size - 1)
+
 
 def is_round_valid(g: npt.NDArray, groups_per_round: int, group_size: int) -> bool:
     n_groups_check = g.shape[0] == groups_per_round

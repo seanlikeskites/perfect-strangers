@@ -4,6 +4,7 @@ copyright: "Copyright &copy; 2026 Sean Enderby"
 
 watch:
   - "docs/scripts/main.py"
+  - "src"
 
 extra:
   generator: false
