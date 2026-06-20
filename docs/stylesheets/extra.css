@@ -1,0 +1,34 @@
+:root {
+  --upper-bound-green: #c7ffba;
+  --benchmark-blue: #bae1ff;
+}
+
+.upper-bound-performance {
+  background-color: var(--upper-bound-green);
+}
+
+.benchmark-performance {
+  background-color: var(--benchmark-blue);
+}
+
+.data-table {
+  text-align: center;
+}
+
+.data-table th {
+  font-weight: bold;
+  min-width: 40px;
+}
+
+.vertical-title {
+  vertical-align: middle !important;
+  max-width: 40px;
+}
+
+.vertical-title p {
+  white-space: nowrap;
+  transform-origin: left;
+  -webkit-transform: rotate(-90deg) translate(-180%, 20px);
+  transform: rotate(-90deg) translate(-180%, 20px);
+}
+

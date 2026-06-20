@@ -2,8 +2,14 @@ site_name: perfect-strangers
 repo_url: https://github.com/seanlikeskites/perfect-strangers
 copyright: "Copyright &copy; 2026 Sean Enderby"
 
+watch:
+  - "docs/scripts/main.py"
+
 extra:
   generator: false
+
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - Home: index.md
@@ -25,6 +31,9 @@ theme:
 
 markdown_extensions:
   - attr_list
+  - zensical.extensions.macros:
+      module_name: "docs/scripts/main"
+      on_error_fail: true
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
