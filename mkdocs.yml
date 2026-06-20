@@ -12,14 +12,18 @@ extra:
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
 nav:
   - Home: index.md
   - Usage:
     - usage/quick_start.md
     - usage/matcher_objects.md
     - usage/license.md
-#  - Theory:
-#    - theory/overview.md
+  - Theory:
+    - theory/overview.md
 #    - theory/kirkman.md
 
 
@@ -35,6 +39,8 @@ markdown_extensions:
   - zensical.extensions.macros:
       module_name: "docs/scripts/main"
       on_error_fail: true
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -51,3 +57,4 @@ plugins:
           options:
             docstring_style: sphinx
             show_source: false
+
