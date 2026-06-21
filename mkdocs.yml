@@ -3,18 +3,20 @@ repo_url: https://github.com/seanlikeskites/perfect-strangers
 copyright: "Copyright &copy; 2026 Sean Enderby"
 
 watch:
-  - "docs/scripts/main.py"
-  - "src"
+  - docs/scripts/main.py
+  - src
 
 extra:
   generator: false
 
 extra_css:
   - stylesheets/extra.css
-
+  - https://unpkg.com/katex@0/dist/katex.min.css
+  
 extra_javascript:
-  - javascripts/mathjax.js
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - javascript/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
 
 nav:
   - Home: index.md
@@ -24,6 +26,7 @@ nav:
     - usage/license.md
   - Theory:
     - theory/overview.md
+    - theory/round_robin.md
 #    - theory/kirkman.md
 
 
@@ -36,9 +39,10 @@ theme:
 
 markdown_extensions:
   - attr_list
+  - pymdownx.blocks.caption
+  - markdown.extensions.smarty
   - zensical.extensions.macros:
-      module_name: "docs/scripts/main"
-      on_error_fail: true
+      module_name: docs/scripts/main
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.highlight:

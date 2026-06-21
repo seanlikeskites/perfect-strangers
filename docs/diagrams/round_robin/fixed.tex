@@ -1,0 +1,23 @@
+\documentclass{standalone}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{etoolbox}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+
+\begin{document}
+\scalebox{1.5}{
+\begin{tikzpicture}[ampersand replacement=\&]
+\matrix (G) at (0, 0) [matrix of nodes,
+		       style={nodes={draw, minimum size=0.65cm, fill=blue!60!white}},
+		       row 1 column 1/.style={nodes={draw, minimum size=0.65cm, fill=red!60!white}},
+		       column sep=-\pgflinewidth,
+		       row sep=-\pgflinewidth] {
+	0 \& 1 \\
+	2 \& 3 \\
+	4 \& 5 \\
+	6 \& 7 \\
+};
+\end{tikzpicture}
+}
+\end{document}

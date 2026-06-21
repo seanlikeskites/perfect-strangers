@@ -13,7 +13,30 @@ The two parameters which determine how participants are grouped in an experiment
   * $\alpha$: The number of groups in each round of the experiment.
   * $\beta$: The number of participants per group.
 
-This gives a total of $\alpha\beta$ participants.
+This gives a total of $\alpha\beta$ participants. To identify individual participants we enumerate them starting at $0$ up
+to $\alpha\beta - 1$.
+
+## Grouping Matrices
+The groupings for each round of an experiment are defined by a $\alpha{\times}\beta$ matrix. Each row of this matrix
+represents a group of participants. For example, the following matrix defines 4 groups of 3 participants.
+
+
+$$
+    \mathbf{G} = \begin{bmatrix}
+        0 & 1 & 2 \\
+        3 & 4 & 5 \\
+        6 & 7 & 8 \\
+        9 & 10 & 11
+    \end{bmatrix}
+$$
+
+In an $n$ round experiment we'd have a sequence of such grouping matrices which satisfies the perfect stranger matching
+criteria:
+
+$$
+    \mathbf{G}^{(0)}, \mathbf{G}^{(1)}, \dots, \mathbf{G}^{(n - 1)}
+$$
+
 
 ## Maximum Sequence Length
 Given the above parameters, we denote the maximum number of rounds possible under the perfect stranger matching criteria as
@@ -36,5 +59,13 @@ attempting to construct groups for a second round, each group must contain at mo
 first round. As there are fewer groups than participants needed, this is not possible.
 
 $$
-	l_{\max}(\alpha, \beta) = 1 \qquad \text{if } \, \alpha < \beta
+	l_{\max}(\alpha, \beta) = 1, \quad \text{if} ~ \alpha < \beta
 $$
+
+## Algorithms
+### Specific Group Sizes
+Some algorithms assume a specific group size.
+
+  * When $\beta = 2$ $~$---$~$ [Round Robin Matching](./round_robin.md)
+
+
