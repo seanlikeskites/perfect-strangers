@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/configure-pages@v5
       - uses: actions/checkout@v5
-      - run: sudo apt-get install -y texlive poppler-utils
+      - run: sudo apt-get install -y texlive-latex-extra poppler-utils
       - run: make -C docs/diagrams/round_robin
       - uses: actions/setup-python@v5
         with:
