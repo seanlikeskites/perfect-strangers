@@ -12,7 +12,7 @@ indexing the columns of the matrix starting at 0.**
 
 To illustrate, consider the following initial grouping matrix:
 
-![Grouping Matrix](../../diagrams/column_shift/initial.svg)
+![Grouping Matrix](../diagrams/column_shift/initial.svg)
 /// caption
 $\mathbf{G}^{(0)}$
 ///
@@ -23,14 +23,14 @@ shifted 1 position and that at position 2 is shifted 2 positions.
 <div style="display: flex; justify-content: center;">
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="One Shift" src="../../diagrams/column_shift/one_shift.svg"></p>
+      <p><img alt="One Shift" src="../diagrams/column_shift/one_shift.svg"></p>
       <figcaption>$\mathbf{G}^{(1)}$</figcaption>
     </figure>
   </div>
 
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="Two Shifts" src="../../diagrams/column_shift/two_shifts.svg"></p>
+      <p><img alt="Two Shifts" src="../diagrams/column_shift/two_shifts.svg"></p>
       <figcaption>$\mathbf{G}^{(2)}$</figcaption>
     </figure>
   </div>
@@ -53,14 +53,14 @@ grouping matrices.
 <div style="display: flex; justify-content: center;">
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="Three Shifts" src="../../diagrams/column_shift/three_shifts.svg"></p>
+      <p><img alt="Three Shifts" src="../diagrams/column_shift/three_shifts.svg"></p>
       <figcaption>$\mathbf{G}^{(3)}$</figcaption>
     </figure>
   </div>
 
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="Four Shifts" src="../../diagrams/column_shift/four_shifts.svg"></p>
+      <p><img alt="Four Shifts" src="../diagrams/column_shift/four_shifts.svg"></p>
       <figcaption>$\mathbf{G}^{(4)}$</figcaption>
     </figure>
   </div>
@@ -80,14 +80,14 @@ in the sequence. For example, consider the following $6{\times}3$ matrix:
 <div style="display: flex; justify-content: center;">
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="Before Transposition" src="../../diagrams/column_shift/submatrix_before.svg"></p>
+      <p><img alt="Before Transposition" src="../diagrams/column_shift/submatrix_before.svg"></p>
       <figcaption>Before Transposition</figcaption>
     </figure>
   </div>
 
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="After Transpiosition" src="../../diagrams/column_shift/submatrix_after.svg"></p>
+      <p><img alt="After Transpiosition" src="../diagrams/column_shift/submatrix_after.svg"></p>
       <figcaption>After Transposition</figcaption>
     </figure>
   </div>
@@ -114,21 +114,21 @@ boxed in the same colour.
 <div style="display: flex; justify-content: center;">
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="Before Transposition" src="../../diagrams/column_shift/submatrix_zero.svg"></p>
+      <p><img alt="Before Transposition" src="../diagrams/column_shift/submatrix_zero.svg"></p>
       <figcaption>Before Transposition</figcaption>
     </figure>
   </div>
 
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="First Transpiosition" src="../../diagrams/column_shift/submatrix_one.svg"></p>
+      <p><img alt="First Transpiosition" src="../diagrams/column_shift/submatrix_one.svg"></p>
       <figcaption>First Transposition </br> $b = 2$</figcaption>
     </figure>
   </div>
 
   <div style="width: 30%">
     <figure markdown="span">
-      <p><img alt="Second Transpiosition" src="../../diagrams/column_shift/submatrix_two.svg"></p>
+      <p><img alt="Second Transpiosition" src="../diagrams/column_shift/submatrix_two.svg"></p>
       <figcaption>Second Transposition </br> $b = 4$</figcaption>
     </figure>
   </div>
@@ -143,7 +143,7 @@ circularly shifted $njb$ positions.
 For the first transposition step illustrated above (when $b = 2$) the second column of the matrix can be circularly shifted
 2 positions to generate a new grouping matrix.
 
-![Grouping Matrix](../../diagrams/column_shift/transpose_and_shift.svg)
+![Grouping Matrix](../diagrams/column_shift/transpose_and_shift.svg)
 /// caption
 ///
 
