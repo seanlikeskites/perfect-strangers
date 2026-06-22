@@ -1,0 +1,39 @@
+\documentclass{standalone}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{etoolbox}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+
+\input{colours}
+
+\begin{document}
+\scalebox{2}{
+\begin{tikzpicture}[ampersand replacement=\&]
+\matrix (G) at (0, 0) [matrix of nodes,
+		       row 1 column 1/.style=blue cells,
+		       row 1 column 2/.style=green cells,
+		       row 1 column 3/.style=grey cells,
+		       row 2 column 1/.style=red cells,
+		       row 2 column 2/.style=yellow cells,
+		       row 2 column 3/.style=blue cells,
+		       row 3 column 1/.style=green cells,
+		       row 3 column 2/.style=grey cells,
+		       row 3 column 3/.style=red cells,
+		       row 4 column 1/.style=yellow cells,
+		       row 4 column 2/.style=blue cells,
+		       row 4 column 3/.style=green cells,
+		       row 5 column 1/.style=grey cells,
+		       row 5 column 2/.style=red cells,
+		       row 5 column 3/.style=yellow cells,
+		       column sep=-\pgflinewidth,
+		       row sep=-\pgflinewidth] {
+        0 \& 7 \& 14 \\
+        3 \& 10 \& 2 \\
+        6 \& 13 \& 5 \\
+        9 \& 1 \& 8 \\
+        12 \& 4 \& 11 \\
+};
+\end{tikzpicture}
+}
+\end{document}

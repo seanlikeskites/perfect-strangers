@@ -7,21 +7,21 @@ The algorithm for round robin matching implemented in the perfect-strangers pack
 grouping matrix for the first round, $\mathbf{G}^{(0)}$, using any pairing strategy, for example:
 
 
-![Grouping Matrix](../diagrams/round_robin/initial.svg)
+![Grouping Matrix](../../diagrams/round_robin/initial.svg)
 /// caption
 ///
 
 Then pick an element of the matrix to fix in place. In this example we use the top left element.
 
 
-![Fixed Element](../diagrams/round_robin/fixed.svg)
+![Fixed Element](../../diagrams/round_robin/fixed.svg)
 /// caption
 ///
 
 For each subsequent round, rotate the elements of the matrix (either clockwise or anti-clockwise) one position, keeping the
 fixed element in place.
 
-![Fixed Element](../diagrams/round_robin/rotated.svg)
+![Rotation](../../diagrams/round_robin/rotated.svg)
 /// caption
 ///
 

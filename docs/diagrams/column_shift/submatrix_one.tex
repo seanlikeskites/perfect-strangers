@@ -1,0 +1,35 @@
+\documentclass{standalone}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{etoolbox}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usetikzlibrary{calc}
+
+\input{colours}
+
+\begin{document}
+\scalebox{2}{
+\begin{tikzpicture}[ampersand replacement=\&]
+\matrix (G) at (0, 0) [matrix of nodes,
+		       row 1 column 1/.style=blue cells,
+		       row 1 column 2/.style=red cells,
+		       row 2 column 1/.style=blue cells,
+		       row 2 column 2/.style=red cells,
+		       row 3 column 1/.style=green cells,
+		       row 3 column 2/.style=yellow cells,
+		       row 4 column 1/.style=green cells,
+		       row 4 column 2/.style=yellow cells,
+		       column sep=-\pgflinewidth,
+		       row sep=-\pgflinewidth] {
+        0 \& 2 \\
+        1 \& 3 \\
+        4 \& 6 \\
+        5 \& 7 \\
+};
+
+\draw [line width=0.8mm, green] ($(G-1-1.north west) + (0.4mm, -0.4mm)$) rectangle ($(G-2-2.south east) + (-0.4mm, 0.4mm)$);
+\draw [line width=0.8mm, red] ($(G-3-1.north west) + (0.4mm, -0.4mm)$) rectangle ($(G-4-2.south east) + (-0.4mm, 0.4mm)$);
+\end{tikzpicture}
+}
+\end{document}

@@ -28,6 +28,7 @@ nav:
     - theory/overview.md
     - theory/round_robin.md
 #    - theory/kirkman.md
+    - theory/column_shift.md
 
 
 theme:

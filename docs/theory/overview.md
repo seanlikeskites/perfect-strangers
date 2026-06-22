@@ -63,9 +63,13 @@ $$
 $$
 
 ## Algorithms
-### Specific Group Sizes
-Some algorithms assume a specific group size.
+### Optimal Solutions
+For some specific groups sizes there are known optimal solutions to the perfect stranger matching problem:
 
   * When $\beta = 2$ $~$---$~$ [Round Robin Matching](./round_robin.md)
+  * When $\beta = 3$ $~$---$~$ Kirkman Triple Matching
 
-
+### Generic Algorithms
+Where no optimal solution is known we must rely on algorithmic methods to construct sequences of grouping matrices. The
+perfect-strangers package aims to avoid search based algorithms. At present the package implements a [column shift
+matching](./column_shift) approach.

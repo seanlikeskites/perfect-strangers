@@ -48,13 +48,13 @@ class ColumnShiftMatcher(BaseMatcher):
         self.group_matrices += _shift_columns(self.group_matrices[0], 1)
 
         # Apply submatrix transposition.
-        block_size = self.groups_per_round
-        n_blocks = 1
+        block_size = self.group_size
 
-        while block_size % self.group_size == 0:
+        while self.groups_per_round % block_size == 0:
             g = self.group_matrices[0].copy()
 
             stride = block_size // self.group_size
+            n_blocks = self.groups_per_round // block_size
 
             for block in range(n_blocks):
                 block_start = block * block_size
@@ -67,6 +67,5 @@ class ColumnShiftMatcher(BaseMatcher):
             self.group_matrices.append(g)
             self.group_matrices += _shift_columns(g, block_size)
 
-            block_size = stride
-            n_blocks *= self.group_size
+            block_size *= self.group_size
 

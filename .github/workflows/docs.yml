@@ -16,13 +16,18 @@ jobs:
     steps:
       - uses: actions/configure-pages@v5
       - uses: actions/checkout@v5
-      - run: sudo apt-get install -y texlive-latex-extra poppler-utils
-      - run: make -C docs/diagrams/round_robin
+      - name: Install Latex
+        run: sudo apt-get install -y texlive-latex-extra poppler-utils
+      - name: Make Diagrams
+        working-directory: ./docs/diagrams
+        run: sh make_diagrams.sh
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: pip install zensical mkdocstrings-python .
-      - run: zensical build --clean 
+      - name: Install Zensical
+        run: pip install zensical mkdocstrings-python .
+      - name: Zensical Build
+        run: zensical build --clean 
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site
