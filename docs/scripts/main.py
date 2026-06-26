@@ -3,6 +3,7 @@
 from perfect_strangers import create_matcher
 from perfect_strangers.util import sequence_length_upper_bound
 
+
 def format_cell(data):
     cell_class = ""
 
@@ -71,7 +72,6 @@ def create_benchmark_table():
 
         for j, group_size in enumerate(group_size_range):
             m = create_matcher(groups_per_round, group_size)
-            is_upper_bound = m.max_rounds == sequence_length_upper_bound(groups_per_round, group_size)
 
             row.append({
                 "groups_per_round": groups_per_round,

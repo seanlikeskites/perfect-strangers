@@ -7,15 +7,17 @@ from __future__ import annotations
 import math
 from typing import TYPE_CHECKING
 
+import galois
+
 if TYPE_CHECKING:
     import numpy.typing as npt
 
 
-def sequence_length_upper_bound(groups_per_round: int, group_size: int) -> bool:
+def sequence_length_upper_bound(groups_per_round: int, group_size: int) -> int:
     if groups_per_round < group_size:
         return 1
-    else:
-        return (groups_per_round * group_size - 1) // (group_size - 1)
+
+    return (groups_per_round * group_size - 1) // (group_size - 1)
 
 
 def is_round_valid(g: npt.NDArray, groups_per_round: int, group_size: int) -> bool:
@@ -53,3 +55,12 @@ def least_prime_factor(n: int) -> int | None:
         f += 2
 
     return n
+
+def x_is_power_of_y(x: int, y: int) -> bool:
+    while x % y == 0:
+        x /= y
+
+    if x == 1:
+        return True
+
+    return False

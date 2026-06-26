@@ -4,7 +4,10 @@
 
 from __future__ import annotations
 
-from collections.abc import Generator
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 from perfect_strangers.base_matcher import BaseMatcher
 

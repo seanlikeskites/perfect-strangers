@@ -6,11 +6,24 @@ from __future__ import annotations
 
 import math
 
+import galois
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, RoundSequence
 from perfect_strangers.util import least_prime_factor
 
+
+def _apply_sequential_shifts(base_matrix: np.typing.NDArray, n_shifts: int, stride: int) -> RoundSequence:
+    shifts = []
+    group_size = base_matrix.shape[1]
+
+    for _ in range(n_shifts):
+        for c in range(1, group_size):
+            base_matrix[:, c] = np.roll(base_matrix[:, c], c * stride)
+
+        shifts.append(base_matrix.copy())
+
+    return shifts
 
 def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> RoundSequence:
     g = base_matrix.copy()
@@ -22,22 +35,24 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> RoundSequence
 
     lpf = least_prime_factor(n_blocks) or 0
 
+    # If all column indices are coprime with n_blocks we can apply the maximum
+    # number of shifts.
     if group_size <= lpf:
-        n_shifts = n_blocks - 1
-    else:
-        # In some cases we can get away with more shifts. Need to work out a good
-        # way of calculating this.
-        n_shifts = math.ceil(n_blocks / (group_size - 1)) - 1
+        return _apply_sequential_shifts(g, n_blocks - 1, stride)
 
-    shifts = []
+    # If no other strategy has worked, apply shifts until the rightmost column
+    # with an index not coprime with n_blocks would cycle round.
+    non_cycle_column_index = group_size - 1
 
-    for _ in range(n_shifts):
-        for c in range(1, group_size):
-            g[:, c] = np.roll(g[:, c], c * stride)
+    while non_cycle_column_index > 0:
+        if not galois.are_coprime(non_cycle_column_index, n_blocks):
+            break
 
-        shifts.append(g.copy())
+        non_cycle_column_index -= 1
 
-    return shifts
+    n_shifts = math.ceil(n_blocks / non_cycle_column_index) - 1
+
+    return _apply_sequential_shifts(g, n_shifts, stride)
 
 class ColumnShiftMatcher(BaseMatcher):
     def __init__(self, groups_per_round: int, group_size: int):
