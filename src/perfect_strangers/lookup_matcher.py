@@ -29,7 +29,7 @@ class LookupMatcher(BaseMatcher):
 
     @classmethod
     def create_matcher(cls, groups_per_round: int, group_size: int):
-        with importlib.resources.open_text("perfect_strangers", "lookup/both_et_al_groupings.json") as f:
+        with importlib.resources.files("perfect_strangers").joinpath("lookup/both_et_al_groupings.json").open() as f:
             grouping_data = json.loads(f.read())
 
         try:
