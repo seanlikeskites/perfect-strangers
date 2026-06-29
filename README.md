@@ -7,6 +7,7 @@
 ## Table of Contents
 
 - [Installation](#installation)
+- [Documentation](https://senderby.co.uk/perfect-strangers/)
 - [Quick Start](#quick-start)
 - [License](#license)
 
