@@ -2,9 +2,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/perfect-strangers.svg)](https://pypi.org/project/perfect-strangers)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/perfect-strangers.svg)](https://pypi.org/project/perfect-strangers)
-![Test Status](https://img.shields.io/github/actions/workflow/status/seanlikeskites/perfect-strangers/tests.yml?label=tests)
-
------
+[![Test Status](https://img.shields.io/github/actions/workflow/status/seanlikeskites/perfect-strangers/tests.yml?label=tests)](https://github.com/seanlikeskites/perfect-strangers/actions/workflows/tests.yml)
 
 ## Table of Contents
 
