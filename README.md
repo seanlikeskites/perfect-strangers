@@ -18,6 +18,8 @@
 pip install perfect-strangers
 ```
 
+## [Documentation](https://senderby.co.uk/perfect-strangers/)
+
 ## Quick Start
 ### Create a Matcher
 To get started import the `create_matcher()` function:
