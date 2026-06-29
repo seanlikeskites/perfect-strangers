@@ -7,8 +7,6 @@ from __future__ import annotations
 import math
 from typing import TYPE_CHECKING
 
-import galois
-
 if TYPE_CHECKING:
     import numpy.typing as npt
 
@@ -60,7 +58,4 @@ def x_is_power_of_y(x: int, y: int) -> bool:
     while x % y == 0:
         x /= y
 
-    if x == 1:
-        return True
-
-    return False
+    return x == 1

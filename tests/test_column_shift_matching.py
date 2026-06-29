@@ -2,9 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
-import pytest
-
 import galois
+import pytest
 
 from perfect_strangers import ColumnShiftMatcher
 from perfect_strangers.util import sequence_length_upper_bound, x_is_power_of_y

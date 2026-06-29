@@ -1,6 +1,6 @@
 # Create HTML table of maximum sequence lengths for various combinations of parameters
 # and compare to results given by Both et al. (2016).
-from perfect_strangers import create_matcher
+from perfect_strangers import LookupMatcher, create_matcher
 from perfect_strangers.util import sequence_length_upper_bound
 
 
@@ -77,7 +77,7 @@ def create_benchmark_table():
                 "groups_per_round": groups_per_round,
                 "group_size": group_size,
                 "sequence_length": m.max_rounds,
-                "meets_benchmark": m.max_rounds >= both_et_al[i][j],
+                "meets_benchmark": both_et_al[i][j] > 0 and m.max_rounds >= both_et_al[i][j] and type(m) is not LookupMatcher,
                 "is_upper_bound": m.max_rounds == sequence_length_upper_bound(groups_per_round, group_size)
             })
 
