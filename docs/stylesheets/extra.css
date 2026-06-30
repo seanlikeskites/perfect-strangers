@@ -1,6 +1,7 @@
 :root {
   --upper-bound-green: #c7ffba;
   --benchmark-blue: #bae1ff;
+  --lookup-orange: #ffd18c;
 }
 
 .upper-bound-performance {
@@ -9,6 +10,10 @@
 
 .benchmark-performance {
   background-color: var(--benchmark-blue);
+}
+
+.uses-lookup {
+  background-color: var(--lookup-orange);
 }
 
 .centre-table {

@@ -11,6 +11,8 @@ def format_cell(data):
         cell_class = "upper-bound-performance"
     elif data["meets_benchmark"]:
         cell_class = "benchmark-performance"
+    elif data["uses_lookup"]:
+        cell_class = "uses-lookup"
 
     return f'<td class="{cell_class}">{data["sequence_length"]}</td>'
 
@@ -47,21 +49,6 @@ def create_table(data):
 
 
 def create_benchmark_table():
-    both_et_al = [
-        [3, 1, 1, 1, 1],
-        [5, 4, 1, 1, 1],
-        [7, 4, 5, 1, 1],
-        [9, 7, 5, 6, 1],
-        [11, 8, 6, 6, 3],
-        [13, 9, 7, 5, 0],
-        [15, 10, 8, 6, 0],
-        [17, 11, 9, 0, 0],
-        [19, 13, 10, 0, 0],
-        [21, 14, 0, 0, 0],
-        [23, 15, 0, 0, 0],
-        [25, 17, 0, 0, 0]
-    ]
-
     num_groups_range = range(2, 14)
     group_size_range = range(2, 7)
 
@@ -72,12 +59,14 @@ def create_benchmark_table():
 
         for j, group_size in enumerate(group_size_range):
             m = create_matcher(groups_per_round, group_size)
+            benchmark = LookupMatcher.create_matcher(groups_per_round, group_size)
 
             row.append({
                 "groups_per_round": groups_per_round,
                 "group_size": group_size,
                 "sequence_length": m.max_rounds,
-                "meets_benchmark": both_et_al[i][j] > 0 and m.max_rounds >= both_et_al[i][j] and type(m) is not LookupMatcher,
+                "uses_lookup": type(m) is LookupMatcher,
+                "meets_benchmark": benchmark is not None and m.max_rounds >= benchmark.max_rounds and type(m) is not LookupMatcher,
                 "is_upper_bound": m.max_rounds == sequence_length_upper_bound(groups_per_round, group_size)
             })
 
