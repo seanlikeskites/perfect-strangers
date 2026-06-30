@@ -10,7 +10,7 @@ from tests.matcher_validation import validate_matcher
 
 
 @pytest.mark.parametrize("groups_per_round", range(2, 31))
-def test_round_robin(groups_per_round):
+def test_kirkman(groups_per_round):
     matcher = KirkmanTripleMatcher.create_matcher(groups_per_round)
 
     if matcher is not None:

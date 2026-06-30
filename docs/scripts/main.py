@@ -54,10 +54,10 @@ def create_benchmark_table():
 
     sequence_lengths = []
 
-    for i, groups_per_round in enumerate(num_groups_range):
+    for groups_per_round in num_groups_range:
         row = []
 
-        for j, group_size in enumerate(group_size_range):
+        for group_size in group_size_range:
             m = create_matcher(groups_per_round, group_size)
             benchmark = LookupMatcher.create_matcher(groups_per_round, group_size)
 
