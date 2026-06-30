@@ -67,7 +67,7 @@ $$
 For some specific groups sizes there are known optimal solutions to the perfect stranger matching problem:
 
   * When $\beta = 2$ $~$---$~$ [Round Robin Matching](./round_robin.md)
-  * When $\beta = 3$ $~$---$~$ Kirkman Triple Matching
+  * When $\beta = 3$ $~$---$~$ [Kirkman Triple Matching](./kirkman.md)
 
 ### Generic Algorithms
 Where no optimal solution is known we must rely on algorithmic methods to construct sequences of grouping matrices. The

@@ -7,8 +7,8 @@ shifts and transpositions to this initial matrix.
 ## Column Shifts
 For all setting of the experiment parameters ($\alpha$ and $\beta$) we can construct an initial sequence of grouping
 matrices by applying circular shifts to the columns. For the $n^{\text{th}}$ matrix in this sequence the $j^{\text{th}}$
-column of $\mathbf{G}^{(0)}$ is circularly shifted $nj$ positions. **N.B. We are defying mathematical convention here by
-indexing the columns of the matrix starting at 0.**
+column of $\mathbf{G}^{(0)}$ is circularly shifted $nj$ positions. **N.B. For mathematical convenience we are defying
+mathematical convention here by indexing the columns of the matrix starting at 0.**
 
 To illustrate, consider the following initial grouping matrix:
 
