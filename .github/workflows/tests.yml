@@ -21,4 +21,8 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install hatch
-      - run: hatch test --all
+      - name: Run Tests
+        run: hatch test --all
+      - name: Run Type Checking
+        run: hatch run types:check
+

@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from collections.abc import Generator
 
-from perfect_strangers.base_matcher import BaseMatcher
+from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
 
 
 def _round_increments(group_size, exponent) -> Generator[int]:
@@ -45,16 +45,16 @@ def _make_group(group_size: int, first_member: int, increment: int) -> list[int]
     return group
 
 class RadixMatcher(BaseMatcher):
-    def __init__(self, group_size: int, exponent: int):
+    def __init__(self, group_size: int, exponent: int, participant_labels: ParticipantLabels=None):
         self.exponent = exponent
-        super().__init__(group_size ** (exponent - 1), group_size)
+        super().__init__(group_size ** (exponent - 1), group_size, participant_labels)
 
     def _generate_rounds(self):
         participants = set(range(self.n_participants))
 
         for i in _round_increments(self.group_size, self.exponent):
             allocated = set()
-            g = self.group_matrices[0].copy()
+            g = self._group_matrices[0].copy()
 
             for j in range(self.groups_per_round):
                 first_member = min(participants - allocated)

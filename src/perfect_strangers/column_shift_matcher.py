@@ -9,7 +9,7 @@ import math
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, RoundSequence
+from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
 from perfect_strangers.util import least_prime_factor
 
 
@@ -55,18 +55,18 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> RoundSequence
     return _apply_sequential_shifts(g, n_shifts, stride)
 
 class ColumnShiftMatcher(BaseMatcher):
-    def __init__(self, groups_per_round: int, group_size: int):
-        super().__init__(groups_per_round, group_size)
+    def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
+        super().__init__(groups_per_round, group_size, participant_labels)
 
     def _generate_rounds(self):
         # Apply initial column shifts.
-        self.group_matrices += _shift_columns(self.group_matrices[0], 1)
+        self._group_matrices += _shift_columns(self._group_matrices[0], 1)
 
         # Apply submatrix transposition.
         block_size = self.group_size
 
         while self.groups_per_round % block_size == 0:
-            g = self.group_matrices[0].copy()
+            g = self._group_matrices[0].copy()
 
             stride = block_size // self.group_size
             n_blocks = self.groups_per_round // block_size
@@ -79,8 +79,8 @@ class ColumnShiftMatcher(BaseMatcher):
                     end_col = start_col + self.group_size * stride
                     g[start_col:end_col:stride, :] = g[start_col:end_col:stride, :].transpose()
 
-            self.group_matrices.append(g)
-            self.group_matrices += _shift_columns(g, block_size)
+            self._group_matrices.append(g)
+            self._group_matrices += _shift_columns(g, block_size)
 
             block_size *= self.group_size
 

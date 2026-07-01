@@ -9,7 +9,7 @@ from collections.abc import Callable
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, RoundSequence
+from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
 from perfect_strangers.util import finite_field_elements
 
 ParameterFuncReturn = tuple[int, int] | None
@@ -141,18 +141,19 @@ def _two_q_less_one_rounds(t: int, q: int) -> RoundSequence:
 #######################################################################
 class KirkmanTripleMatcher(BaseMatcher):
     """ Implementation as per https://math.stackexchange.com/a/4510645"""
-    def __init__(self, groups_per_round: int, t: int, q: int, round_generator: RoundGenerator):
+    def __init__(self, groups_per_round: int, t: int, q: int,
+                 round_generator: RoundGenerator, participant_labels: ParticipantLabels=None):
         self.t = t
         self.q = q
         self.round_generator = round_generator
 
-        super().__init__(groups_per_round, 3)
+        super().__init__(groups_per_round, 3, participant_labels)
 
     def _generate_rounds(self):
-        self.group_matrices = self.round_generator(self.t, self.q)
+        self._group_matrices = self.round_generator(self.t, self.q)
 
     @classmethod
-    def create_matcher(cls, groups_per_round: int):
+    def create_matcher(cls, groups_per_round: int, participant_labels: ParticipantLabels=None):
         methods = [
             (_three_q_params, _three_q_rounds),
             (_two_q_less_one_params, _two_q_less_one_rounds)
@@ -163,6 +164,6 @@ class KirkmanTripleMatcher(BaseMatcher):
 
             if params is not None:
                 t, q = params
-                return KirkmanTripleMatcher(groups_per_round, t, q, round_generator)
+                return KirkmanTripleMatcher(groups_per_round, t, q, round_generator, participant_labels)
 
         return None

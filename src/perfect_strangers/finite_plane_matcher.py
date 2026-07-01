@@ -5,13 +5,13 @@
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
+from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
 from perfect_strangers.util import finite_field_elements
 
 
 class FinitePlaneMatcher(BaseMatcher):
-    def __init__(self, groups_per_round: int, group_size: int):
-        super().__init__(groups_per_round, group_size)
+    def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
+        super().__init__(groups_per_round, group_size, participant_labels)
 
     def _generate_rounds(self):
         labels = np.arange(self.n_participants).reshape(self.group_size, self.groups_per_round)
@@ -37,11 +37,11 @@ class FinitePlaneMatcher(BaseMatcher):
 
             rounds.append(new_round)
 
-        self.group_matrices = [np.array(r) for r in rounds]
+        self._group_matrices = [np.array(r) for r in rounds]
 
     @classmethod
-    def create_matcher(cls, groups_per_round: int, group_size: int):
+    def create_matcher(cls, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
         if galois.is_prime_power(groups_per_round) and group_size <= groups_per_round:
-            return FinitePlaneMatcher(groups_per_round, group_size)
+            return FinitePlaneMatcher(groups_per_round, group_size, participant_labels)
 
         return None

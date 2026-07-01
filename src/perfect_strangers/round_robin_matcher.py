@@ -4,13 +4,13 @@
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
+from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
 
 
 class RoundRobinMatcher(BaseMatcher):
-    def __init__(self, groups_per_round: int):
+    def __init__(self, groups_per_round: int, participant_labels: ParticipantLabels=None):
         # Round robin matching works with a group size of 2.
-        super().__init__(groups_per_round, 2)
+        super().__init__(groups_per_round, 2, participant_labels)
 
     def _generate_rounds(self):
         def _rotate_groups(g):
@@ -21,4 +21,4 @@ class RoundRobinMatcher(BaseMatcher):
             return flat.reshape(g.shape, order="F")
 
         for _ in range(self.n_participants - 2):
-            self.group_matrices.append(_rotate_groups(self.group_matrices[-1]))
+            self._group_matrices.append(_rotate_groups(self._group_matrices[-1]))
