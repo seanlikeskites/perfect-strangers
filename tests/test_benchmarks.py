@@ -14,7 +14,7 @@ from tests.matcher_validation import validate_matcher
 
 
 @pytest.mark.parametrize("group_size", range(2, 7))
-@pytest.mark.parametrize("groups_per_round", range(2, 14))
+@pytest.mark.parametrize("groups_per_round", range(2, 28))
 def test_benchmarks(groups_per_round, group_size):
     matcher = create_matcher(groups_per_round, group_size)
 

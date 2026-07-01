@@ -6,8 +6,17 @@ import galois
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
-from perfect_strangers.util import finite_field_elements
+from perfect_strangers.util import finite_field_elements, least_prime_factor
 
+
+def use_finite_plane_construction(groups_per_round: int, group_size: int) -> bool:
+    prime_power_test = galois.is_prime_power(groups_per_round)
+    group_size_upper_bound = group_size <= groups_per_round
+
+    lpf = least_prime_factor(groups_per_round)
+    group_size_lower_bound = lpf is not None and group_size > lpf
+
+    return prime_power_test and group_size_upper_bound and group_size_lower_bound
 
 class FinitePlaneMatcher(BaseMatcher):
     def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
