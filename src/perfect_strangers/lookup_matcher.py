@@ -16,7 +16,7 @@ class LookupMatcher(BaseMatcher):
     """
     Fallback class to use the search results published by Both et al. (2016) - https://doi.org/10.1016/j.econlet.2016.06.028/
     """
-    def __init__(self, rounds: list[list[int]]):
+    def __init__(self, rounds: list[list[list[int]]]):
         groups_per_round = len(rounds[0])
         group_size = len(rounds[0][0])
 

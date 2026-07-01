@@ -10,6 +10,7 @@ import galois
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, RoundSequence
+from perfect_strangers.util import finite_field_elements
 
 ParameterFuncReturn = tuple[int, int] | None
 RoundGenerator = Callable[[int, int], RoundSequence]
@@ -32,19 +33,12 @@ def _get_t_from_q(q: int) -> ParameterFuncReturn:
 
     return t, q
 
-def _galois_field_elements(order: int) -> tuple[list[galois.FieldArray], galois.FieldArray]:
-    gf = galois.GF(order)
-    elements = [gf(i) for i in range(order)]
-    primitive_element = gf.primitive_element
-
-    return elements, primitive_element
-
 def _three_q_params(groups_per_round: int) -> ParameterFuncReturn:
     return _get_t_from_q(groups_per_round)
 
 def _three_q_rounds(t: int, q: int) -> RoundSequence:
     labels = np.arange(3 * q).reshape(q, 3)
-    field_elements, g = _galois_field_elements(q)
+    field_elements, g = finite_field_elements(q)
 
     def next_group(shift, i, j=None):
         return [labels[shift + g ** (i + 2 * x * t), j if j is not None else x] for x in range(3)]
@@ -101,7 +95,7 @@ def _two_q_less_one_rounds(t: int, q: int) -> RoundSequence:
     labels = np.arange(2 * q).reshape(q, 2)
     inf = 2 * q
 
-    field_elements, g = _galois_field_elements(q)
+    field_elements, g = finite_field_elements(q)
 
     # Find m.
     target = (g ** t + field_elements[1]) / field_elements[2]

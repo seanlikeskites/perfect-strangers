@@ -7,6 +7,8 @@ from __future__ import annotations
 import math
 from typing import TYPE_CHECKING
 
+import galois
+
 if TYPE_CHECKING:
     import numpy.typing as npt
 
@@ -56,6 +58,13 @@ def least_prime_factor(n: int) -> int | None:
 
 def x_is_power_of_y(x: int, y: int) -> bool:
     while x % y == 0:
-        x /= y
+        x //= y
 
     return x == 1
+
+def finite_field_elements(order: int) -> tuple[list[galois.FieldArray], galois.FieldArray]:
+    gf = galois.GF(order)
+    elements = [gf(i) for i in range(order)]
+    primitive_element = gf.primitive_element
+
+    return elements, primitive_element
