@@ -71,5 +71,7 @@ For some specific groups sizes there are known optimal solutions to the perfect 
 
 ### Generic Algorithms
 Where no optimal solution is known we must rely on algorithmic methods to construct sequences of grouping matrices. The
-perfect-strangers package aims to avoid search based algorithms. At present the package implements a [column shift
-matching](./column_shift) approach.
+perfect-strangers package uses the following algorithms to construct sequences of grouping matrices:
+
+  * [Finite Affine Plane Matching](./finite_planes)
+  * [Column Shift Matching](./column_shift)
