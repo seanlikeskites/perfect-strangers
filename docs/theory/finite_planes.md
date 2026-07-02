@@ -78,5 +78,3 @@ insufficient for a full grouping matrix.
 Where $\alpha$ is an integer multiple of $\beta$ it should be possible to partition the vertical lines of the plane in such
 a way as to generate additional grouping matrices. Given that construction of the plan requires that $\alpha$ be a prime
 power $p^{k}$, this would require $\beta$ also be a power of the same prime $p^{m}$. 
-
-
