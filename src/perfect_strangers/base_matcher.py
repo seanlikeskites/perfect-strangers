@@ -39,7 +39,9 @@ class BaseMatcher:
             np.arange(self.n_participants).reshape(self.groups_per_round, self.group_size)
         ]
 
-        self._generate_rounds()
+        if groups_per_round >= group_size:
+            self._generate_rounds()
+
         self.shuffle_sequence()
 
     @property

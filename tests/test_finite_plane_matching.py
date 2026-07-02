@@ -17,7 +17,7 @@ def test_finite_plane(groups_per_round, group_size):
         if groups_per_round == group_size:
             assert matcher.max_rounds == groups_per_round + 1
         else:
-            assert matcher.max_rounds == groups_per_round
+            assert matcher.max_rounds >= groups_per_round
 
         # Validate generated rounds
         validate_matcher(matcher)

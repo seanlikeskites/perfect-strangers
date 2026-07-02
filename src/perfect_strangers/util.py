@@ -68,3 +68,38 @@ def finite_field_elements(order: int) -> tuple[list[galois.FieldArray], galois.F
     primitive_element = gf.primitive_element
 
     return elements, primitive_element
+
+def submatrix_transpositions(matrix: npt.NDArray):
+    matrix = matrix.copy()
+    transposed = False
+
+    if matrix.shape[1] > matrix.shape[0]:
+        matrix = matrix.transpose()
+        transposed = True
+
+    block_size = matrix.shape[1]
+
+    transpositions = []
+
+    while matrix.shape[0] % block_size == 0:
+        m = matrix.copy()
+
+        stride = block_size // matrix.shape[1]
+        n_blocks = matrix.shape[0] // block_size
+
+        for block in range(n_blocks):
+            block_start = block * block_size
+
+            for sub in range(stride):
+                start_row = block_start + sub
+                end_row = start_row + matrix.shape[1] * stride
+                m[start_row:end_row:stride, :] = m[start_row:end_row:stride, :].transpose()
+
+        transpositions.append((m, block_size))
+        block_size *= matrix.shape[1]
+
+    if transposed:
+        transpositions = [(t[0].transpose(), s) for t, s in transpositions]
+
+    return transpositions
+
