@@ -7,7 +7,7 @@
 \begin{document}
 \scalebox{2.8}{
 \begin{tikzpicture}
-  \clip (-1.2, -1.2) rectangle (3.2, 3.2);
+  \clip (-1, -1) rectangle (3, 3);
 
   \foreach \x in {0,1,2}
     \foreach \y in {0,1,2}
@@ -24,26 +24,22 @@
   \draw [line width=1.5, orange] (P-0-2) -- (P-1-1) -- (P-2-0);
   \draw [line width=1.5, orange] (P-1-0) --
                                  (P-0-1) --
-                                 ($(P-0-1) + (-0.2, 0.2)$) to[out=135, in=135, looseness=2] 
-                                 ($(P-2-2) + (-0.7, 0.7)$) --
+				 ($(P-0-1) + (-0.15, 0.15)$) arc(225:45:{0.75*sqrt(2)}) --
                                  (P-2-2);
   \draw [line width=1.5, orange] (P-1-2) --
                                  (P-2-1) --
-                                 ($(P-2-1) + (0.2, -0.2)$) to[out=-45, in=-45, looseness=2] 
-                                 ($(P-0-0) + (0.7, -0.7)$) --
+                                 ($(P-2-1) + (0.15, -0.15)$) arc(45:-135:{0.75*sqrt(2)}) --
                                  (P-0-0);
   
 
   \draw [line width=1.5, green!70!black] (P-0-0) -- (P-1-1) -- (P-2-2);
   \draw [line width=1.5, green!70!black] (P-0-1) --
                                          (P-1-2) --
-                                         ($(P-1-2) + (0.2, 0.2)$) to[out=45, in=45, looseness=2] 
-                                         ($(P-2-0) + (0.7, 0.7)$) --
+                                         ($(P-1-2) + (0.15, 0.15)$) arc(135:-45:{0.75*sqrt(2)}) --
                                          (P-2-0);
   \draw [line width=1.5, green!70!black] (P-2-1) --
                                          (P-1-0) --
-                                         ($(P-1-0) - (0.2, 0.2)$) to[out=-135, in=-135, looseness=2] 
-                                         ($(P-0-2) - (0.7, 0.7)$) --
+                                         ($(P-1-0) + (-0.15, -0.15)$) arc(315:135:{0.75*sqrt(2)}) --
                                          (P-0-2);
 
 
