@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "perfect-strangers"
 dynamic = ["version"]
-description = "Non-search based routines for perfect stranger matching in behavioural studies."
+description = "Construction routines for perfect stranger matching in behavioural studies."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
