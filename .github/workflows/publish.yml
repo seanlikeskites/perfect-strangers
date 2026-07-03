@@ -4,7 +4,7 @@ on:
     tags:
       - v*
 permissions:
-  contents: read
+  contents: write
   id-token: write
 jobs:
   publish:
@@ -21,3 +21,7 @@ jobs:
       - run: hatch build
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Create release on GitHub
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create ${{ github.ref_name }} --verify-tag -t ${{ github.ref_name }}
