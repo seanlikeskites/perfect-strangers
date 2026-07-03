@@ -99,7 +99,7 @@ def submatrix_transpositions(matrix: npt.NDArray):
         block_size *= matrix.shape[1]
 
     if transposed:
-        transpositions = [(t[0].transpose(), s) for t, s in transpositions]
+        transpositions = [(t[0].transpose(), b) for t, b in transpositions]
 
     return transpositions
 
