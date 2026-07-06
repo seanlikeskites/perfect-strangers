@@ -36,10 +36,11 @@ shifted 1 position and that at position 2 is shifted 2 positions.
   </div>
 </div>
 
-At a minimum we can continue generating new matrices in this way until the element which started at the top of the final
-column would circle back round to the top when undergoing another shift. The minimum number of shifts we can apply is given
-by $\left\lceil\frac{\alpha}{\beta - 1}\right\rceil - 1$. Including $\mathbf{G}^{(0)}$ this gives a total of
-$\left\lceil\frac{\alpha}{\beta - 1}\right\rceil$ matrices in the sequence.
+At a minimum we can continue generating new matrices in this way until the element which started at the top of the rightmost
+column with index not coprime with $\alpha$ would circle back round to the top when undergoing another shift. The minimum
+number of shifts we can apply is given by $\left\lceil\frac{\alpha}{j}\right\rceil - 1$ where $j$ is the index of the
+rightmost column for which $\gcd(j, \alpha) = 1$. Including $\mathbf{G}^{(0)}$ this gives a total of
+$\left\lceil\frac{\alpha}{j}\right\rceil$ matrices in the sequence.
 
 ### Additional Shifts
 Under certain conditions we can allow the top element of the final column to circle back to the top. If all the integers
@@ -103,12 +104,27 @@ constructed by shifting columns of the matrix created by transposition with a bl
 </div>
 
 The number of column shifts which can be applied to each transposed matrix depends on the number of blocks the matrix has
-been split into, $N = \frac{\alpha}{b}$, and the number of participants per group, $\beta$. The minimum number of shifts we can apply is given
-by $\left\lceil\frac{N}{\beta - 1}\right\rceil - 1$. If $\beta$ is less than or equal to the least prime factor of $N$ we
-can apply $N - 1$ shifts.
+been split into, $N = \frac{\alpha}{b}$, and the number of participants per group, $\beta$. The minimum number of shifts we
+can apply is given by $\left\lceil\frac{N}{j}\right\rceil - 1$ where $j$ is the index of the rightmost column for which
+$\gcd(j, \alpha) = 1$. If $\beta$ is less than or equal to the least prime factor of $N$ we can apply $N - 1$ shifts.
 
-### Optimal Cases
+## Optimal Cases
 Combining the various steps of column shifting and submatrix transposition described above, when $\beta$ is prime and
 $\alpha = \beta^{p}$ for some integer power $p$ the maximum sequence length $l_{\max}(\alpha, \beta)$ is  equal to the
 [trivial upper bound](./overview.md#trivial-upper-bound). In these cases every participant will appear in a group with every
 other participant exactly once.
+
+## Relationship to Finite Affine Planes
+When $\alpha$ is a prime, this column shifting method is exactly equivalent to the construction using [finite affine
+planes](finite_planes). This is because the circular column shifts are implemented modulo $\alpha$ and when $\alpha$ is
+prime the integers modulo $\alpha$ form a field which is isomorphic to the finite field of order $\alpha$.
+
+Whether to use the finite affine plane construction or the column shift approach depends on the number of groups per round,
+$\alpha$:
+
+  * When $\alpha$ is prime the two methods are equivalent, as stated above.
+  * When $\alpha$ is  positive integer power of a prime $p^{k}$ and $k > 1$ the finite affine plane construction will always
+    yield and equal or greater number of rounds.
+  * For other values no finite affine planes of order $\alpha$ are known. The column shift approach can still be used in
+    these situations to construct a number of rounds as detailed above.
+    
