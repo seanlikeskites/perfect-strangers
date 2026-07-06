@@ -67,85 +67,40 @@ grouping matrices.
 </div>
 
 ## Transpositions
-For certain shapes of matrix we can also employ transposition to generate new matrices in the sequence.
-
-### Square Matrices
-For square matrices (i.e $\alpha = \beta$) transposing $\mathbf{G}^{(0)}$ gives an additional grouping matrix for the
-sequence. 
-
-### Transposing Submatrices
-When $\alpha$ is an integer multiple of $\beta$ we can transpose submatrices of $\mathbf{G}^{(0)}$ to generate a new matrix
-in the sequence. For example, consider the following $6{\times}3$ matrix:
-
-<div style="display: flex; justify-content: center;">
-  <div style="width: 30%">
-    <figure markdown="span">
-      <p><img alt="Before Transposition" src="../diagrams/column_shift/submatrix_before.svg"></p>
-      <figcaption>Before Transposition</figcaption>
-    </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
-      <p><img alt="After Transpiosition" src="../diagrams/column_shift/submatrix_after.svg"></p>
-      <figcaption>After Transposition</figcaption>
-    </figure>
-  </div>
-</div>
-
-### Multiple Sets of Submatrices
-When $\alpha$ is divisible by $\beta^{p}$ for some integer power $p$, we can generate a new sequence of $p$ grouping
-matrices through the transposition of submatrices.
-
-To produce each grouping matrix in this sequence, first we define a block size $b = \beta$. The sequence is then
-constructed iteratively with the following steps: 
-
-  1. Split $\mathbf{G}^{(0)}$ vertically into $\frac{\alpha}{b}$ blocks of size $b{\times}\beta$.
-  2. Split each block into $\frac{b}{\beta}$ submatrices of size $\beta{\times}\beta$ by taking rows spaced
-     $\frac{b}{\beta}$ apart.
-  3. Transpose each of these $\beta{\times}\beta$ submatrices and place their rows back in the block in the rows the matrix
-     was constructed from.
-  4. Update $b$ as $b := b\beta$.
-  5. If $\alpha$ is divisible by the new value of $b$, return to step 1.
-
-An example sequence for a $4{\times}2$ matrix is shown below. Elements which make up the submatrices being transposed are
-boxed in the same colour.
-
-<div style="display: flex; justify-content: center;">
-  <div style="width: 30%">
-    <figure markdown="span">
-      <p><img alt="Before Transposition" src="../diagrams/column_shift/submatrix_zero.svg"></p>
-      <figcaption>Before Transposition</figcaption>
-    </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
-      <p><img alt="First Transpiosition" src="../diagrams/column_shift/submatrix_one.svg"></p>
-      <figcaption>First Transposition </br> $b = 2$</figcaption>
-    </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
-      <p><img alt="Second Transpiosition" src="../diagrams/column_shift/submatrix_two.svg"></p>
-      <figcaption>Second Transposition </br> $b = 4$</figcaption>
-    </figure>
-  </div>
-</div>
+Where $\alpha$ is divisible by $\beta$ we can apply [submatrix transpotion](submatrix_transposition) to generate additional
+rounds.
 
 ### Column Shifts After Transposition
-At steps of the submatrix transposition sequence for which $\frac{\alpha}{b} \geq \beta$ we can apply circular column
-shifting to generate an additional sequence of grouping matrices. These shifts are done between the blocks used to construct
-the sub matrices. For the $n^{\text{th}}$ matrix in this sequence the $j^{\text{th}}$ column of the transposed matrix is
-circularly shifted $njb$ positions.
+At steps of the [submatrix transposition sequence](submatrix_transposition#multiple-sets-of-submatrices) for which
+$\frac{\alpha}{b} \geq \beta$ we can apply circular column shifting to generate an additional sequence of grouping matrices.
+These shifts are done between the blocks used to construct the submatrices. For the $n^{\text{th}}$ matrix in this sequence
+the $j^{\text{th}}$ column of the transposed matrix is circularly shifted $njb$ positions.
 
-For the first transposition step illustrated above (when $b = 2$) the second column of the matrix can be circularly shifted
-2 positions to generate a new grouping matrix.
+Taking the $4{\times}2$ example given in the description of submatrix transposition, an additional grouping matrix can be
+constructed by shifting columns of the matrix created by transposition with a block size of 2.
 
-![Grouping Matrix](../diagrams/column_shift/transpose_and_shift.svg)
-/// caption
-///
+<div style="display: flex; justify-content: center;">
+  <div style="width: 30%">
+    <figure markdown="span">
+      <p><img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_zero.svg"></p>
+      <figcaption>Before Transposition</figcaption>
+    </figure>
+  </div>
+
+  <div style="width: 30%">
+    <figure markdown="span">
+      <p><img alt="Transpiosition" src="../diagrams/column_shift/submatrix_one.svg"></p>
+      <figcaption>Transposition </br> $b = 2$</figcaption>
+    </figure>
+  </div>
+
+  <div style="width: 30%">
+    <figure markdown="span">
+      <p><img alt="Second Transpiosition" src="../diagrams/column_shift/transpose_and_shift.svg"></p>
+      <figcaption>Shifting Between Blocks</figcaption>
+    </figure>
+  </div>
+</div>
 
 The number of column shifts which can be applied to each transposed matrix depends on the number of blocks the matrix has
 been split into, $N = \frac{\alpha}{b}$, and the number of participants per group, $\beta$. The minimum number of shifts we can apply is given

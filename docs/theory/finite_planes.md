@@ -67,14 +67,27 @@ When $\beta < \alpha$ and $\alpha$ is a positive integer power of a prime, we ca
 plane of order $\alpha$ to construct grouping matrices.
 
 Associate each participant with a point in the plane $(x, y)$ where $x$ is taken from the first $\beta$ elements of
-$\mathbb{F}_{q}$ and $y \in \mathbb{F}_{q}$. $\alpha$ grouping matrices can then be constructed from the sets of lines
+$\mathbb{F}_{\alpha}$ and $y \in \mathbb{F}_{\alpha}$. $\alpha$ grouping matrices can then be constructed from the sets of lines
 satisfying the equation $y = mx + c$ by taking the first $\beta$ points from each line for each row.
 
-Because this method only uses the first $\beta$ elements of $\mathbb{F}_{q}$ for $x$ coordinates, it cannot readily use the
+Because this method only uses the first $\beta$ elements of $\mathbb{F}_{\alpha}$ for $x$ coordinates, it cannot readily use the
 vertical lines of the plane. Only $\beta$ vertical lines from the plane use this subset of $x$ coordinates which is
 insufficient for a full grouping matrix.
 
 #### Using the Vertical Lines
-Where $\alpha$ is an integer multiple of $\beta$ it should be possible to partition the vertical lines of the plane in such
-a way as to generate additional grouping matrices. Given that construction of the plan requires that $\alpha$ be a prime
-power $p^{k}$, this would require $\beta$ also be a power of the same prime $p^{m}$. 
+Where $\alpha$ is an integer multiple of $\beta$ we can partition the vertical lines of the plane in such a way as to
+generate additional grouping matrices. The columns of the grouping matrices constructed through truncation of lines in the
+finite affine plane correspond to the first $\beta$ vertical lines in that plane. As such, [submatrix
+transposition](submatrix_transposition) serves as a method of partitioning these vertical lines.
+
+Given that construction of the finite affine plane requires $\alpha$ be a prime power $p^{k}$, the divisibility of $\alpha$
+by $\beta$ implies that $\beta$, and the block size $b$ and number of blocks $N = \frac{\alpha}{b}$ in the [submatrix
+transposition sequence](submatrix_transposition#multiple-sets-of-submatrices), are also powers of the same prime. At steps
+for which $N \geq \beta$ the finite affine plane of order $N$ can be used to rearrange the vertical lines of
+$\mathbb{F}_{\alpha}$ to generate additional rounds after transposition.
+
+Construct $b$ matrices of size $N{\times}\beta$ by taking rows at the same position from each of the blocks used in
+submatrix transposition, e.g. the first of these matrices is formed by combining the first row of each block.
+The lines of $\mathbb{F}_{N}$ can then be applied to each of these matrices to define additional groups for subsequent
+rounds in our sequence of grouping matrices: a complete round being compiled from the groups constructed from each
+$N{\times}\beta$ matrix and the same set of parallel lines from $\mathbb{F}_{N}$.
