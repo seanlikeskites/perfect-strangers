@@ -39,7 +39,7 @@ shifted 1 position and that at position 2 is shifted 2 positions.
 At a minimum we can continue generating new matrices in this way until the element which started at the top of the rightmost
 column with index not coprime with $\alpha$ would circle back round to the top when undergoing another shift. The minimum
 number of shifts we can apply is given by $\left\lceil\frac{\alpha}{j}\right\rceil - 1$ where $j$ is the index of the
-rightmost column for which $\gcd(j, \alpha) = 1$. Including $\mathbf{G}^{(0)}$ this gives a total of
+rightmost column for which $\gcd(j, \alpha) > 1$. Including $\mathbf{G}^{(0)}$ this gives a total of
 $\left\lceil\frac{\alpha}{j}\right\rceil$ matrices in the sequence.
 
 ### Additional Shifts
@@ -106,7 +106,7 @@ constructed by shifting columns of the matrix created by transposition with a bl
 The number of column shifts which can be applied to each transposed matrix depends on the number of blocks the matrix has
 been split into, $N = \frac{\alpha}{b}$, and the number of participants per group, $\beta$. The minimum number of shifts we
 can apply is given by $\left\lceil\frac{N}{j}\right\rceil - 1$ where $j$ is the index of the rightmost column for which
-$\gcd(j, \alpha) = 1$. If $\beta$ is less than or equal to the least prime factor of $N$ we can apply $N - 1$ shifts.
+$\gcd(j, \alpha) > 1$. If $\beta$ is less than or equal to the least prime factor of $N$ we can apply $N - 1$ shifts.
 
 ## Optimal Cases
 Combining the various steps of column shifting and submatrix transposition described above, when $\beta$ is prime and
