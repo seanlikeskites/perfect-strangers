@@ -1,6 +1,6 @@
 # Create HTML table of maximum sequence lengths for various combinations of parameters
 # and compare to results given by Both et al. (2016).
-from perfect_strangers import LookupMatcher, create_matcher
+from perfect_strangers import LookupMatcher, RoundRobinMatcher, KirkmanTripleMatcher, FinitePlaneMatcher, ColumnShiftMatcher, create_matcher
 from perfect_strangers.util import sequence_length_upper_bound
 
 
@@ -14,7 +14,18 @@ def format_cell(data):
     elif data["uses_lookup"]:
         cell_class = "uses-lookup"
 
-    return f'<td class="{cell_class}">{data["sequence_length"]}</td>'
+    if data["method"] == RoundRobinMatcher:
+        link = "./theory/round_robin"
+    elif data["method"] == KirkmanTripleMatcher:
+        link = "./theory/kirkman"
+    elif data["method"] == FinitePlaneMatcher:
+        link = "./theory/finite_planes"
+    elif data["method"] == ColumnShiftMatcher:
+        link = "./theory/column_shift"
+    else:
+        link = "https://doi.org/10.1016/j.econlet.2016.06.028"
+
+    return f'<td class="{cell_class} benchmark-cell" onclick="location.href = \'{link}\';">{data["sequence_length"]}</td>'
 
 
 def format_row(row):
@@ -65,6 +76,7 @@ def create_benchmark_table():
                 "groups_per_round": groups_per_round,
                 "group_size": group_size,
                 "sequence_length": m.max_rounds,
+                "method": type(m),
                 "uses_lookup": type(m) is LookupMatcher,
                 "meets_benchmark": benchmark is not None and m.max_rounds >= benchmark.max_rounds and type(m) is not LookupMatcher,
                 "is_upper_bound": m.max_rounds == sequence_length_upper_bound(groups_per_round, group_size)

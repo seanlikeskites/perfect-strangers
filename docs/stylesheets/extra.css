@@ -32,10 +32,16 @@
 .data-table th {
   font-weight: bold;
   min-width: 2em;
+  vertical-align: middle;
 }
 
 .data-table td {
   min-width: 4em;
+  border: 2px solid transparent;
+}
+
+.data-table td:hover {
+  border: 2px solid;
 }
 
 th.vertical-title {

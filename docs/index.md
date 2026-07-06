@@ -13,4 +13,5 @@ participants and group sizes.
 
 Green cells indicate that this is a known optimal number of rounds. Orange cells indicate that a predefined set of groupings
 is used as published by [Both et al. (2016)](https://doi.org/10.1016/j.econlet.2016.06.028). Blue cells indicate an
-algorithmic approach which yields a number of rounds greater than or equal to that given by Both et al. (2016).
+algorithmic approach which yields a number of rounds greater than or equal to that given by Both et al. (2016). Clicking
+cells redirects to the documentation for the method used to achieve each result.
