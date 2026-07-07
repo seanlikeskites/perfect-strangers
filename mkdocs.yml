@@ -26,11 +26,13 @@ nav:
     - usage/license.md
   - Theory:
     - theory/overview.md
-    - theory/round_robin.md
-    - theory/kirkman.md
-    - theory/submatrix_transposition.md
-    - theory/finite_planes.md
-    - theory/column_shift.md
+    - theory/block_designs.md
+    - Construction Methods:
+      - theory/round_robin.md
+      - theory/kirkman.md
+      - theory/submatrix_transposition.md
+      - theory/finite_planes.md
+      - theory/column_shift.md
 
 theme:
   features:
