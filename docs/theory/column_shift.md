@@ -124,7 +124,7 @@ $\alpha$:
 
   * When $\alpha$ is prime the two methods are equivalent, as stated above.
   * When $\alpha$ is  positive integer power of a prime $p^{k}$ and $k > 1$ the finite affine plane construction will always
-    yield and equal or greater number of rounds.
+    yield an equal or greater number of rounds.
   * For other values no finite affine planes of order $\alpha$ are known. The column shift approach can still be used in
     these situations to construct a number of rounds as detailed above.
     
