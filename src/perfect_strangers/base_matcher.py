@@ -73,7 +73,7 @@ class BaseMatcher:
         """
         Get the groups for the next round.
 
-        :return: A list of participants groupings for the next round, or None if there a no more rounds possible.
+        :return: A list of participants groupings for the next round, or None if there are no more rounds possible.
         """
         if self.next_round >= self.max_rounds:
             return None
@@ -91,7 +91,7 @@ class BaseMatcher:
     @property
     def rounds(self) -> list[list[list]]:
         """
-        A list of participant groupings for all possible rounds constructed by this matcher.
+        A list of participant groupings for all rounds constructed by this matcher.
         """
         return [self.groups_for_round(i) for i in range(self.max_rounds)]
 
