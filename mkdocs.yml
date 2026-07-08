@@ -44,6 +44,7 @@ theme:
 markdown_extensions:
   - attr_list
   - pymdownx.blocks.caption
+  - pymdownx.caret
   - markdown.extensions.smarty
   - zensical.extensions.macros:
       module_name: docs/scripts/main

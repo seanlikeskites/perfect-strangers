@@ -1,7 +1,7 @@
 # Block Designs
 ## Introduction
 Solutions to the perfect stranger matching problem take the form of block designs. These are combinatorial structures made
-up of a set of "points" $X$ and a family of "blocks" (subsets of $X$) which satisfy some constraints. In their application
+up of a set of "points" $X$ and a collection of "blocks" (subsets of $X$) which satisfy some constraints. In their application
 to perfect stranger matching $X$ would be the set of all participants and the blocks the groups these participants are
 placed in. In the following discussion the following terms refer to these elements of an experiment:
 
@@ -30,21 +30,60 @@ number of parallel classes.
 ## Balanced Incomplete Block Designs (BIBDs)
 A balanced incomplete block design (BIBD) has parameters: $v$, $k$, and $\lambda$. Given a set $X$ of $v$ points, the design
 consists of blocks of $k$ points such that each unordered pair of points from $X$ appears in exactly $\lambda$ blocks. A
-BIBD for a given set of parameters is referred to as a ($v$, $k$, $\lambda$)-design.
+BIBD for a given set of parameters is referred to as a ($v$, $k$, $\lambda$)-BIBD. If the design is resolvable it is a ($v$,
+$k$, $\lambda$)-RBIBD.
 
-For perfect stranger matching applications we consider resolvable BIBDs for which:
+For perfect stranger matching applications we consider ($v$, $k$, $\lambda$)-RBIBDs for which:
 
   * $v = \alpha\beta$
   * $k = \beta$
   * $\lambda = 1$
 
-Setting $\lambda = 1$ ensures perfect stranger matching. If a resolvable ($\alpha\beta$, $\beta$, 1)-design exists for the
+Setting $\lambda = 1$ ensures perfect stranger matching. If an ($\alpha\beta$, $\beta$, 1)-RBIBD exists for the
 given experiment parameters, every participant will meet every other participant exactly once if all possible rounds are
 conducted. The maximum number of rounds is therefore equal to the [trivial upper bound](overview#trivial-upper-bound).
 
-For a resolvable ($v$, $k$, 1)-design to exist, $v$ must be divisible by $k$ and $v - 1$ must be divisible by $k - 1$. In
-terms of experiment parameters that means that $\frac{\alpha\beta - 1}{\beta - 1}$ must be an integer. This does not
-guarantee existence of the design however, for example a (36, 6, 1)-design does not exist.
+For a ($v$, $k$, 1)-RBIBD to exist, $v$ must be divisible by $k$ and $v - 1$ must be divisible by $k - 1$. In terms of
+experiment parameters that means that $\frac{\alpha\beta - 1}{\beta - 1}$ must be an integer. This does not guarantee
+existence of the design however, for example a (36, 6, 1)-RBIBD does not exist.
 
-A class of easily constructible resolvable BIBDs are the [finite affine planes](finite_planes). A resolvable ($k^{2}$, $k$,
-1)-design exists whenever the finite affine plane of order $k$ exists.
+A class of easily constructible RBIBDs are the [finite affine planes](finite_planes). A ($k^{2}$, $k$, 1)-RBIBD exists
+whenever the finite affine plane of order $k$ exists.
+
+## Group Divisible Designs
+Another type of block design is the Group Divisible Design (GDD). A GDD with parameters $v$, $J$, $K$, and $\lambda$ is a triple
+$\left(X, \mathcal{G}, \mathcal{B}\right)$ with the following properties:
+
+  * $X$ is set of $v$ points.
+  * $\mathcal{G}$ is a partition of $X$ into subsets called "groups" where $|G| \in J$ for all $G \in \mathcal{G}$.
+  * $\mathcal{B}$ is a collection of subsets of $X$ called "blocks" where $|B| \in K$ for all $B \in \mathcal{B}$ and every
+    unordered pair of points from different groups occurs in exactly $\lambda$ blocks.
+  * Any pair of a group and block intersects at at most one point.
+
+It is common to refer to a GDD with certain parameters as a ($K$, $\lambda$)-GDD of a certain type, where the type defines
+the number of groups of different sizes. Superscript notation is used to define the type:
+$g_{1}^{n_{1}},g_{2}^{n_{2}},\dots,g_{N}^{n_{N}}$ denoting a GDD with $n_{1}$ groups of size $g_{1}$, $n_{2}$ groups of size
+$g_{2}$, etc. The total number of points $v$ is therefore equal to the sum $\sum_{i=1}^{N} n_{i}g_{i}$.
+
+A resolvable GDD (RGDD) is one in which the blocks can be grouped into parallel classes. For the purposes of perfect
+stranger matching we will only consider RGDDs for which:
+
+  * All groups are of the same size.
+  * All blocks are of the same size.
+  * $\lambda = 1$
+
+We refer to such an RGDD as a ($k$, 1)-RGDD of type $g^{n}$: an RGDD with $n$ groups of size $g$ and blocks of size $k$.
+
+A ($v$, $k$, 1)-RBIBD can be considered a ($k$, 1)-RGDD of type $k^{v/k}$. One of the parallel classes of the RBIBD form the
+groups of the RGDD.
+
+RGGDs can be useful in situations where the number of participants and group size do not allow a participant to meet all
+other participants over the course of an experiment. Take the [social golfer
+problem](https://en.wikipedia.org/wiki/Social_golfer_problem) as an example. This is a special case of perfect stranger
+matching where $\alpha = 8$ and $\beta = 4$. With 32 total participants this means there are 31 others each individual could
+be matched with. 10 rounds are possible in which each individual will match with 3 other participants they have not met
+before. This means each individual will match with 30 others over the course of the experiment and never meet the final
+participant. A [(4, 1)-RGDD of type 2^16^](https://www.mathpuzzle.com/MAA/54-Golf%20Tournaments/socgolf1.pdf) provides a
+solution to the social golfer problem, the groups of size 2 giving the pairs of participants who never meet. **N.B. this
+construction is yet to be implemented in the perfect-strangers package.**
+
