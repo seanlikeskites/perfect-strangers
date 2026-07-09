@@ -1,10 +1,11 @@
 # Kirkman Triple Matching
-Perfect stranger matching for a group size of three is related to the construction of [Kirkman triple
-systems](https://en.wikipedia.org/wiki/Kirkman%27s_schoolgirl_problem). It was shown by [Ray-Chaudhuri and Wilson
+A Kirkman Triple System is a <a style="text-decoration: none;"
+href="./block_designs#balanced-incomplete-block-designs">$\left(v, 3, 1\right)$-$\mathrm{RBIBD}$ </a> named for [Kirkman's
+schoolgirl problem](https://en.wikipedia.org/wiki/Kirkman%27s_schoolgirl_problem): a special case of perfect stranger
+matching where $\alpha = 5$ and $\beta = 3$. It was shown by [Ray-Chaudhuri and Wilson
 (1971)](https://doi.org/10.1090%2Fpspum%2F019%2F9959) that such systems are constructible where the total number of elements
-is an odd multiple of 3. This is equivalent to saying that $l_{\max}(\alpha, \beta)$ is equal to the [trivial upper
-bound](./overview.md#trivial-upper-bound) when $\beta = 3$ and $\alpha$ is odd.
-
+is an odd multiple of 3. This is equivalent to saying that $l_{\max}(\alpha, 3)$ is equal to the [trivial upper
+bound](./overview.md#trivial-upper-bound) when $\alpha$ is odd.
 
 ## Constructions
 Ray-Chaudhuri and Wilson (1971) detail several theorems which can be used to construct Kirkman triple systems for different

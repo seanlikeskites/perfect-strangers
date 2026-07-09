@@ -1,3 +1,7 @@
+---
+render_macros: true
+---
+
 # perfect-strangers
 Construction routines for perfect stranger matching in behavioural studies.
 

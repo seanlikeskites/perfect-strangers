@@ -17,6 +17,10 @@ def sequence_length_upper_bound(groups_per_round: int, group_size: int) -> int:
     if groups_per_round < group_size:
         return 1
 
+    # (3, 1)-RGGD of type 2^6 does not exist.
+    if groups_per_round == 4 and group_size == 3:
+        return 4
+
     return (groups_per_round * group_size - 1) // (group_size - 1)
 
 
