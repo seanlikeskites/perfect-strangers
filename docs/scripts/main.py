@@ -1,6 +1,14 @@
 # Create HTML table of maximum sequence lengths for various combinations of parameters
 # and compare to results given by Both et al. (2016).
-from perfect_strangers import LookupMatcher, RoundRobinMatcher, KirkmanTripleMatcher, FinitePlaneMatcher, ColumnShiftMatcher, create_matcher
+from perfect_strangers import (
+    ColumnShiftMatcher,
+    FinitePlaneMatcher,
+    KirkmanTripleMatcher,
+    LookupMatcher,
+    NearlyKirkmanTripleMatcher,
+    RoundRobinMatcher,
+    create_matcher,
+)
 from perfect_strangers.util import sequence_length_upper_bound
 
 
@@ -18,6 +26,8 @@ def format_cell(data):
         link = "./theory/round_robin"
     elif data["method"] == KirkmanTripleMatcher:
         link = "./theory/kirkman"
+    elif data["method"] == NearlyKirkmanTripleMatcher:
+        link = "https://doi.org/10.1002/jcd.21342"
     elif data["method"] == FinitePlaneMatcher:
         link = "./theory/finite_planes"
     elif data["method"] == ColumnShiftMatcher:

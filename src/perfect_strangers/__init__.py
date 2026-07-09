@@ -8,6 +8,7 @@ from perfect_strangers.column_shift_matcher import ColumnShiftMatcher
 from perfect_strangers.finite_plane_matcher import FinitePlaneMatcher, use_finite_plane_construction
 from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
 from perfect_strangers.lookup_matcher import LookupMatcher
+from perfect_strangers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
 from perfect_strangers.round_robin_matcher import RoundRobinMatcher
 
 __all__ = ("__version__", "create_matcher")
@@ -31,7 +32,10 @@ def create_matcher(groups_per_round: int, group_size: int, participant_labels: P
     if group_size == 2:
         algo_matcher = RoundRobinMatcher(groups_per_round, participant_labels)
     elif group_size == 3:
-        algo_matcher = KirkmanTripleMatcher.create_matcher(groups_per_round, participant_labels)
+        if groups_per_round % 2:
+            algo_matcher = KirkmanTripleMatcher.create_matcher(groups_per_round, participant_labels)
+        else:
+            algo_matcher = NearlyKirkmanTripleMatcher.create_matcher(groups_per_round, participant_labels)
 
     # Try finite plane construction.
     if algo_matcher is None and use_finite_plane_construction(groups_per_round, group_size):

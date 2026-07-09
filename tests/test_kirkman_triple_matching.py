@@ -9,7 +9,7 @@ from perfect_strangers.util import sequence_length_upper_bound
 from tests.matcher_validation import validate_matcher
 
 
-@pytest.mark.parametrize("groups_per_round", range(2, 31))
+@pytest.mark.parametrize("groups_per_round", range(3, 31, 2))
 def test_kirkman(groups_per_round):
     matcher = KirkmanTripleMatcher.create_matcher(groups_per_round)
 

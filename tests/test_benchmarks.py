@@ -9,6 +9,7 @@ from perfect_strangers.column_shift_matcher import ColumnShiftMatcher
 from perfect_strangers.finite_plane_matcher import FinitePlaneMatcher
 from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
 from perfect_strangers.lookup_matcher import LookupMatcher
+from perfect_strangers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
 from perfect_strangers.round_robin_matcher import RoundRobinMatcher
 from tests.matcher_validation import validate_matcher
 
@@ -33,7 +34,10 @@ def test_benchmarks(groups_per_round, group_size):
             algorithms.append(RoundRobinMatcher(groups_per_round))
 
         case 3:
-            algorithms.append(KirkmanTripleMatcher.create_matcher(groups_per_round))
+            if groups_per_round % 2:
+                algorithms.append(KirkmanTripleMatcher.create_matcher(groups_per_round))
+            else:
+                algorithms.append(NearlyKirkmanTripleMatcher.create_matcher(groups_per_round))
 
     assert matcher.max_rounds == max(a.max_rounds for a in algorithms if a is not None)
 
