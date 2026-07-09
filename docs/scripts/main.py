@@ -27,7 +27,7 @@ def format_cell(data):
     elif data["method"] == KirkmanTripleMatcher:
         link = "./theory/kirkman"
     elif data["method"] == NearlyKirkmanTripleMatcher:
-        link = "https://doi.org/10.1002/jcd.21342"
+        link = "./theory/nearly_kirkman"
     elif data["method"] == FinitePlaneMatcher:
         link = "./theory/finite_planes"
     elif data["method"] == ColumnShiftMatcher:
