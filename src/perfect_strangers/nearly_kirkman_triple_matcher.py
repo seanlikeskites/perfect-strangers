@@ -53,6 +53,6 @@ class NearlyKirkmanTripleMatcher(BaseMatcher):
             starting_groups = json.loads(f.read())
 
         try:
-            return NearlyKirkmanTripleMatcher(starting_groups[str(groups_per_round * 3)], participant_labels)
+            return cls(starting_groups[str(groups_per_round * 3)], participant_labels)
         except KeyError:
             return None

@@ -32,6 +32,6 @@ class LookupMatcher(BaseMatcher):
             grouping_data = json.loads(f.read())
 
         try:
-            return LookupMatcher(grouping_data[str(groups_per_round)][str(group_size)], participant_labels)
+            return cls(grouping_data[str(groups_per_round)][str(group_size)], participant_labels)
         except KeyError:
             return None

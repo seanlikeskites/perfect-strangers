@@ -59,6 +59,6 @@ class FinitePlaneMatcher(BaseMatcher):
     @classmethod
     def create_matcher(cls, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
         if galois.is_prime_power(groups_per_round) and group_size <= groups_per_round:
-            return FinitePlaneMatcher(groups_per_round, group_size, participant_labels)
+            return cls(groups_per_round, group_size, participant_labels)
 
         return None

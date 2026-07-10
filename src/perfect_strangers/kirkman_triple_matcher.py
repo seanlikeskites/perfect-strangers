@@ -164,6 +164,6 @@ class KirkmanTripleMatcher(BaseMatcher):
 
             if params is not None:
                 t, q = params
-                return KirkmanTripleMatcher(groups_per_round, t, q, round_generator, participant_labels)
+                return cls(groups_per_round, t, q, round_generator, participant_labels)
 
         return None
