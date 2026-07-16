@@ -1,14 +1,12 @@
 # Create HTML table of maximum sequence lengths for various combinations of parameters
 # and compare to results given by Both et al. (2016).
-from perfect_strangers import (
-    ColumnShiftMatcher,
-    FinitePlaneMatcher,
-    KirkmanTripleMatcher,
-    LookupMatcher,
-    NearlyKirkmanTripleMatcher,
-    RoundRobinMatcher,
-    create_matcher,
-)
+from perfect_strangers import create_matcher
+from perfect_strangers.column_shift_matcher import ColumnShiftMatcher
+from perfect_strangers.finite_plane_matcher import FinitePlaneMatcher
+from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
+from perfect_strangers.lookup_matcher import LookupMatcher
+from perfect_strangers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
+from perfect_strangers.round_robin_matcher import RoundRobinMatcher
 from perfect_strangers.util import sequence_length_upper_bound
 
 

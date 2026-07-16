@@ -11,6 +11,7 @@ from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
 from perfect_strangers.lookup_matcher import LookupMatcher
 from perfect_strangers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
 from perfect_strangers.round_robin_matcher import RoundRobinMatcher
+from perfect_strangers.sub_bibd_matcher import SubBIBDMatcher
 from tests.matcher_validation import validate_matcher
 
 
@@ -26,7 +27,8 @@ def test_benchmarks(groups_per_round, group_size):
     algorithms = [
         ColumnShiftMatcher(groups_per_round, group_size),
         LookupMatcher.create_matcher(groups_per_round, group_size),
-        FinitePlaneMatcher.create_matcher(groups_per_round, group_size)
+        FinitePlaneMatcher.create_matcher(groups_per_round, group_size),
+        SubBIBDMatcher.create_matcher(groups_per_round, group_size, [])
     ]
 
     match group_size:

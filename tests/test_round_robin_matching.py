@@ -4,7 +4,7 @@
 
 import pytest
 
-from perfect_strangers import RoundRobinMatcher
+from perfect_strangers.round_robin_matcher import RoundRobinMatcher
 from perfect_strangers.util import sequence_length_upper_bound
 from tests.matcher_validation import validate_matcher
 

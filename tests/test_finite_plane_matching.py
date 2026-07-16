@@ -4,7 +4,7 @@
 
 import pytest
 
-from perfect_strangers import FinitePlaneMatcher
+from perfect_strangers.finite_plane_matcher import FinitePlaneMatcher
 from tests.matcher_validation import validate_matcher
 
 
