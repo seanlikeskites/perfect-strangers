@@ -11,7 +11,8 @@ from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, Round
 
 def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
     # Constructing resolvable orthogonal arrays is a whole problem in itself.
-    # For now, hard coding a solution for 11 groups of 3 participants.
+    # For now, hard coding a solution for the following values.
+    # This will allow for construction using Theorem 4 where m=4 and v2=1.
     if m == 3 and n == 4 and d == 2 and lambd == 1:
         return [
             [
