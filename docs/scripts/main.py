@@ -7,6 +7,7 @@ from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
 from perfect_strangers.lookup_matcher import LookupMatcher
 from perfect_strangers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
 from perfect_strangers.round_robin_matcher import RoundRobinMatcher
+from perfect_strangers.sub_bibd_matcher import SubBIBDMatcher
 from perfect_strangers.util import sequence_length_upper_bound
 
 
@@ -28,6 +29,8 @@ def format_cell(data):
         link = "./theory/nearly_kirkman"
     elif data["method"] == FinitePlaneMatcher:
         link = "./theory/finite_planes"
+    elif data["method"] == SubBIBDMatcher:
+        link = "./theory/kirkman"
     elif data["method"] == ColumnShiftMatcher:
         link = "./theory/column_shift"
     else:
