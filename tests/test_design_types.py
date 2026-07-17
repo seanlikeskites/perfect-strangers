@@ -13,11 +13,11 @@ from perfect_strangers.util import sequence_length_upper_bound
 @pytest.mark.parametrize("groups_per_round", range(2, 28))
 def test_design_types(groups_per_round, group_size):
     matcher = create_matcher(groups_per_round, group_size)
-    design_type = type(matcher.design_type())
+    design_type = matcher.design_type()
     upper_bound = sequence_length_upper_bound(groups_per_round, group_size)
 
-    if design_type in (RBIBDType, RGDDType):
+    if isinstance(design_type, (RBIBDType, RGDDType)):
         assert matcher.max_rounds == upper_bound
-    elif design_type == RTDType:
+    elif isinstance(design_type, RTDType):
         assert matcher.max_rounds == groups_per_round
 

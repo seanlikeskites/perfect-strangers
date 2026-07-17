@@ -44,9 +44,6 @@ def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
 
     return None
 
-def _is_bibd(matcher: BaseMatcher):
-    return matcher.max_rounds == (matcher.n_participants - 1) / (matcher.group_size - 1)
-
 def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: list[tuple[int, int]]):
     """
     Create elements necessary for construction according using Theorem 4 from Ray-Chaudhuri and Wilson (1971).
@@ -71,12 +68,12 @@ def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: li
 
     B = matcher_factory(v1 // k, k, tried_sub_bibds=tried_sub_bibds)
 
-    if not _is_bibd(B):
+    if not isinstance(B.design_type(), RBIBDType):
         return None
 
     S = matcher_factory(S_size // k, k, tried_sub_bibds=tried_sub_bibds)
 
-    if not _is_bibd(S):
+    if not isinstance(S.design_type(), RBIBDType):
         return None
 
     roa = _resolvable_orthogonal_array(k, m, 2, 1)
