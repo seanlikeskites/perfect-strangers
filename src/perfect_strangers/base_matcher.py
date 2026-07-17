@@ -55,7 +55,7 @@ class BaseMatcher:
         self._group_matrices = [np.array(g) for g in round_sequence]
 
         if not self.validate_rounds():
-            "Provided round sequence incorrect."
+            error = "Provided round sequence incorrect."
             raise ValueError(error)
 
     def _from_experiment_parameters(self, groups_per_round: int, group_size: int):
