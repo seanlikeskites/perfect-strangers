@@ -9,11 +9,11 @@ from collections.abc import Callable
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
+from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
 from perfect_strangers.util import finite_field_elements
 
 ParameterFuncReturn = tuple[int, int] | None
-RoundGenerator = Callable[[int, int], RoundSequence]
+RoundGenerator = Callable[[int, int], NumpyRounds]
 
 #######################################################################
 # Theorem 5 from Ray-Chaudhuri and Wilson (1971):
@@ -36,7 +36,7 @@ def _get_t_from_q(q: int) -> ParameterFuncReturn:
 def _three_q_params(groups_per_round: int) -> ParameterFuncReturn:
     return _get_t_from_q(groups_per_round)
 
-def _three_q_rounds(t: int, q: int) -> RoundSequence:
+def _three_q_rounds(t: int, q: int) -> NumpyRounds:
     labels = np.arange(3 * q).reshape(q, 3)
     field_elements, g = finite_field_elements(q)
 
@@ -90,7 +90,7 @@ def _two_q_less_one_params(groups_per_round: int) -> ParameterFuncReturn:
 
     return _get_t_from_q(q)
 
-def _two_q_less_one_rounds(t: int, q: int) -> RoundSequence:
+def _two_q_less_one_rounds(t: int, q: int) -> NumpyRounds:
     groups_per_round = (2 * q + 1) // 3
     labels = np.arange(2 * q).reshape(q, 2)
     inf = 2 * q
@@ -147,7 +147,7 @@ class KirkmanTripleMatcher(BaseMatcher):
         self.q = q
         self.round_generator = round_generator
 
-        super().__init__(groups_per_round, 3, participant_labels)
+        super().__init__(groups_per_round, 3, participant_labels=participant_labels)
 
     def _generate_rounds(self):
         self._group_matrices = self.round_generator(self.t, self.q)

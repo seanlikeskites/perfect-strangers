@@ -9,11 +9,11 @@ import math
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
+from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
 from perfect_strangers.util import least_prime_factor, submatrix_transpositions
 
 
-def _apply_sequential_shifts(base_matrix: np.typing.NDArray, n_shifts: int, stride: int) -> RoundSequence:
+def _apply_sequential_shifts(base_matrix: np.typing.NDArray, n_shifts: int, stride: int) -> NumpyRounds:
     shifts = []
     group_size = base_matrix.shape[1]
 
@@ -25,7 +25,7 @@ def _apply_sequential_shifts(base_matrix: np.typing.NDArray, n_shifts: int, stri
 
     return shifts
 
-def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> RoundSequence:
+def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> NumpyRounds:
     g = base_matrix.copy()
     n_blocks = g.shape[0] // stride
     group_size = g.shape[1]
@@ -56,7 +56,7 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> RoundSequence
 
 class ColumnShiftMatcher(BaseMatcher):
     def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
-        super().__init__(groups_per_round, group_size, participant_labels)
+        super().__init__(groups_per_round, group_size, participant_labels=participant_labels)
 
     def _generate_rounds(self):
         # Apply initial column shifts.

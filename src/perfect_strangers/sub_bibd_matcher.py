@@ -6,7 +6,7 @@ import math
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundGroups
+from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
 
 
 def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
@@ -96,7 +96,7 @@ class SubBIBDMatcher(BaseMatcher):
     """
     Theorem 4 from Ray-Chaudhuri and Wilson (1971).
     """
-    def __init__(self, v1: int, v2: int, m: int, B: list[RoundGroups], S: list[RoundGroups], roa, participant_labels: ParticipantLabels=None):
+    def __init__(self, v1: int, v2: int, m: int, B: RoundSequence, S: RoundSequence, roa, participant_labels: ParticipantLabels=None):
         self._v1 = v1
         self._v2 = v2
         self._m = m
@@ -107,7 +107,7 @@ class SubBIBDMatcher(BaseMatcher):
         group_size = len(B[0][0])
         groups_per_round = (m * (v1 - 1) + v2) // group_size
 
-        super().__init__(groups_per_round, group_size, participant_labels)
+        super().__init__(groups_per_round, group_size, participant_labels=participant_labels)
 
     def _participant_id_from_treatment(self, x: int, i: int):
         """

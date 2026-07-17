@@ -5,7 +5,7 @@
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
+from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
 from perfect_strangers.util import finite_field_elements, least_prime_factor, submatrix_transpositions
 
 
@@ -18,7 +18,7 @@ def use_finite_plane_construction(groups_per_round: int, group_size: int) -> boo
 
     return prime_power_test and group_size_upper_bound and group_size_lower_bound
 
-def _match_on_finite_plane(participants: np.typing.NDArray, stride: int=1) -> RoundSequence:
+def _match_on_finite_plane(participants: np.typing.NDArray, stride: int=1) -> NumpyRounds:
     n_blocks = participants.shape[0] // stride
     group_size = participants.shape[1]
 
@@ -43,7 +43,7 @@ def _match_on_finite_plane(participants: np.typing.NDArray, stride: int=1) -> Ro
 
 class FinitePlaneMatcher(BaseMatcher):
     def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
-        super().__init__(groups_per_round, group_size, participant_labels)
+        super().__init__(groups_per_round, group_size, participant_labels=participant_labels)
 
     def _generate_rounds(self):
         participants = self._group_matrices[0].copy()

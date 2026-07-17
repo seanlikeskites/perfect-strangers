@@ -11,9 +11,10 @@ import numpy as np
 
 from perfect_strangers.util import is_round_pair_valid, is_round_valid
 
-RoundSequence = Sequence[np.typing.NDArray]
-RoundGroups = list[list]
-ParticipantLabels = list | None
+GroupingMatrix = Sequence[Sequence]
+RoundSequence = Sequence[GroupingMatrix]
+NumpyRounds = Sequence[np.typing.NDArray]
+ParticipantLabels = Sequence | None
 
 class IncorrectParticipantLabelsError(Exception):
     def __init__(self, n_participants, n_labels):
@@ -27,13 +28,40 @@ class BaseMatcher:
     """
     Base class for all group matching methods.
     """
-    def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels):
+    def __init__(self,
+                 groups_per_round: int | None=None,
+                 group_size: int | None=None,
+                 round_sequence: RoundSequence | None=None,
+                 participant_labels: ParticipantLabels=None):
+        if round_sequence is not None:
+            self._from_round_sequence(round_sequence)
+        elif groups_per_round is not None and group_size is not None:
+            self._from_experiment_parameters(groups_per_round, group_size)
+        else:
+            error = "Construction of BaseMatcher requires either experiment parameters or a round_sequnce."
+            raise TypeError(error)
+
+        self._participant_labels = participant_labels
+        self._validate_participant_labels()
+
+        self.shuffle_sequence()
+
+    def _from_round_sequence(self, round_sequence: RoundSequence):
+        self.groups_per_round = len(round_sequence[0])
+        self.group_size = len(round_sequence[0][0])
+
+        self.n_participants = self.groups_per_round * self.group_size
+
+        self._group_matrices = [np.array(g) for g in round_sequence]
+
+        if not self.validate_rounds():
+            "Provided round sequence incorrect."
+            raise ValueError(error)
+
+    def _from_experiment_parameters(self, groups_per_round: int, group_size: int):
         self.groups_per_round = groups_per_round
         self.group_size = group_size
-        self.n_participants = groups_per_round * group_size
-        self._participant_labels = participant_labels
-
-        self._validate_participant_labels()
+        self.n_participants = self.groups_per_round * self.group_size
 
         self._group_matrices = [
             np.arange(self.n_participants).reshape(self.groups_per_round, self.group_size)
@@ -42,8 +70,6 @@ class BaseMatcher:
         if groups_per_round >= group_size:
             self._generate_rounds()
 
-        self.shuffle_sequence()
-
     @property
     def max_rounds(self) -> int:
         """
@@ -51,7 +77,7 @@ class BaseMatcher:
         """
         return len(self._group_matrices)
 
-    def groups_for_round(self, round_index: int) -> RoundGroups:
+    def groups_for_round(self, round_index: int) -> GroupingMatrix:
         """
         Get the groups for the round with a given index.
 
@@ -69,7 +95,7 @@ class BaseMatcher:
 
         return g
 
-    def groups_for_next_round(self) -> RoundGroups | None:
+    def groups_for_next_round(self) -> GroupingMatrix | None:
         """
         Get the groups for the next round.
 
@@ -89,7 +115,7 @@ class BaseMatcher:
         self.next_round = 0
 
     @property
-    def rounds(self) -> list[list[list]]:
+    def rounds(self) -> RoundSequence:
         """
         A list of participant groupings for all rounds constructed by this matcher.
         """
@@ -150,3 +176,4 @@ class BaseMatcher:
 
             if len(set(self._participant_labels)) != self.n_participants:
                 raise NonUniqueParticipantLabelsError(self.n_participants, len(set(self._participant_labels)))
+

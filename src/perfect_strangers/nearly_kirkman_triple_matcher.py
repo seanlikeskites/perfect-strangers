@@ -20,7 +20,7 @@ class NearlyKirkmanTripleMatcher(BaseMatcher):
     def __init__(self, starters: list[list], participant_labels: ParticipantLabels=None):
         self.starters = starters
 
-        super().__init__(len(starters), 3, participant_labels)
+        super().__init__(len(starters), 3, participant_labels=participant_labels)
 
     def _shift_group_member(self, participant: int, round_index: int) -> int:
         mod = self.n_participants - 2

@@ -10,9 +10,9 @@ from perfect_strangers.base_matcher import IncorrectParticipantLabelsError, NonU
 
 @pytest.mark.parametrize("group_size", range(2, 7))
 @pytest.mark.parametrize("groups_per_round", range(2, 14))
-def test_benchmarks(groups_per_round, group_size):
+def test_participant_labels(groups_per_round, group_size):
     participant_labels = [i + 10 for i in range(groups_per_round * group_size)]
-    matcher = create_matcher(groups_per_round, group_size, participant_labels)
+    matcher = create_matcher(groups_per_round, group_size, participant_labels=participant_labels)
     groups = matcher.groups_for_next_round()
 
     assert {label for row in groups for label in row} == set(participant_labels)

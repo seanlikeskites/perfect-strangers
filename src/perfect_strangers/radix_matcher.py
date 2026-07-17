@@ -47,7 +47,7 @@ def _make_group(group_size: int, first_member: int, increment: int) -> list[int]
 class RadixMatcher(BaseMatcher):
     def __init__(self, group_size: int, exponent: int, participant_labels: ParticipantLabels=None):
         self.exponent = exponent
-        super().__init__(group_size ** (exponent - 1), group_size, participant_labels)
+        super().__init__(group_size ** (exponent - 1), group_size, participant_labels=participant_labels)
 
     def _generate_rounds(self):
         participants = set(range(self.n_participants))

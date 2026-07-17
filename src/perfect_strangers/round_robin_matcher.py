@@ -10,7 +10,7 @@ from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
 class RoundRobinMatcher(BaseMatcher):
     def __init__(self, groups_per_round: int, participant_labels: ParticipantLabels=None):
         # Round robin matching works with a group size of 2.
-        super().__init__(groups_per_round, 2, participant_labels)
+        super().__init__(groups_per_round, 2, participant_labels=participant_labels)
 
     def _generate_rounds(self):
         def _rotate_groups(g):
