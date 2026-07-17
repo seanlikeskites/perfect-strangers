@@ -9,6 +9,7 @@ from random import shuffle
 
 import numpy as np
 
+from perfect_strangers.design_types import DesignType, PartialType, RBIBDType, RGDDType
 from perfect_strangers.util import is_round_pair_valid, is_round_valid
 
 GroupingMatrix = Sequence[Sequence]
@@ -52,7 +53,17 @@ class BaseMatcher:
 
         self.n_participants = self.groups_per_round * self.group_size
 
-        self._group_matrices = [np.array(g) for g in round_sequence]
+        participants = {
+            participant: ID
+            for ID, participant in enumerate(sorted({p for r in round_sequence for g in r for p in g}))
+        }
+
+        self._group_matrices = [
+            np.array([
+                [participants[p] for p in r]
+                for r in g
+            ]) for g in round_sequence
+        ]
 
         if not self.validate_rounds():
             error = "Provided round sequence incorrect."
@@ -152,6 +163,36 @@ class BaseMatcher:
 
         self._group_matrices.append(g)
         return True
+
+    def sub_matcher(self, groups_per_round: int) -> BaseMatcher | None:
+        if groups_per_round == 1:
+            group = self.groups_for_round(0)[0]
+            return BaseMatcher(round_sequence=[[group]], participant_labels=group)
+
+        return None
+
+    def _design_type(self) -> DesignType | None:
+        return None
+
+    def design_type(self) -> DesignType:
+        subclass_type = self._design_type()
+
+        if subclass_type is not None:
+            return subclass_type
+
+        numerator = self.n_participants - 1
+        denominator = self.group_size - 1
+        quotient = numerator // denominator
+        remainder = numerator % denominator
+
+        if self.max_rounds == quotient:
+            if remainder == 0:
+                return RBIBDType(self.n_participants, self.group_size)
+
+            group_size = remainder + 1
+            return RGDDType(self.group_size, remainder + 1, self.n_participants // group_size)
+
+        return PartialType()
 
     def validate_rounds(self) -> bool:
         for i, current_round in enumerate(self._group_matrices):

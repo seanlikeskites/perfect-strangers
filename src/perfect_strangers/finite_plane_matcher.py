@@ -6,6 +6,7 @@ import galois
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
+from perfect_strangers.design_types import DesignType, RTDType
 from perfect_strangers.util import finite_field_elements, least_prime_factor, submatrix_transpositions
 
 
@@ -53,8 +54,16 @@ class FinitePlaneMatcher(BaseMatcher):
         # For square matrices, transposition is equivalent to using the vertical lines of the finite plane.
         transpositions = submatrix_transpositions(participants)
 
+        self._performed_transposition = len(transpositions) > 0
+
         for t, s in transpositions:
             self._group_matrices += _match_on_finite_plane(t, s)
+
+    def _design_type(self) -> DesignType | None:
+        if not self._performed_transposition:
+            return RTDType(self.group_size, self.groups_per_round)
+
+        return None
 
     @classmethod
     def create_matcher(cls, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):

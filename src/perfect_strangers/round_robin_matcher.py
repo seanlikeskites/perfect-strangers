@@ -5,6 +5,7 @@
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
+from perfect_strangers.design_types import DesignType, RBIBDType
 
 
 class RoundRobinMatcher(BaseMatcher):
@@ -22,3 +23,6 @@ class RoundRobinMatcher(BaseMatcher):
 
         for _ in range(self.n_participants - 2):
             self._group_matrices.append(_rotate_groups(self._group_matrices[-1]))
+
+    def _design_type(self) -> DesignType:
+        return RBIBDType(self.n_participants, 2)

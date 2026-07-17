@@ -10,6 +10,7 @@ import galois
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
+from perfect_strangers.design_types import DesignType, RTDType
 from perfect_strangers.util import least_prime_factor, submatrix_transpositions
 
 
@@ -56,6 +57,8 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> NumpyRounds:
 
 class ColumnShiftMatcher(BaseMatcher):
     def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
+        self._performed_transposition = False
+
         super().__init__(groups_per_round, group_size, participant_labels=participant_labels)
 
     def _generate_rounds(self):
@@ -65,7 +68,14 @@ class ColumnShiftMatcher(BaseMatcher):
         # Apply submatrix transposition.
         transpositions = submatrix_transpositions(self._group_matrices[0])
 
+        self._performed_transposition = len(transpositions) > 0
+
         for t, stride in transpositions:
             self._group_matrices.append(t)
             self._group_matrices += _shift_columns(t, stride)
 
+    def _design_type(self) -> DesignType | None:
+        if not self._performed_transposition and self.max_rounds == self.groups_per_round:
+            return RTDType(self.group_size, self.groups_per_round)
+
+        return None

@@ -10,6 +10,7 @@ import json
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
+from perfect_strangers.design_types import DesignType, RGDDType
 
 
 #######################################################################
@@ -46,6 +47,9 @@ class NearlyKirkmanTripleMatcher(BaseMatcher):
 
         for round_index in range(n_rounds):
             self._group_matrices.append(self._round_groups(round_index))
+
+    def _design_type(self) -> DesignType:
+        return RGDDType(3, 2, self.n_participants // 2)
 
     @classmethod
     def create_matcher(cls, groups_per_round: int, participant_labels: ParticipantLabels=None):

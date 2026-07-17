@@ -7,6 +7,7 @@ import math
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
+from perfect_strangers.design_types import DesignType, RBIBDType
 
 
 def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
@@ -167,6 +168,8 @@ class SubBIBDMatcher(BaseMatcher):
 
         self._group_matrices = rounds
 
+    def _design_type(self) -> DesignType:
+        return RBIBDType(self.n_participants, self.group_size)
 
     @classmethod
     def create_matcher(cls,

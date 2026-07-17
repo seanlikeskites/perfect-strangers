@@ -10,6 +10,7 @@ import galois
 import numpy as np
 
 from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
+from perfect_strangers.design_types import DesignType, RBIBDType
 from perfect_strangers.util import finite_field_elements
 
 ParameterFuncReturn = tuple[int, int] | None
@@ -151,6 +152,9 @@ class KirkmanTripleMatcher(BaseMatcher):
 
     def _generate_rounds(self):
         self._group_matrices = self.round_generator(self.t, self.q)
+
+    def _design_type(self) -> DesignType:
+        return RBIBDType(self.n_participants, 3)
 
     @classmethod
     def create_matcher(cls, groups_per_round: int, participant_labels: ParticipantLabels=None):
