@@ -71,7 +71,7 @@ def create_table(data):
 
 
 def create_benchmark_table():
-    num_groups_range = range(2, 14)
+    num_groups_range = range(2, 21)
     group_size_range = range(2, 7)
 
     sequence_lengths = []

@@ -9,7 +9,7 @@ from perfect_strangers.util import sequence_length_upper_bound
 from tests.matcher_validation import validate_matcher
 
 
-@pytest.mark.parametrize("groups_per_round", [11, 19, 27])
+@pytest.mark.parametrize("groups_per_round", [11, 15, 19, 21, 27])
 def test_sub_bibd(groups_per_round):
     matcher = SubBIBDMatcher.create_matcher(groups_per_round, 3, [])
 

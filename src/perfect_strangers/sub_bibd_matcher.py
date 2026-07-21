@@ -6,14 +6,31 @@ import math
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
+from perfect_strangers.base_matcher import BaseMatcher, GroupingMatrix, ParticipantLabels, RoundSequence
 from perfect_strangers.design_types import DesignType, RBIBDType
 
 
 def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
     # Constructing resolvable orthogonal arrays is a whole problem in itself.
-    # For now, hard coding a solution for the following values.
-    # This will allow for construction using Theorem 4 where m=4 and v2=1.
+    # For now, hard coding solutions for the following values.
+    if m == 3 and n == 3 and d == 2 and lambd == 1:
+        return [
+            [
+                [0, 0, 0],
+                [1, 1, 2],
+                [2, 2, 1]
+            ],
+            [
+                [0, 1, 1],
+                [1, 2, 0],
+                [2, 0, 2]
+            ],
+            [
+                [0, 2, 2],
+                [1, 0, 1],
+                [2, 1, 0]
+            ]
+        ]
     if m == 3 and n == 4 and d == 2 and lambd == 1:
         return [
             [
@@ -44,16 +61,74 @@ def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
 
     return None
 
+def _to_sets(r: GroupingMatrix):
+    return {frozenset(g) for g in r}
+
+def _to_lists(r: GroupingMatrix):
+    return [list(g) for g in r]
+
+def _subtract_S_prime(S_j: GroupingMatrix, S_prime: RoundSequence):
+    S_j_set = _to_sets(S_j)
+
+    for S_j_prime in S_prime:
+        S_j_prime_set = _to_sets(S_j_prime)
+
+        if S_j_prime_set <= S_j_set:
+            return _to_lists(S_j_prime_set), _to_lists(S_j_set - S_j_prime_set)
+
+    return None, None
+
+def _process_sub_bibd(S: BaseMatcher, v2: int, k: int):
+    S_prime: RoundSequence
+    S_star: RoundSequence
+    S_extra: RoundSequence
+
+    if v2 > 1:
+        # Get SubBIBD
+        sub_S = S.sub_matcher(v2 // k)
+
+        if sub_S is None or not isinstance(sub_S.design_type(), RBIBDType):
+            return None
+
+        S_prime = []
+        S_star = []
+        S_extra = []
+
+        for S_j in S.rounds:
+            S_j_prime, S_j_star = _subtract_S_prime(S_j, sub_S.rounds)
+
+            if S_j_star is not None:
+                S_prime.append(S_j_prime)
+                S_star.append(S_j_star)
+            else:
+                S_extra.append(S_j)
+
+    else:
+        S_prime = []
+        S_star = []
+        S_extra = S.rounds
+
+    return {
+        "S_prime": S_prime,
+        "S_star": S_star,
+        "S_extra": S_extra
+    }
+
+
 def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: list[tuple[int, int]]):
     """
     Create elements necessary for construction according using Theorem 4 from Ray-Chaudhuri and Wilson (1971).
 
-    :return: Returns None if not all necessary elements exist, otherwise returns a dict with the following elements:
+    :return: Returns None if not all necessary elements exist, otherwise, where S is a ((k - 1)m + v2, k, 1)-RBIBD,
+             returns a dict with the following elements:
                * v1
                * v2
                * m
                * B: a (v1, k, 1)-RBIBD
-               * S: a ((k - 1)m + v2, k, 1)-RBIBD
+               * S_prime: a (v2, k, 1)-SubRBIBD of S
+               * S_star: parallel classes of S which are supersets of the parallel classes of S_prime, with
+                         the S_prime subsets removed
+               * S_extra: parallel classes of S which are not supersets of the parallel classes of S_prime
                * roa: a (k, m, 2, 1)-resolvable orthogonal array
     """
     from perfect_strangers.factory import matcher_factory
@@ -76,6 +151,11 @@ def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: li
     if not isinstance(S.design_type(), RBIBDType):
         return None
 
+    S_parts = _process_sub_bibd(S, v2, k)
+
+    if S_parts is None:
+        return None
+
     roa = _resolvable_orthogonal_array(k, m, 2, 1)
 
     if roa is None:
@@ -86,20 +166,30 @@ def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: li
         "v2": v2,
         "m": m,
         "B": B.rounds,
-        "S": S.rounds,
         "roa": roa
-    }
+    } | S_parts
 
 class SubBIBDMatcher(BaseMatcher):
     """
     Theorem 4 from Ray-Chaudhuri and Wilson (1971).
     """
-    def __init__(self, v1: int, v2: int, m: int, B: RoundSequence, S: RoundSequence, roa, participant_labels: ParticipantLabels=None):
+    def __init__(self,
+                 v1: int,
+                 v2: int,
+                 m: int,
+                 B: RoundSequence,
+                 S_prime: RoundSequence,
+                 S_star: RoundSequence,
+                 S_extra: RoundSequence,
+                 roa: RoundSequence,
+                 participant_labels: ParticipantLabels=None):
         self._v1 = v1
         self._v2 = v2
         self._m = m
         self._B = B
-        self._S = S
+        self._S_prime = S_prime
+        self._S_star = S_star
+        self._S_extra = S_extra
         self._roa = roa
 
         group_size = len(B[0][0])
@@ -107,21 +197,45 @@ class SubBIBDMatcher(BaseMatcher):
 
         super().__init__(groups_per_round, group_size, participant_labels=participant_labels)
 
-    def _participant_id_from_treatment(self, x: int, i: int):
-        """
-        Return the participant ID corresponding to a given treatment from the set X' × I_m.
-
-        :param x: The element from X
-        :param i: The element from I_m
-        """
-
-        return i * self._theta + x
-
     def _treatment_set(self, X: list[int]):
         """
         Return the participant IDs corresponding to the treatment set X × I_m + Y.
         """
-        return [self._participant_id_from_treatment(x, y) for x in X for y in self._I_m] + self._Y
+        cross = [(x, y) for x in X for y in self._I_m]
+
+        for y in sorted(self._Y):
+            cross.insert(y, y)
+
+        return cross
+
+
+    def _groups_from_S_j(self, S_j: GroupingMatrix, B_i: GroupingMatrix):
+        B_i_prime = next([p for p in b if p != self._theta] for b in B_i if self._theta in b)
+        treatment = self._treatment_set(B_i_prime)
+
+        return [
+            [self._treatment_participant_map[treatment[t]] for t in g]
+            for g in S_j
+        ]
+
+    def _sub_bibd_round(self, j: int):
+        """
+        Construct a round based on the first part of the construction starting in the middle of page 194 of Ray-Chaudhuri
+        and Wilson (1971). The rounds are those given by E_j in the paper.
+        """
+        S_j_prime = self._S_prime[j]
+
+        groups = [
+            [self._treatment_participant_map[t] for t in g]
+            for g in S_j_prime
+        ]
+
+        S_j_star = self._S_star[j]
+
+        for B_i in self._B:
+            groups += self._groups_from_S_j(S_j_star, B_i)
+
+        return groups
 
     def _roa_round(self, i: int, j: int):
         """
@@ -130,40 +244,49 @@ class SubBIBDMatcher(BaseMatcher):
         """
         B_i = self._B[i]
         B = [b for b in B_i if self._theta not in b]
-        B_prime = next([p for p in b if p != self._theta] for b in B_i if self._theta in b)
 
         P_j = self._roa[j]
 
         P_j_i = [
-            [self._participant_id_from_treatment(x, y) for x, y in zip(b, p, strict=False)]
+            [self._treatment_participant_map[(x, y)] for x, y in zip(b, p, strict=False)]
             for b in B
             for p in P_j
         ]
 
-        S_j = self._S[j]
-        S_treatment = self._treatment_set(B_prime)
+        S_j = self._S_extra[j]
 
-        S_j_i =  [
-            [S_treatment[i] for i in r]
-            for r in S_j
-        ]
+        S_j_i = self._groups_from_S_j(S_j, B_i)
 
         return P_j_i + S_j_i
 
     def _generate_rounds(self):
         self._theta = self._v1 - 1
-        self._Y = list(range(self._theta * self._m, self._theta * self._m + self._v2))
+        self._X = list(range(self._theta))
         self._I_m = list(range(self._m))
+
+        if self._v2 > 1:
+            self._Y = [t for g in self._S_prime[0] for t in g]
+        else:
+            self._Y = [self._theta]
+
+        treatment_set = self._treatment_set(self._X)
+
+        self._treatment_participant_map = {
+            t: i for i, t in enumerate(treatment_set)
+        }
 
         rounds = []
 
-        # One would construct the parallel classes E_j here if v2 > 1.
+        # Construct E_j rounds.
+        for j in range(len(self._S_prime)):
+            rounds.append(self._sub_bibd_round(j))
 
+        # Construct E_j_i rounds.
         for i in range(len(self._B)):
             for j in range(self._m):
-                rounds.append(np.array(self._roa_round(i, j)))
+                rounds.append(self._roa_round(i, j))
 
-        self._group_matrices = rounds
+        self._group_matrices = [np.array(r) for r in rounds]
 
     def _design_type(self) -> DesignType:
         return RBIBDType(self.n_participants, self.group_size)
@@ -176,25 +299,27 @@ class SubBIBDMatcher(BaseMatcher):
                        participant_labels: ParticipantLabels=None):
         n_participants = groups_per_round * group_size
 
-        # For now assume v2 is 1 because I have no idea how to construct BIBDs with sub-BIBDs.
         v2 = 1
 
-        m_by_v1_less_1 = n_participants - v2
+        while v2 < n_participants:
+            m_by_v1_less_1 = n_participants - v2
 
-        for candidate_1 in range(2, int(math.sqrt(m_by_v1_less_1))):
-            if m_by_v1_less_1 % candidate_1:
-                continue
+            for candidate_1 in range(2, int(math.sqrt(m_by_v1_less_1))):
+                if m_by_v1_less_1 % candidate_1:
+                    continue
 
-            candidate_2 = m_by_v1_less_1 // candidate_1
+                candidate_2 = m_by_v1_less_1 // candidate_1
 
-            elements = _construction_elements(candidate_2 + 1, v2, candidate_1, group_size, tried_sub_bibds)
+                elements = _construction_elements(candidate_2 + 1, v2, candidate_1, group_size, tried_sub_bibds)
 
-            if elements is None:
-                elements = _construction_elements(candidate_1 + 1, v2, candidate_2, group_size, tried_sub_bibds)
+                if elements is None:
+                    elements = _construction_elements(candidate_1 + 1, v2, candidate_2, group_size, tried_sub_bibds)
 
-            if elements is None:
-                continue
+                if elements is None:
+                    continue
 
-            return cls(**elements, participant_labels=participant_labels)
+                return cls(**elements, participant_labels=participant_labels)
+
+            v2 *= group_size
 
         return None
