@@ -30,8 +30,10 @@ number of parallel classes.
 ## Balanced Incomplete Block Designs
 A balanced incomplete block design $\left(\mathrm{BIBD}\right)$ has parameters: $v$, $k$, and $\lambda$. Given a set $X$ of
 $v$ points, the design consists of blocks of $k$ points such that each unordered pair of points from $X$ appears in exactly
-$\lambda$ blocks. A $\mathrm{BIBD}$ for a given set of parameters is referred to as a $\left(v, k,
-\lambda\right)$-$\mathrm{BIBD}$.  If the design is resolvable it is a $\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$.
+$\lambda$ blocks. The design is balanced in that each unordered pair of points occurs the same number of times, and
+incomplete in that the blocks do not constitute every possible set of $k$ points from $X$. A $\mathrm{BIBD}$ for a given set
+of parameters is referred to as a $\left(v, k, \lambda\right)$-$\mathrm{BIBD}$.  If the design is resolvable it is a
+$\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$.
 
 For perfect stranger matching applications we consider $\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$s for which:
 
@@ -49,6 +51,8 @@ guarantee existence of the design however, for example a (36, 6, 1)-$\mathrm{RBI
 
 A class of easily constructible $\mathrm{RBIBD}$s are the [finite affine planes](finite_planes). A $\left(k^{2}, k,
 1\right)$-$\mathrm{RBIBD}$ exists whenever the finite affine plane of order $k$ exists.
+
+<h3 id="sub-bibds">Sub-$\mathrm{BIBD}$s</h3>
 
 ## Group Divisible Designs
 Another type of block design is the Group Divisible Design $\left(\mathrm{GDD}\right)$. A $\mathrm{GDD}$ with parameters

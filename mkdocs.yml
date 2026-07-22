@@ -30,8 +30,8 @@ nav:
     - Construction Methods:
       - theory/round_robin.md
       - theory/kirkman.md
-      - theory/sub_bibd.md
       - theory/nearly_kirkman.md
+      - theory/sub_bibd.md
       - theory/submatrix_transposition.md
       - theory/finite_planes.md
       - theory/column_shift.md

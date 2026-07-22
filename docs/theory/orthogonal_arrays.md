@@ -30,7 +30,7 @@ $\lambda$ rows, the number of rows in an orthogonal array is given by $N = \lamb
 ## Notation
 A common notation for orthogonal arrays of a given set of parameters is $\mathrm{OA}(N, k, v, t)$. This may also be referred
 to as an orthogonal array of type $(N, k, v, t)$. The $\lambda$ parameter is excluded from the notation as it can be easily
-calculated from the other parameters: $\lambda = v^{t}/N$. The example array above would be an $\mathrm{OA}$(9, 3, 3, 2).
+calculated from the other parameters: $\lambda = N/v^{t}$. The example array above would be an $\mathrm{OA}$(9, 3, 3, 2).
 
 ## Resolvable Orthogonal Arrays
 An orthogonal array is said to be resolvable if its rows can be partitioned into smaller orthogonal arrays with a lower $t$
