@@ -29,9 +29,9 @@ families of triples, where $a$ is any element of $\mathbb{F}_{q}$:
 $$
     A_{0}(a) = \left\{\left(a, 1\right), \left(a, 2\right), \left(a, 3\right)\right\} \\[10pt]
     B_{j}^{i}(a) = \left\{\left(g^{i} + a, j\right), \left(g^{i + 2t} + a, j\right), \left(g^{i + 4t} + a, j\right)\right\} \;
-        \text{for} \; 0 \leq i < t \; \text{and} \; 1 \leq j \leq 3 \\[10pt]
+        \text{for} \; i = 0,1,\dots,t - 1 \; \text{and} \; j = 1,2,3 \\[10pt]
     A^{i}(a) = \left\{\left(g^{i} + a, 1\right), \left(g^{i + 2t} + a, 2\right), \left(g^{i + 4t} + a, 3\right)\right\} \;
-        \text{for} \; 0 \leq i < 6t
+        \text{for} \; i = 0,1,\dots,6t - 1
 $$
 
 The first $q$ grouping matrices in our sequence are each constructed using a different element $a$ from $\mathbb{F}_{q}$.
@@ -63,9 +63,9 @@ g^{t} + 1$:
 $$
     A_{0}(a) = \left\{\left(a, 1\right), \left(a, 2\right), \infty)\right\} \\[10pt]
     B_{j}^{i}(a) = \left\{\left(g^{i + 2jt} + a, 1\right), \left(g^{i + 2jt + t} + a, 1\right), \left(g^{i + 2jt + m} + a, 2\right)\right\} \;
-        \text{for} \; 0 \leq i < t \; \text{and} \; 0 \leq j \leq 2 \\[10pt]
+        \text{for} \; i = 0,1,\dots,t - 1 \; \text{and} \; j = 0,1,2 \\[10pt]
     A^{i}(a) = \left\{\left(g^{i + m + t} + a, 2\right), \left(g^{i + m + 3t} + a, 2\right), \left(g^{i + m + 5t} + a, 2\right)\right\} \;
-        \text{for} \; 0 \leq i < t
+        \text{for} \; i = 0,1,\dots,t - 1
 $$
 
 $q$ grouping matrices can be constructed, one for each element of $a$ of $\mathbb{F}_{q}$. The rows of each matrix are all
