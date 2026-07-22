@@ -52,7 +52,22 @@ guarantee existence of the design however, for example a (36, 6, 1)-$\mathrm{RBI
 A class of easily constructible $\mathrm{RBIBD}$s are the [finite affine planes](finite_planes). A $\left(k^{2}, k,
 1\right)$-$\mathrm{RBIBD}$ exists whenever the finite affine plane of order $k$ exists.
 
-<h3 id="sub-bibds">Sub-$\mathrm{BIBD}$s</h3>
+### Sub-BIBDs
+Given a $\left(v, k, \lambda\right)$-$\mathrm{BIBD}$ with points from the set $X$ and blocks from the set $\mathcal{B}$, a
+$\left(v', k, \lambda\right)$-$\mathrm{sub}$-$\mathrm{BIBD}$ is a set of blocks $\mathcal{B}'$ such that:
+
+  * $\mathcal{B}' \subseteq \mathcal{B}$
+  * $\mathcal{B}'$ forms a $\mathrm{BIBD}$ on the set of $v'$ points, $X'$.
+  * $X' \subseteq X$
+
+If the points from $X$ and blocks from $\mathcal{B}$ form a $\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$ with parallel
+classes given by the set of blocks $\mathcal{B}_{0},\mathcal{B}_{1},\dots,\mathcal{B}_{r - 1}$, a $\left(v', k,
+\lambda\right)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ is a set of blocks $\mathcal{B}'$ where:
+
+  * $\mathcal{B}'$ forms an $\mathrm{RBIBD}$ on the set of $v'$ points, $X'$.
+  * $X' \subseteq X$
+  * $\mathcal{B}'$ can be partitioned into parallel classes $\mathcal{B}_{0}',\mathcal{B}_{1}',\dots,\mathcal{B}_{r' - 1}'$.
+  * $\mathcal{B}_{i}' \subseteq \mathcal{B}_{i}$ for $0 \leq i < r'$
 
 ## Group Divisible Designs
 Another type of block design is the Group Divisible Design $\left(\mathrm{GDD}\right)$. A $\mathrm{GDD}$ with parameters
