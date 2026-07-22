@@ -69,7 +69,7 @@ classes given by the sets of blocks $\mathcal{B}_{0},\mathcal{B}_{1},\dots,\math
 
   * $\mathcal{B}'$ forms a $\mathrm{BIBD}$ on the set of $v'$ points, $X'$.
   * $\mathcal{B}'$ can be partitioned into parallel classes $\mathcal{B}_{0}',\mathcal{B}_{1}',\dots,\mathcal{B}_{r' - 1}'$.
-  * $\mathcal{B}_{i}' \subseteq \mathcal{B}_{i}$ for $i = 0,1,\dots,r'$
+  * $\mathcal{B}_{i}' \subseteq \mathcal{B}_{i}$ for $i = 0,1,\dots,r' - 1$
 
 That is, a $\mathrm{sub}$-$\mathrm{RBIBD}$ is an $\mathrm{RBIBD}$ for which the parallel classes are constructed by taking
 the same number of blocks from a each of a subset of the parallel classes of another $\mathrm{RBIBD}$.
