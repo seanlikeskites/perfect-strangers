@@ -30,7 +30,7 @@ def format_cell(data):
     elif data["method"] == FinitePlaneMatcher:
         link = "./theory/finite_planes"
     elif data["method"] == SubBIBDMatcher:
-        link = "./theory/kirkman"
+        link = "./theory/sub_bibd"
     elif data["method"] == ColumnShiftMatcher:
         link = "./theory/column_shift"
     else:
