@@ -28,12 +28,17 @@ Designing an experiment with the largest number of rounds is then equivalent to 
 number of parallel classes.
 
 ## Balanced Incomplete Block Designs
-A balanced incomplete block design $\left(\mathrm{BIBD}\right)$ has parameters: $v$, $k$, and $\lambda$. Given a set $X$ of
-$v$ points, the design consists of blocks of $k$ points such that each unordered pair of points from $X$ appears in exactly
-$\lambda$ blocks. The design is balanced in that each unordered pair of points occurs the same number of times, and
-incomplete in that the blocks do not constitute every possible set of $k$ points from $X$. A $\mathrm{BIBD}$ for a given set
-of parameters is referred to as a $\left(v, k, \lambda\right)$-$\mathrm{BIBD}$.  If the design is resolvable it is a
-$\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$.
+A balanced incomplete block design $\left(\mathrm{BIBD}\right)$ with parameters $v$, $k$, and $\lambda$ is a pair $\left(X,
+\mathcal{B}\right)$ with the following properties.
+
+  * $X$ is a set of $v$ points.
+  * $\mathcal{B}$ is a collection of blocks of $k$ points such that each unordered pair of points from $X$ appears in
+    exactly $\lambda$ blocks. 
+
+The design is balanced in that each unordered pair of points occurs in the same number of blocks, and incomplete in that the
+blocks do not constitute every possible set of $k$ points from $X$. A $\mathrm{BIBD}$ for a given set of parameters is
+referred to as a $\left(v, k, \lambda\right)$-$\mathrm{BIBD}$. If the design is resolvable it is a $\left(v, k,
+\lambda\right)$-$\mathrm{RBIBD}$.
 
 For perfect stranger matching applications we consider $\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$s for which:
 

@@ -12,6 +12,14 @@ Ray-Chaudhuri and Wilson (1971) detail several theorems which can be used to con
 cases. Those described here are the ones which are currently implemented as part of the perfect-strangers package (hopefully
 one day I'll get round to implementing them all).
 
+### Composition Theorems
+Theorems 3 and 4 from Ray-Chaudhuri and Wilson (1971) provide constructions for Kirkman triple systems base on the
+composition of [balanced incomplete block designs](./block_designs#balanced-incomplete-block-designs) of smaller sizes and
+[resolvable orthogonal arrays](./orthogonal_arrays).
+
+#### Theorem 4
+Theorem 4 is the technique used for [Sub-BIBD matching](./sub_bibd).
+
 ### Finite Field Arithmetic
 Let $q$ be a prime power of the form $6t + 1$, where $t$ is an integer. Theorems 5 and 6 from Ray-Chaudhuri and Wilson
 (1971) give constructions for Kirkman triple systems of order $3q$ and $2q + 1$. These constructions are based on arithmetic
