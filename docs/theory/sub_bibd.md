@@ -7,8 +7,9 @@ Theorem 4 from [Ray-Chaudhuri and Wilson (1971)](https://doi.org/10.1090%2Fpspum
     href="./block_designs#sub-rbibds">$(v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$</a> $\left(\text{or }v_{2} = 1\right)$.
   * An <a style="text-decoration: none;" href="./orthogonal_arrays#resolvable-orthogonal-arrays">$\mathrm{ROA}\left(m^{2}, k, m, 2\right)$</a>[^1]
 
-[^1]: Ray-Chaudhuri use different notation for resolvable orthogonal arrays: referring to an $\mathrm{ROA}\left(N, k, v,
-  t\right)$ as an $(m, n, d, \lambda)$-resolvable orthogonal array, where $m = k$, $n = N$, $d = t$, and $\lambda = N/v^{t}$.
+[^1]: Ray-Chaudhuri and Wilson use different notation for resolvable orthogonal arrays: referring to an
+  $\mathrm{ROA}\left(N, k, v, t\right)$ as an $(m, n, d, \lambda)$-resolvable orthogonal array, where $m = k$, $n = N$, $d =
+  t$, and $\lambda = N/v^{t}$.
 
 ## Construction
 ### Point Set
@@ -20,7 +21,7 @@ from the points of three other sets:
   * $I_m$: the set of integers from 0 to $m - 1$.
 
 First we define $\theta$ to be a fixed point from $X$. Removing this point from $X$ yields the set $X'$, i.e.  $X' = X -
-\{\theta\}$. The full set of points for the $\mathrm{RBIBD}$ being constructed is then:
+\{\theta\}$. The full set of points for the $\mathrm{RBIBD}$ under construction is then:
 
 $$
   X^{*} = X' \times I_{m} \cup Y
@@ -49,7 +50,7 @@ $\mathcal{S}^{i}_{0},\mathcal{S}^{i}_{1},\dots,\mathcal{S}^{i}_{r_{2} + m - 1}$.
 
 #### • $(v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ 
 The construction requires that each of the $\mathrm{RBIBD}$s, $\left(Q^{i}, \mathcal{S}^{i}\right)$, have a $(v_{2}, k,
-1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points $Y$. Since $Y \subset Q_{i}$ this is the same
+1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points $Y$. Since $Y \subset Q^{i}$ this is the same
 $\mathrm{sub}$-$\mathrm{RBIBD}$ for all $i = 0,1,\dots,r_{2} + m - 1$. Denote this $\mathrm{sub}$-$\mathrm{RBIBD}$ $\left(Y,
 \mathcal{S}'\right)$ and denote its $r_{2}$ parallel classes $\mathcal{S}_{0}',\mathcal{S}_{1}',\dots,\mathcal{S}_{r_{2} -
 1}'$, where ${\mathcal{S}_{j}' \subset \mathcal{S}^{i}_{j}}$.
@@ -70,17 +71,20 @@ resolved into $m$ orthogonal arrays of type $(m, k, m, 1)$. Denote these smaller
 $\mathbf{P}^{0},\mathbf{P}^{1},\dots,\mathbf{P}^{m - 1}$.
 
 Further, for a given block of $k$ points, $B$, let $\mathcal{P}_j(B)$ denote the set of blocks constructed from the rows of
-$\mathbf{P}^{j}$ and the points in $B$ as follows. The $i^{\text{th}}$ block in $\mathcal{P}_j(B)$ is given by:
+$\mathbf{P}^{j}$ and the points in $B$ as follows. Each $\mathcal{P}_j(B)$ contains $m$ blocks, the blocks being given by:
 
 $$
-  \left\{\left( b_{n}, \mathbf{P}^{j}_{i,n} \right) \Big| \; n \in \mathbb{Z} \land 0 \leq n < k \right\}
+  \left\{\left( b_{n}, \mathbf{P}^{j}_{i,n} \right) \Big| \; n \in \mathbb{Z} \land 0 \leq n < k \right\} \quad
+    \text{for} \; i = 0,1,\dots,m - 1
 $$
 
 Where $\mathbf{P}^{j}_{i,n}$ is the element in the $i^{\text{th}}$ row and $n^{\text{th}}$ column of $\mathbf{P}^{j}$ (with
 indices starting at 0), and $b_{n}$ is the $n^{\text{th}}$ element of $B$.
 
-### Parallel Classes
-The parallel classes of the $\mathrm{RBIBD}$ under construction are constructed from the above elements in two ways.
+### Grouping Matrices
+The above components can be used to construct the $mr_{1} + r_{2}$ parallel classes of blocks for an $(m(v_{1} - 1) + v_{2},
+k, 1)$-$\mathrm{RBIBD}$ on the point set $X'$. These parallel classes give the grouping matrices for the experiment
+participants. Parallel classes are constrcuted using two different methods.
 
 #### From Sub-RBIBD
 The first $r_{2}$ parallel classes are constructed from the parallel classes of the $\mathrm{sub}$-$\mathrm{RBIBD}$
