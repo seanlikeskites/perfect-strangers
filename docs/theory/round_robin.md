@@ -4,7 +4,7 @@ tournament in which every player meets every other player exactly once.
 
 ## Algorithm
 The algorithm for round robin matching implemented in the perfect-strangers package is as follows. First construct the
-grouping matrix for the first round, $\mathbf{G}^{(0)}$, using any pairing strategy, for example:
+grouping matrix for the first round, $\mathbf{G}^{0}$, using any pairing strategy, for example:
 
 
 ![Grouping Matrix](../diagrams/round_robin/initial.svg)

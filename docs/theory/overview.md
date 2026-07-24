@@ -34,7 +34,7 @@ In an $n$ round experiment we'd have a sequence of such grouping matrices which 
 criteria:
 
 $$
-    \mathbf{G}^{(0)}, \mathbf{G}^{(1)}, \dots, \mathbf{G}^{(n - 1)}
+    \mathbf{G}^{0}, \mathbf{G}^{1}, \dots, \mathbf{G}^{n - 1}
 $$
 
 

@@ -4,11 +4,11 @@ are never matched together. This means that for certain shapes of matrix we can 
 matrices for additional rounds.
 
 ## Square Matrices
-For square matrices (i.e $\alpha = \beta$) transposing $\mathbf{G}^{(0)}$ gives an additional grouping matrix for the
+For square matrices (i.e $\alpha = \beta$) transposing $\mathbf{G}^{0}$ gives an additional grouping matrix for the
 sequence. 
 
 ## Transposing Submatrices
-When $\alpha$ is an integer multiple of $\beta$ we can transpose submatrices of $\mathbf{G}^{(0)}$ to generate a new matrix
+When $\alpha$ is an integer multiple of $\beta$ we can transpose submatrices of $\mathbf{G}^{0}$ to generate a new matrix
 in the sequence. For example, consider the following $6{\times}3$ matrix:
 
 <div style="display: flex; justify-content: center;">
@@ -34,7 +34,7 @@ matrices through the transposition of submatrices.
 To produce each grouping matrix in this sequence, first we define a block size $b = \beta$. The sequence is then
 constructed iteratively with the following steps: 
 
-  1. Split $\mathbf{G}^{(0)}$ vertically into $\frac{\alpha}{b}$ blocks of size $b{\times}\beta$.
+  1. Split $\mathbf{G}^{0}$ vertically into $\frac{\alpha}{b}$ blocks of size $b{\times}\beta$.
   2. Split each block into $\frac{b}{\beta}$ submatrices of size $\beta{\times}\beta$ by taking rows spaced
      $\frac{b}{\beta}$ apart.
   3. Transpose each of these $\beta{\times}\beta$ submatrices and place their rows back in the block in the rows the matrix
