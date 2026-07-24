@@ -35,9 +35,8 @@ nav:
       - theory/column_shift.md
 
 theme:
-  favicon: images/favicon.png
-  icon:
-    logo: fontawesome/solid/people-group
+  logo: images/logo.svg
+  favicon: images/favicon.ico
   features:
     - navigation.tabs
     - navigation.tabs.sticky
