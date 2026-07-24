@@ -120,9 +120,9 @@ $$
   \mathcal{S}_{j}' \quad \text{for} \; j = 0,1,\dots,r_{2} - 1
 $$
 
-#### Of the Set of points $Q_{i}$
-For any given $i$ from 0 to $r_{1} - 1$, parallel classes of a $(m(k - 1) + v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points
-$Q_{i}$ are given by the sets of blocks:
+#### Of the Set of points $Q^{i}$
+For any given $i$ from 0 to $r_{1} - 1$, parallel classes of a $(m(k - 1) + v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on
+the set of points $Q^{i}$ are given by the sets of blocks:
 
 $$
   \mathcal{S}^{i}_{j} \quad \text{for} \; j = 0,1,\dots,r_{2} + m - 1
