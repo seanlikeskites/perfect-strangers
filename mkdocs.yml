@@ -6,8 +6,6 @@ watch:
   - docs/scripts/main.py
   - src
 
-ext  generator: false
-
 extra_css:
   - stylesheets/extra.css
   - https://unpkg.com/katex@0/dist/katex.min.css
@@ -37,6 +35,9 @@ nav:
       - theory/column_shift.md
 
 theme:
+  favicon: images/favicon.png
+  icon:
+    logo: fontawesome/solid/people-group
   features:
     - navigation.tabs
     - navigation.tabs.sticky
