@@ -1,4 +1,4 @@
-# Sub-BIBD Matching
+# Sub-RBIBD Matching
 Theorem 4 from [Ray-Chaudhuri and Wilson (1971)](https://doi.org/10.1090%2Fpspum%2F019%2F9959) states that an $\left(m(v_{1}
 - 1) + v_{2}, k, 1\right)$-$\mathrm{RBIBD}$ can be constructed from the following elements:
 
@@ -49,7 +49,7 @@ classes, where $r_{2} = \frac{v_{2} - 1}{k - 1}$. We denote these parallel class
 $\mathcal{S}^{i}_{0},\mathcal{S}^{i}_{1},\dots,\mathcal{S}^{i}_{r_{2} + m - 1}$.
 
 #### • $(v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ 
-The construction requires that each of the $\mathrm{RBIBD}$s, $\left(Q^{i}, \mathcal{S}^{i}\right)$, have a $(v_{2}, k,
+When $v_{2} > 1$ the construction requires that each of the $\mathrm{RBIBD}$s, $\left(Q^{i}, \mathcal{S}^{i}\right)$, have a $(v_{2}, k,
 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points $Y$. Since $Y \subset Q^{i}$ this is the same
 $\mathrm{sub}$-$\mathrm{RBIBD}$ for all $i = 0,1,\dots,r_{2} + m - 1$. Denote this $\mathrm{sub}$-$\mathrm{RBIBD}$ $\left(Y,
 \mathcal{S}'\right)$ and denote its $r_{2}$ parallel classes $\mathcal{S}_{0}',\mathcal{S}_{1}',\dots,\mathcal{S}_{r_{2} -
@@ -67,7 +67,7 @@ The remaining $S^{i}_{j}$ for $j = r_{2},r_{2} + 1,\dots,r_{2} + m - 1$ are the 
 will denote these parallel classes $\mathcal{W}^{i}_{j}$, where:
 
 $$
-  \mathcal{W}^{i}_{j} = S^{i}_{j + r_{2}} \quad \text{for} \; j = 0,1,\dots,m
+  \mathcal{W}^{i}_{j} = S^{i}_{j + r_{2}} \quad \text{for} \; j = 0,1,\dots,m - 1
 $$
 
 #### • $\mathrm{ROA}\left(m^{2}, k, m, 2\right)$
@@ -106,5 +106,24 @@ $\mathcal{S}^{i}_{j}$ as follows:
 
 $$
   \mathcal{H}_{j}^{i} = \mathcal{W}^{i}_{j} \cup \bigcup_{B \in \mathcal{B}_{i}, B \neq B_{i}} \mathcal{P}_{j}(B) \quad \text{for}
-      \; j = 0,1,\dots,m - 1 \; \text{and} \; i = 1,2,\dots,r_{1}
+      \; j = 0,1,\dots,m - 1 \; \text{and} \; i = 0,1,\dots,r_{1} - 1
+$$
+
+### Sub-RBIBDs
+$\mathrm{RBIBD}$s constructed using this method contain $\mathrm{sub}$-$\mathrm{RBIBDS}$ on different sets of points.
+
+#### On the Set of Points $Y$
+Parallel classes of a $(v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points $Y$ are given by the sets of
+blocks:
+
+$$
+  \mathcal{S}_{j}' \quad \text{for} \; j = 0,1,\dots,r_{2} - 1
+$$
+
+#### Of the Set of points $Q_{i}$
+For any given $i$ from 0 to $r_{1} - 1$, parallel classes of a $(m(k - 1) + v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points
+$Q_{i}$ are given by the sets of blocks:
+
+$$
+  \mathcal{S}^{i}_{j} \quad \text{for} \; j = 0,1,\dots,r_{2} + m - 1
 $$

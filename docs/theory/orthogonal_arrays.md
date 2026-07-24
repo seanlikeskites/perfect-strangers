@@ -56,5 +56,5 @@ $$
 
 For perfect stranger matching we are interested in orthogonal arrays of type $\left(v^{2}, k, v, 2\right)$ which can be
 resolved into $v$ orthogonal arrays of type $\left(v, k, v, 1\right)$. These are used in the <a style="text-decoration:
-none;" href="./sub_bibd">Sub-$\mathrm{BIBD}$</a> construction method. For the purposes of this documentation we will refer
-to such a resolvable orthogonal array as an $\mathrm{ROA}\left(v^{2}, k, v, 2\right)$.
+none;" href="./sub_bibd">$\mathrm{Sub}$-$\mathrm{RBIBD}$</a> construction method. For the purposes of this documentation we
+will refer to such a resolvable orthogonal array as an $\mathrm{ROA}\left(v^{2}, k, v, 2\right)$.

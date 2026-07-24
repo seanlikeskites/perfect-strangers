@@ -18,7 +18,8 @@ composition of [balanced incomplete block designs](./block_designs#balanced-inco
 [resolvable orthogonal arrays](./orthogonal_arrays).
 
 #### Theorem 4
-Theorem 4 is the technique used for [Sub-BIBD matching](./sub_bibd).
+Theorem 4 is the technique used for <a style="text-decoration: none;" href="./sub_bibd">$\mathrm{Sub}$-$\mathrm{RBIBD}$
+matching</a>.
 
 ### Finite Field Arithmetic
 Let $q$ be a prime power of the form $6t + 1$, where $t$ is an integer. Theorems 5 and 6 from Ray-Chaudhuri and Wilson

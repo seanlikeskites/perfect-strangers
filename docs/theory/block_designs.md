@@ -79,6 +79,11 @@ classes given by the sets of blocks $\mathcal{B}_{0},\mathcal{B}_{1},\dots,\math
 That is, a $\mathrm{sub}$-$\mathrm{RBIBD}$ is an $\mathrm{RBIBD}$ for which the parallel classes are constructed by taking
 the same number of blocks from a each of a subset of the parallel classes of another $\mathrm{RBIBD}$.
 
+For any $(v, k, 1)$-$\mathrm{BIBD}$, a $(k, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ always exists. This
+$\mathrm{sub}$-$\mathrm{RBIBD}$ has a single parallel class containing a single block from the parent $\mathrm{BIBD}$. More
+complicated $\mathrm{sub}$-$\mathrm{RBIBD}$s require specialised construction methods (for example, <a style="text-decoration:
+none;" href="./sub_bibd#sub-rbibds">$\mathrm{Sub}$-$\mathrm{RBIBD}$ matching</a>).
+
 ## Group Divisible Designs
 Another type of block design is the Group Divisible Design $\left(\mathrm{GDD}\right)$. A $\mathrm{GDD}$ with parameters
 $v$, $J$, $K$, and $\lambda$ is a triple $\left(X, \mathcal{G}, \mathcal{B}\right)$ with the following properties:
