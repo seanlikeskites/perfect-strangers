@@ -10,10 +10,10 @@ from perfect_strangers.base_matcher import BaseMatcher, GroupingMatrix, Particip
 from perfect_strangers.design_types import DesignType, RBIBDType
 
 
-def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
+def _resolvable_orthogonal_array(N: int, k: int, v: int, t: int):
     # Constructing resolvable orthogonal arrays is a whole problem in itself.
     # For now, hard coding solutions for the following values.
-    if m == 3 and n == 3 and d == 2 and lambd == 1:
+    if N == 9 and k == 3 and v == 3 and t == 2:
         return [
             [
                 [0, 0, 0],
@@ -31,7 +31,8 @@ def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
                 [2, 1, 0]
             ]
         ]
-    if m == 3 and n == 4 and d == 2 and lambd == 1:
+
+    if N == 16 and k == 3 and v == 4 and t == 2:
         return [
             [
                 [0, 0, 0],
@@ -58,7 +59,8 @@ def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
                 [3, 2, 1]
             ]
         ]
-    if m == 4 and n == 4 and d == 2 and lambd == 1:
+
+    if N == 16 and k == 4 and v == 4 and t == 2:
         return [
             [
                 [0, 0, 0, 0],
@@ -85,7 +87,8 @@ def _resolvable_orthogonal_array(m: int, n: int, d: int, lambd: int):
                 [3, 1, 2, 0],
             ]
         ]
-    if m == 4 and n == 5 and d == 2 and lambd == 1:
+
+    if N == 25 and k == 4 and v == 5 and t == 2:
         return [
             [
                 [0, 0, 0, 0],
@@ -135,18 +138,18 @@ def _to_lists(r: GroupingMatrix):
 def _subtract_S_prime(S_j: GroupingMatrix, S_prime: RoundSequence):
     S_j_set = _to_sets(S_j)
 
-    for S_j_prime in S_prime:
-        S_j_prime_set = _to_sets(S_j_prime)
+    for S_prime_j in S_prime:
+        S_prime_j_set = _to_sets(S_prime_j)
 
-        if S_j_prime_set <= S_j_set:
-            return _to_lists(S_j_prime_set), _to_lists(S_j_set - S_j_prime_set)
+        if S_prime_j_set <= S_j_set:
+            return _to_lists(S_prime_j_set), _to_lists(S_j_set - S_prime_j_set)
 
     return None, None
 
 def _process_sub_bibd(S: BaseMatcher, v2: int, k: int):
     S_prime: RoundSequence
-    S_star: RoundSequence
-    S_extra: RoundSequence
+    V: RoundSequence
+    W: RoundSequence
 
     if v2 > 1:
         # Get SubBIBD
@@ -156,33 +159,33 @@ def _process_sub_bibd(S: BaseMatcher, v2: int, k: int):
             return None
 
         S_prime = []
-        S_star = []
-        S_extra = []
+        V = []
+        W = []
 
         for S_j in S.rounds:
-            S_j_prime, S_j_star = _subtract_S_prime(S_j, sub_S.rounds)
+            S_prime_j, V_j = _subtract_S_prime(S_j, sub_S.rounds)
 
-            if S_j_star is not None:
-                S_prime.append(S_j_prime)
-                S_star.append(S_j_star)
+            if V_j is not None:
+                S_prime.append(S_prime_j)
+                V.append(V_j)
             else:
-                S_extra.append(S_j)
+                W.append(S_j)
 
     else:
         S_prime = []
-        S_star = []
-        S_extra = S.rounds
+        V = []
+        W = S.rounds
 
     return {
         "S_prime": S_prime,
-        "S_star": S_star,
-        "S_extra": S_extra
+        "V": V,
+        "W": W
     }
 
 
 def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: list[tuple[int, int]]):
     """
-    Create elements necessary for construction according using Theorem 4 from Ray-Chaudhuri and Wilson (1971).
+    Create elements necessary for construction using Theorem 4 from Ray-Chaudhuri and Wilson (1971).
 
     :return: Returns None if not all necessary elements exist, otherwise, where S is a ((k - 1)m + v2, k, 1)-RBIBD,
              returns a dict with the following elements:
@@ -191,9 +194,9 @@ def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: li
                * m
                * B: a (v1, k, 1)-RBIBD
                * S_prime: a (v2, k, 1)-SubRBIBD of S
-               * S_star: parallel classes of S which are supersets of the parallel classes of S_prime, with
-                         the S_prime subsets removed
-               * S_extra: parallel classes of S which are not supersets of the parallel classes of S_prime
+               * V: parallel classes of S which are supersets of the parallel classes of S_prime, with
+                    the corresponding parrallel class of S_prime removed
+               * W: parallel classes of S which are not supersets of the parallel classes of S_prime
                * roa: a (k, m, 2, 1)-resolvable orthogonal array
     """
     from perfect_strangers.factory import matcher_factory
@@ -221,7 +224,7 @@ def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: li
     if S_parts is None:
         return None
 
-    roa = _resolvable_orthogonal_array(k, m, 2, 1)
+    roa = _resolvable_orthogonal_array(m * m, k, m, 2)
 
     if roa is None:
         return None
@@ -244,8 +247,8 @@ class SubBIBDMatcher(BaseMatcher):
                  m: int,
                  B: RoundSequence,
                  S_prime: RoundSequence,
-                 S_star: RoundSequence,
-                 S_extra: RoundSequence,
+                 V: RoundSequence,
+                 W: RoundSequence,
                  roa: RoundSequence,
                  participant_labels: ParticipantLabels=None):
         self._v1 = v1
@@ -253,8 +256,8 @@ class SubBIBDMatcher(BaseMatcher):
         self._m = m
         self._B = B
         self._S_prime = S_prime
-        self._S_star = S_star
-        self._S_extra = S_extra
+        self._V = V
+        self._W = W
         self._roa = roa
 
         group_size = len(B[0][0])
@@ -283,50 +286,50 @@ class SubBIBDMatcher(BaseMatcher):
             for g in S_j
         ]
 
-    def _sub_bibd_round(self, j: int):
+    def _sub_rbibd_round(self, j: int):
         """
         Construct a round based on the first part of the construction starting in the middle of page 194 of Ray-Chaudhuri
         and Wilson (1971). The rounds are those given by E_j in the paper.
         """
-        S_j_prime = self._S_prime[j]
+        S_prime_j = self._S_prime[j]
 
         groups = [
             [self._treatment_participant_map[t] for t in g]
-            for g in S_j_prime
+            for g in S_prime_j
         ]
 
-        S_j_star = self._S_star[j]
+        V_j = self._V[j]
 
         for B_i in self._B:
-            groups += self._groups_from_S_j(S_j_star, B_i)
+            groups += self._groups_from_S_j(V_j, B_i)
 
         return groups
 
     def _roa_round(self, i: int, j: int):
         """
         Construct a round based on the second part of the construction starting at the bottom of page 194 of Ray-Chaudhuri
-        and Wilson (1971). The rounds are those given by E_j_i in the paper.
+        and Wilson (1971). The rounds are those given by E^i_j in the paper.
         """
         B_i = self._B[i]
         B = [b for b in B_i if self._theta not in b]
 
         P_j = self._roa[j]
 
-        P_j_i = [
+        P_j_of_B = [
             [self._treatment_participant_map[(x, y)] for x, y in zip(b, p, strict=False)]
             for b in B
             for p in P_j
         ]
 
-        S_j = self._S_extra[j]
+        W_j = self._W[j]
 
-        S_j_i = self._groups_from_S_j(S_j, B_i)
+        W_i_j = self._groups_from_S_j(W_j, B_i)
 
-        return P_j_i + S_j_i
+        return P_j_of_B + W_i_j
 
     def _generate_rounds(self):
         self._theta = self._v1 - 1
-        self._X = list(range(self._theta))
+        self._X_prime = list(range(self._theta))
         self._I_m = list(range(self._m))
 
         if self._v2 > 1:
@@ -334,7 +337,7 @@ class SubBIBDMatcher(BaseMatcher):
         else:
             self._Y = [self._theta]
 
-        treatment_set = self._treatment_set(self._X)
+        treatment_set = self._treatment_set(self._X_prime)
 
         self._treatment_participant_map = {
             t: i for i, t in enumerate(treatment_set)
@@ -342,11 +345,11 @@ class SubBIBDMatcher(BaseMatcher):
 
         rounds = []
 
-        # Construct E_j rounds.
+        # Construct rounds from sub-RBIBD.
         for j in range(len(self._S_prime)):
-            rounds.append(self._sub_bibd_round(j))
+            rounds.append(self._sub_rbibd_round(j))
 
-        # Construct E_j_i rounds.
+        # Construct rounds from orthogonal array.
         for i in range(len(self._B)):
             for j in range(self._m):
                 rounds.append(self._roa_round(i, j))

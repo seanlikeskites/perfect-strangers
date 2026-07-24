@@ -63,7 +63,12 @@ $$
 $$
 
 The remaining $S^{i}_{j}$ for $j = r_{2},r_{2} + 1,\dots,r_{2} + m - 1$ are the parallel classes from $\left(Q^{i},
-\mathcal{S}^{i}\right)$ which are not supersets of a parallel class from $\left(Y, \mathcal{S}'\right)$.
+\mathcal{S}^{i}\right)$ which are not supersets of a parallel class from $\left(Y, \mathcal{S}'\right)$. For convenience we
+will denote these parallel classes $\mathcal{W}^{i}_{j}$, where:
+
+$$
+  \mathcal{W}^{i}_{j} = S^{i}_{j + r_{2}} \quad \text{for} \; j = 0,1,\dots,m
+$$
 
 #### • $\mathrm{ROA}\left(m^{2}, k, m, 2\right)$
 Construct an orthogonal array of type $\left(m^{2}, k, m, 2\right)$ with elements taken from the set $I_{m}$ which can be
@@ -100,6 +105,6 @@ The remaining $mr_{1}$ parallel classes are constructed from the orthogonal arra
 $\mathcal{S}^{i}_{j}$ as follows:
 
 $$
-  \mathcal{H}_{j}^{i} = \mathcal{S}^{i}_{j} \cup \bigcup_{B \in \mathcal{B}_{i}, B \neq B_{i}} \mathcal{P}_{j - r_{2}}(B) \quad \text{for}
-      \; j = r_{2},r_{2} + 1,\dots,r_{2} + m - 1 \; \text{and} \; i = 1,2,\dots,r_{1}
+  \mathcal{H}_{j}^{i} = \mathcal{W}^{i}_{j} \cup \bigcup_{B \in \mathcal{B}_{i}, B \neq B_{i}} \mathcal{P}_{j}(B) \quad \text{for}
+      \; j = 0,1,\dots,m - 1 \; \text{and} \; i = 1,2,\dots,r_{1}
 $$
