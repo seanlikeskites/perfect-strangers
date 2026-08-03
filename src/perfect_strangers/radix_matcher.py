@@ -9,7 +9,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from collections.abc import Generator
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
+    from perfect_strangers.types import ParticipantLabels
+
+from perfect_strangers.base_matcher import BaseMatcher
 
 
 def _round_increments(group_size, exponent) -> Generator[int]:

@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.column_shift_matcher import ColumnShiftMatcher
 from perfect_strangers.finite_plane_matcher import FinitePlaneMatcher, use_finite_plane_construction
 from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
@@ -10,6 +10,7 @@ from perfect_strangers.lookup_matcher import LookupMatcher
 from perfect_strangers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
 from perfect_strangers.round_robin_matcher import RoundRobinMatcher
 from perfect_strangers.sub_bibd_matcher import SubBIBDMatcher
+from perfect_strangers.types import ParticipantLabels
 
 
 def matcher_factory(groups_per_round: int,

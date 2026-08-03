@@ -12,6 +12,8 @@ import galois
 if TYPE_CHECKING:
     import numpy.typing as npt
 
+    from perfect_strangers.types import GroupingMatrix
+
 
 def sequence_length_upper_bound(groups_per_round: int, group_size: int) -> int:
     if groups_per_round < group_size:
@@ -106,3 +108,8 @@ def submatrix_transpositions(matrix: npt.NDArray):
 
     return transpositions
 
+def round_to_sets(r: GroupingMatrix):
+    return {frozenset(g) for g in r}
+
+def round_to_lists(r: GroupingMatrix):
+    return [list(g) for g in r]

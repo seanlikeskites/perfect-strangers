@@ -6,8 +6,12 @@ from __future__ import annotations
 
 import importlib
 import json
+from typing import TYPE_CHECKING
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels, RoundSequence
+from perfect_strangers.base_matcher import BaseMatcher
+
+if TYPE_CHECKING:
+    from perfect_strangers.types import ParticipantLabels, RoundSequence
 
 
 class LookupMatcher(BaseMatcher):

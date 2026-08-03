@@ -6,8 +6,10 @@ import math
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, GroupingMatrix, ParticipantLabels, RoundSequence
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RBIBDType
+from perfect_strangers.types import GroupingMatrix, ParticipantLabels, RoundSequence
+from perfect_strangers.util import round_to_lists, round_to_sets
 
 
 def _resolvable_orthogonal_array(N: int, k: int, v: int, t: int):
@@ -129,20 +131,14 @@ def _resolvable_orthogonal_array(N: int, k: int, v: int, t: int):
 
     return None
 
-def _to_sets(r: GroupingMatrix):
-    return {frozenset(g) for g in r}
-
-def _to_lists(r: GroupingMatrix):
-    return [list(g) for g in r]
-
 def _subtract_S_prime(S_j: GroupingMatrix, S_prime: RoundSequence):
-    S_j_set = _to_sets(S_j)
+    S_j_set = round_to_sets(S_j)
 
     for S_prime_j in S_prime:
-        S_prime_j_set = _to_sets(S_prime_j)
+        S_prime_j_set = round_to_sets(S_prime_j)
 
         if S_prime_j_set <= S_j_set:
-            return _to_lists(S_prime_j_set), _to_lists(S_j_set - S_prime_j_set)
+            return round_to_lists(S_prime_j_set), round_to_lists(S_j_set - S_prime_j_set)
 
     return None, None
 
@@ -187,12 +183,12 @@ def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: li
     """
     Create elements necessary for construction using Theorem 4 from Ray-Chaudhuri and Wilson (1971).
 
-    :return: Returns None if not all necessary elements exist, otherwise, where S is a ((k - 1)m + v2, k, 1)-RBIBD,
-             returns a dict with the following elements:
+    :return: Returns None if not all necessary elements exist, otherwise returns a dict with the following elements:
                * v1
                * v2
                * m
                * B: a (v1, k, 1)-RBIBD
+               * S: a ((k - 1)m + v2, k, 1)-RBIBD
                * S_prime: a (v2, k, 1)-SubRBIBD of S
                * V: parallel classes of S which are supersets of the parallel classes of S_prime, with
                     the corresponding parrallel class of S_prime removed
@@ -234,6 +230,7 @@ def _construction_elements(v1: int, v2: int, m: int, k: int, tried_sub_bibds: li
         "v2": v2,
         "m": m,
         "B": B.rounds,
+        "S": S.rounds,
         "roa": roa
     } | S_parts
 
@@ -246,6 +243,7 @@ class SubBIBDMatcher(BaseMatcher):
                  v2: int,
                  m: int,
                  B: RoundSequence,
+                 S: RoundSequence,
                  S_prime: RoundSequence,
                  V: RoundSequence,
                  W: RoundSequence,
@@ -255,6 +253,7 @@ class SubBIBDMatcher(BaseMatcher):
         self._v2 = v2
         self._m = m
         self._B = B
+        self._S = S
         self._S_prime = S_prime
         self._V = V
         self._W = W
@@ -269,21 +268,29 @@ class SubBIBDMatcher(BaseMatcher):
         """
         Return the participant IDs corresponding to the treatment set X × I_m + Y.
         """
-        cross = [(x, y) for x in X for y in self._I_m]
-
-        for y in sorted(self._Y):
-            cross.insert(y, y)
-
-        return cross
-
+        return [(x, y) for x in X for y in self._I_m] + self._Y
 
     def _groups_from_S_j(self, S_j: GroupingMatrix, B_i: GroupingMatrix):
         B_i_prime = next([p for p in b if p != self._theta] for b in B_i if self._theta in b)
         treatment = self._treatment_set(B_i_prime)
 
+        treatment_map = {
+            t: treatment[i]
+            for i, t in enumerate(sorted(t for g in S_j for t in g if t not in self._Y))
+        } | {
+            y: y
+            for y in self._Y
+        }
+
         return [
-            [self._treatment_participant_map[treatment[t]] for t in g]
+            [self._treatment_participant_map[treatment_map[t]] for t in g]
             for g in S_j
+        ]
+
+    def _groups_from_S_prime_j(self, S_prime_j: GroupingMatrix):
+        return [
+            [self._treatment_participant_map[t] for t in g]
+            for g in S_prime_j
         ]
 
     def _sub_rbibd_round(self, j: int):
@@ -291,12 +298,7 @@ class SubBIBDMatcher(BaseMatcher):
         Construct a round based on the first part of the construction starting in the middle of page 194 of Ray-Chaudhuri
         and Wilson (1971). The rounds are those given by E_j in the paper.
         """
-        S_prime_j = self._S_prime[j]
-
-        groups = [
-            [self._treatment_participant_map[t] for t in g]
-            for g in S_prime_j
-        ]
+        groups = self._groups_from_S_prime_j(self._S_prime[j])
 
         V_j = self._V[j]
 
@@ -358,6 +360,36 @@ class SubBIBDMatcher(BaseMatcher):
 
     def _design_type(self) -> DesignType:
         return RBIBDType(self.n_participants, self.group_size)
+
+    def _available_sub_matchers(self) -> set[int]:
+        sizes = {
+            (self._m * (self.group_size - 1) + self._v2) // self.group_size
+        }
+
+        sizes = set()
+
+        if self._v2 > 1:
+            sizes.add(self._v2 // self.group_size)
+
+        return sizes
+
+    def _sub_matcher(self, groups_per_round: int) -> BaseMatcher | None:
+        n_participants = groups_per_round * self.group_size
+
+        if n_participants == self._v2:
+            sequence = [
+                self._groups_from_S_prime_j(S_prime_j)
+                for S_prime_j in self._S_prime
+            ]
+        elif n_participants == self._m * (self.group_size - 1) + self._v2:
+            sequence = [
+                self._groups_from_S_j(S_j, self._B[0])
+                for S_j in self._S
+            ]
+        else:
+            return None
+
+        return BaseMatcher(round_sequence=sequence)
 
     @classmethod
     def create_matcher(cls,

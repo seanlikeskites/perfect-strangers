@@ -3,8 +3,9 @@
 # SPDX-License-Identifier: MIT
 
 from perfect_strangers.__about__ import __version__
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.factory import matcher_factory
+from perfect_strangers.types import ParticipantLabels
 
 __all__ = ("__version__", "create_matcher")
 

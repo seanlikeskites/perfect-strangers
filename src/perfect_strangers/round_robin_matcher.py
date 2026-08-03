@@ -4,8 +4,9 @@
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RBIBDType
+from perfect_strangers.types import ParticipantLabels
 
 
 class RoundRobinMatcher(BaseMatcher):

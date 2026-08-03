@@ -9,8 +9,9 @@ from collections.abc import Callable
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RBIBDType
+from perfect_strangers.types import NumpyRounds, ParticipantLabels
 from perfect_strangers.util import finite_field_elements
 
 ParameterFuncReturn = tuple[int, int] | None

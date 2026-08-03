@@ -6,11 +6,15 @@ from __future__ import annotations
 
 import importlib
 import json
+from typing import TYPE_CHECKING
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, ParticipantLabels
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RGDDType
+
+if TYPE_CHECKING:
+    from perfect_strangers.types import ParticipantLabels
 
 
 #######################################################################

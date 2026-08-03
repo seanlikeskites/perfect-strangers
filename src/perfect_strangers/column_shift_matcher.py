@@ -5,13 +5,17 @@
 from __future__ import annotations
 
 import math
+from typing import TYPE_CHECKING
 
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RTDType
 from perfect_strangers.util import least_prime_factor, submatrix_transpositions
+
+if TYPE_CHECKING:
+    from perfect_strangers.types import NumpyRounds, ParticipantLabels
 
 
 def _apply_sequential_shifts(base_matrix: np.typing.NDArray, n_shifts: int, stride: int) -> NumpyRounds:

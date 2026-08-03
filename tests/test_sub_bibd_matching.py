@@ -6,7 +6,7 @@ import pytest
 
 from perfect_strangers.sub_bibd_matcher import SubBIBDMatcher
 from perfect_strangers.util import sequence_length_upper_bound
-from tests.matcher_validation import validate_matcher
+from tests.matcher_validation import validate_matcher, validate_sub_matchers
 
 test_cases = [
     # Groups of 3
@@ -30,3 +30,7 @@ def test_sub_bibd(groups_per_round, group_size):
 
     # Validate generated rounds
     validate_matcher(matcher)
+
+    # Validate sub-RBIBDS
+    validate_sub_matchers(matcher, True)
+

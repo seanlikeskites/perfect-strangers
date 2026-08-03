@@ -4,18 +4,17 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
 from random import shuffle
+from typing import TYPE_CHECKING
 
 import numpy as np
 
 from perfect_strangers.design_types import DesignType, PartialType, RBIBDType, RGDDType
 from perfect_strangers.util import is_round_pair_valid, is_round_valid
 
-GroupingMatrix = Sequence[Sequence]
-RoundSequence = Sequence[GroupingMatrix]
-NumpyRounds = Sequence[np.typing.NDArray]
-ParticipantLabels = Sequence | None
+if TYPE_CHECKING:
+    from perfect_strangers.types import GroupingMatrix, ParticipantLabels, RoundSequence
+
 
 class IncorrectParticipantLabelsError(Exception):
     def __init__(self, n_participants, n_labels):
@@ -42,7 +41,9 @@ class BaseMatcher:
             error = "Construction of BaseMatcher requires either experiment parameters or a round_sequnce."
             raise TypeError(error)
 
-        self._participant_labels = participant_labels
+        if participant_labels is not None or not hasattr(self, "_participant_labels"):
+            self._participant_labels = participant_labels
+
         self._validate_participant_labels()
 
         self.shuffle_sequence()
@@ -50,12 +51,11 @@ class BaseMatcher:
     def _from_round_sequence(self, round_sequence: RoundSequence):
         self.groups_per_round = len(round_sequence[0])
         self.group_size = len(round_sequence[0][0])
-
         self.n_participants = self.groups_per_round * self.group_size
 
         participants = {
             participant: ID
-            for ID, participant in enumerate(sorted({p for r in round_sequence for g in r for p in g}))
+            for ID, participant in enumerate({p for r in round_sequence for g in r for p in g})
         }
 
         self._group_matrices = [
@@ -64,6 +64,8 @@ class BaseMatcher:
                 for r in g
             ]) for g in round_sequence
         ]
+
+        self._participant_labels = [p for p, _ in sorted(participants.items(), key=lambda x: x[1])]
 
         if not self.validate_rounds():
             error = "Provided round sequence incorrect."
@@ -164,10 +166,24 @@ class BaseMatcher:
         self._group_matrices.append(g)
         return True
 
+    def _available_sub_matchers(self) -> set[int]:
+        return set()
+
+    def available_sub_matchers(self) -> set[int]:
+        return {1} | self._available_sub_matchers()
+
+    def _sub_matcher(self, groups_per_round: int) -> BaseMatcher | None:
+        return None
+
     def sub_matcher(self, groups_per_round: int) -> BaseMatcher | None:
+        sub = self._sub_matcher(groups_per_round)
+
+        if sub is not None:
+            return sub
+
         if groups_per_round == 1:
             group = self.groups_for_round(0)[0]
-            return BaseMatcher(round_sequence=[[group]], participant_labels=group)
+            return BaseMatcher(round_sequence=[[group]])
 
         return None
 

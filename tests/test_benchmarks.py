@@ -42,5 +42,3 @@ def test_benchmarks(groups_per_round, group_size):
                 algorithms.append(NearlyKirkmanTripleMatcher.create_matcher(groups_per_round))
 
     assert matcher.max_rounds == max(a.max_rounds for a in algorithms if a is not None)
-
-

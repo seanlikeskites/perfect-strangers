@@ -5,8 +5,9 @@
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher, NumpyRounds, ParticipantLabels
+from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RTDType
+from perfect_strangers.types import NumpyRounds, ParticipantLabels
 from perfect_strangers.util import finite_field_elements, least_prime_factor, submatrix_transpositions
 
 
