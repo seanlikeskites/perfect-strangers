@@ -170,12 +170,26 @@ class BaseMatcher:
         return set()
 
     def available_sub_matchers(self) -> set[int]:
+        """
+        Get the sizes of sub-matchers available for this matcher.
+
+        :return: A set of valid `groups_per_round` arguments for
+        [`sub_matcher()`][perfect_strangers.BaseMatcher.sub_matcher].
+        """
         return {1} | self._available_sub_matchers()
 
     def _sub_matcher(self, groups_per_round: int) -> BaseMatcher | None:
         return None
 
     def sub_matcher(self, groups_per_round: int) -> BaseMatcher | None:
+        """
+        Get a sub-matcher with a given number of `groups_per_round` and the same `group_size` as this matcher.
+
+        :param groups_per_round: The requested number of groups per round.
+
+        :return: If a sub-matcher which the requested `groups_per_round` exists, a matcher which gives participant groupings
+        for this sub-matcher.
+        """
         sub = self._sub_matcher(groups_per_round)
 
         if sub is not None:

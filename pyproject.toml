@@ -9,7 +9,7 @@ description = "Construction routines for perfect stranger matching in behavioura
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
-keywords = []
+keywords = ["perfect stranger matching", "block design", "experiment design"]
 authors = [
   { name = "Sean Enderby", email = "sean.enderby@gmail.com" },
 ]

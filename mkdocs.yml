@@ -55,6 +55,7 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.highlight:
+      default_lang: python
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
@@ -70,4 +71,10 @@ plugins:
           options:
             docstring_style: sphinx
             show_source: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            docstring_section_style: list
+            separate_signature: true
+            show_signature_annotations: true
+            signature_crossrefs: true
 

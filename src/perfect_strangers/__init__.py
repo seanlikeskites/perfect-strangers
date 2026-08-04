@@ -12,7 +12,7 @@ __all__ = ("__version__", "create_matcher")
 
 def create_matcher(groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None) -> BaseMatcher:
     """
-    Create a groups matcher for the given experiment parameters.
+    Create a group matcher for the given experiment parameters.
 
     :param groups_per_round: The number of groups per round of the experiment.
     :param group_size: The number of participants in each group.

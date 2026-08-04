@@ -18,7 +18,17 @@ All matching methods inherit the interface of the `BaseMatcher` class.
 
 ## Types
 
-:::perfect_strangers.base_matcher.ParticipantLabels
+:::perfect_strangers.types.GroupingMatrix
+    options:
+        show_root_heading: true
+        heading_level: 3
+
+:::perfect_strangers.types.RoundSequence
+    options:
+        show_root_heading: true
+        heading_level: 3
+
+:::perfect_strangers.types.ParticipantLabels
     options:
         show_root_heading: true
         heading_level: 3
