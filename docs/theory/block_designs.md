@@ -35,9 +35,9 @@ A balanced incomplete block design $\left(\mathrm{BIBD}\right)$ with parameters 
   * $\mathcal{B}$ is a collection of blocks of $k$ points such that each unordered pair of points from $X$ appears in
     exactly $\lambda$ blocks. 
 
-The design is balanced in that each unordered pair of points occurs in the same number of blocks, and incomplete in that the
-blocks do not constitute every possible set of $k$ points from $X$. A $\mathrm{BIBD}$ for a given set of parameters is
-referred to as a $\left(v, k, \lambda\right)$-$\mathrm{BIBD}$. If the design is resolvable it is a $\left(v, k,
+The design is balanced in that each unordered pair of points occurs in the same number of blocks, and incomplete in that $k
+< v$ so the blocks do not contain every point from $X$. A $\mathrm{BIBD}$ for a given set of parameters is referred to as a
+$\left(v, k, \lambda\right)$-$\mathrm{BIBD}$. If the design is resolvable it is a $\left(v, k,
 \lambda\right)$-$\mathrm{RBIBD}$.
 
 For perfect stranger matching applications we consider $\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$s for which:
