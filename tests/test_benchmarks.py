@@ -5,13 +5,15 @@
 import pytest
 
 from perfect_strangers import create_matcher
-from perfect_strangers.column_shift_matcher import ColumnShiftMatcher
-from perfect_strangers.finite_plane_matcher import FinitePlaneMatcher
-from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
-from perfect_strangers.lookup_matcher import LookupMatcher
-from perfect_strangers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
-from perfect_strangers.round_robin_matcher import RoundRobinMatcher
-from perfect_strangers.sub_bibd_matcher import SubBIBDMatcher
+from perfect_strangers.matchers import (
+    ColumnShiftMatcher,
+    FinitePlaneMatcher,
+    KirkmanTripleMatcher,
+    LookupMatcher,
+    NearlyKirkmanTripleMatcher,
+    RoundRobinMatcher,
+    SubBIBDMatcher,
+)
 from tests.matcher_validation import validate_matcher
 
 

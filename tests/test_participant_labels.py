@@ -5,7 +5,7 @@
 import pytest
 
 from perfect_strangers import create_matcher
-from perfect_strangers.base_matcher import IncorrectParticipantLabelsError, NonUniqueParticipantLabelsError
+from perfect_strangers.exceptions import IncorrectParticipantLabelsError, NonUniqueParticipantLabelsError
 
 
 @pytest.mark.parametrize("group_size", range(2, 7))

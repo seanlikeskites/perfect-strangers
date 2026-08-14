@@ -10,11 +10,11 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RGDDType
+from perfect_strangers.matchers.base_matcher import BaseMatcher
 
 if TYPE_CHECKING:
-    from perfect_strangers.types import ParticipantLabels
+    from collections.abc import Sequence
 
 
 #######################################################################
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 #######################################################################
 class NearlyKirkmanTripleMatcher(BaseMatcher):
     """ Constructions of NKTSs as per doi.org/10.1002/jcd.21342 """
-    def __init__(self, starters: list[list], participant_labels: ParticipantLabels=None):
+    def __init__(self, starters: list[list], participant_labels: Sequence | None=None):
         self.starters = starters
 
         super().__init__(len(starters), 3, participant_labels=participant_labels)
@@ -56,8 +56,8 @@ class NearlyKirkmanTripleMatcher(BaseMatcher):
         return RGDDType(3, 2, self.n_participants // 2)
 
     @classmethod
-    def create_matcher(cls, groups_per_round: int, participant_labels: ParticipantLabels=None):
-        with importlib.resources.files("perfect_strangers").joinpath("lookup/nkts_starters.json").open() as f:
+    def create_matcher(cls, groups_per_round: int, participant_labels: Sequence | None=None):
+        with importlib.resources.files("perfect_strangers").joinpath("data/nkts_starters.json").open() as f:
             starting_groups = json.loads(f.read())
 
         try:

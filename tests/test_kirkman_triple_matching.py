@@ -4,7 +4,7 @@
 
 import pytest
 
-from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
+from perfect_strangers.matchers import KirkmanTripleMatcher
 from perfect_strangers.util import sequence_length_upper_bound
 from tests.matcher_validation import validate_matcher
 

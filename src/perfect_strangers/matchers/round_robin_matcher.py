@@ -2,15 +2,16 @@
 #
 # SPDX-License-Identifier: MIT
 
+from collections.abc import Sequence
+
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RBIBDType
-from perfect_strangers.types import ParticipantLabels
+from perfect_strangers.matchers.base_matcher import BaseMatcher
 
 
 class RoundRobinMatcher(BaseMatcher):
-    def __init__(self, groups_per_round: int, participant_labels: ParticipantLabels=None):
+    def __init__(self, groups_per_round: int, participant_labels: Sequence | None=None):
         # Round robin matching works with a group size of 2.
         super().__init__(groups_per_round, 2, participant_labels=participant_labels)
 

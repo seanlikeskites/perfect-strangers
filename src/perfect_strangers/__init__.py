@@ -2,23 +2,38 @@
 #
 # SPDX-License-Identifier: MIT
 
+from collections.abc import Sequence
+
 from perfect_strangers.__about__ import __version__
-from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.factory import matcher_factory
-from perfect_strangers.types import ParticipantLabels
+from perfect_strangers.matchers import BaseMatcher
+from perfect_strangers.types import GroupSpec
 
 __all__ = ("__version__", "create_matcher")
 
 
-def create_matcher(groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None) -> BaseMatcher:
+def create_matcher(groups_per_round: int,
+                   group_spec: GroupSpec,
+                   participant_labels: Sequence | None=None) -> BaseMatcher:
     """
     Create a group matcher for the given experiment parameters.
 
     :param groups_per_round: The number of groups per round of the experiment.
-    :param group_size: The number of participants in each group.
-    :param participant_labels: A list of unique labels for the experiment participants. Must have `groups_per_round *
-    group_size` unique elements.
+    :param group_spec: The specification for each group. Either an integer or a sequence of integers.
+
+      - If an integer is provided this defines the number of participants in each group.
+      - If a sequence of integers is provided, typed perfect stranger matching is performed. The length of the provided
+        sequence defines the number of different types of participant. The values in the sequence give the number of
+        participants of that type in each group. The total number of participants per groups is given by the sum of the
+        values in the sequence.
+
+    :param participant_labels: Unique labels for the experiment participants.
+
+      - If `group_spec` is an integer this should be a sequence of participant labels with `groups_per_round * group_spec`
+        unique elements.
+      - If `group_spec` is a sequence of integers this should be a sequence of sequences of participant labels. The n^th^
+        element of this sequence should have `groups_per_round * group_spec[n]` unique elements.
 
     :return: A matcher object of a type which inherits from [`BaseMatcher`][perfect_strangers.BaseMatcher].
     """
-    return matcher_factory(groups_per_round, group_size, participant_labels=participant_labels)
+    return matcher_factory(groups_per_round, group_spec, participant_labels=participant_labels)

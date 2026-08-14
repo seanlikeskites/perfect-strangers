@@ -4,7 +4,7 @@
 
 import pytest
 
-from perfect_strangers.sub_bibd_matcher import SubBIBDMatcher
+from perfect_strangers.matchers import SubBIBDMatcher
 from perfect_strangers.util import sequence_length_upper_bound
 from tests.matcher_validation import validate_matcher, validate_sub_matchers
 

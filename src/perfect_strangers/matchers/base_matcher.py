@@ -13,16 +13,10 @@ from perfect_strangers.design_types import DesignType, PartialType, RBIBDType, R
 from perfect_strangers.util import is_round_pair_valid, is_round_valid
 
 if TYPE_CHECKING:
-    from perfect_strangers.types import GroupingMatrix, ParticipantLabels, RoundSequence
+    from collections.abc import Sequence
 
+    from perfect_strangers.types import GroupingMatrix, RoundSequence
 
-class IncorrectParticipantLabelsError(Exception):
-    def __init__(self, n_participants, n_labels):
-        super().__init__(f"Experiment has {n_participants} participants, but {n_labels} labels provided.")
-
-class NonUniqueParticipantLabelsError(Exception):
-    def __init__(self, n_participants, n_labels):
-        super().__init__(f"Experiment has {n_participants} participants, but only {n_labels} unique labels provided.")
 
 class BaseMatcher:
     """
@@ -32,7 +26,7 @@ class BaseMatcher:
                  groups_per_round: int | None=None,
                  group_size: int | None=None,
                  round_sequence: RoundSequence | None=None,
-                 participant_labels: ParticipantLabels=None):
+                 participant_labels: Sequence | None=None):
         if round_sequence is not None:
             self._from_round_sequence(round_sequence)
         elif groups_per_round is not None and group_size is not None:
@@ -43,8 +37,6 @@ class BaseMatcher:
 
         if participant_labels is not None or not hasattr(self, "_participant_labels"):
             self._participant_labels = participant_labels
-
-        self._validate_participant_labels()
 
         self.shuffle_sequence()
 
@@ -80,7 +72,7 @@ class BaseMatcher:
             np.arange(self.n_participants).reshape(self.groups_per_round, self.group_size)
         ]
 
-        if groups_per_round >= group_size:
+        if groups_per_round >= self.group_size:
             self._generate_rounds()
 
     @property
@@ -239,12 +231,4 @@ class BaseMatcher:
                     return False
 
         return True
-
-    def _validate_participant_labels(self):
-        if self._participant_labels is not None:
-            if len(self._participant_labels) != self.n_participants:
-                raise IncorrectParticipantLabelsError(self.n_participants, len(self._participant_labels))
-
-            if len(set(self._participant_labels)) != self.n_participants:
-                raise NonUniqueParticipantLabelsError(self.n_participants, len(set(self._participant_labels)))
 

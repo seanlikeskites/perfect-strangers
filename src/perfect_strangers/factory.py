@@ -2,31 +2,41 @@
 #
 # SPDX-License-Identifier: MIT
 
-from perfect_strangers.base_matcher import BaseMatcher
-from perfect_strangers.column_shift_matcher import ColumnShiftMatcher
-from perfect_strangers.finite_plane_matcher import FinitePlaneMatcher, use_finite_plane_construction
-from perfect_strangers.kirkman_triple_matcher import KirkmanTripleMatcher
-from perfect_strangers.lookup_matcher import LookupMatcher
-from perfect_strangers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
-from perfect_strangers.round_robin_matcher import RoundRobinMatcher
-from perfect_strangers.sub_bibd_matcher import SubBIBDMatcher
-from perfect_strangers.types import ParticipantLabels
+from collections.abc import Sequence
+
+from perfect_strangers.exceptions import IncorrectParticipantLabelsError, NonUniqueParticipantLabelsError
+from perfect_strangers.matchers import (
+    BaseMatcher,
+    ColumnShiftMatcher,
+    FinitePlaneMatcher,
+    KirkmanTripleMatcher,
+    LookupMatcher,
+    NearlyKirkmanTripleMatcher,
+    RoundRobinMatcher,
+    SubBIBDMatcher,
+)
+from perfect_strangers.types import GroupSpec
+from perfect_strangers.util import use_finite_plane_construction
 
 
-def matcher_factory(groups_per_round: int,
-                    group_size: int,
-                    tried_sub_bibds: list[tuple[int, int]] | None=None,
-                    participant_labels: ParticipantLabels=None) -> BaseMatcher:
-    """
-    Create a groups matcher for the given experiment parameters.
+def _validate_full_matcher_spec(groups_per_round: int, group_size: int, participant_labels: Sequence | None):
+    if participant_labels is not None:
+        n_participants = groups_per_round * group_size
+        n_labels = len(participant_labels)
 
-    :param groups_per_round: The number of groups per round of the experiment.
-    :param group_size: The number of participants in each group.
-    :param participant_labels: A list of unique labels for the experiment participants. Must have `groups_per_round *
-    group_size` unique elements.
+        if n_labels != n_participants:
+            raise IncorrectParticipantLabelsError(n_participants, n_labels)
 
-    :return: A matcher object of a type which inherits from [`BaseMatcher`][perfect_strangers.BaseMatcher].
-    """
+        if len(set(participant_labels)) != n_participants:
+            raise NonUniqueParticipantLabelsError(n_participants, len(set(participant_labels)))
+
+
+def _full_matcher_factory(groups_per_round: int,
+                         group_size: int,
+                         tried_sub_bibds: list[tuple[int, int]] | None=None,
+                         participant_labels: Sequence | None=None) -> BaseMatcher:
+    _validate_full_matcher_spec(groups_per_round, group_size, participant_labels)
+
     if tried_sub_bibds is None:
         tried_sub_bibds = []
 
@@ -63,3 +73,35 @@ def matcher_factory(groups_per_round: int,
         return lookup_matcher
 
     return algo_matcher
+
+def _validate_typed_matcher_spec(groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None):
+    pass
+
+def _typed_matcher_factory(groups_per_round: int,
+                           group_spec: GroupSpec,
+                           participant_labels: Sequence | None) -> BaseMatcher:
+    _validate_typed_matcher_spec(groups_per_round, group_spec, participant_labels)
+
+    if use_finite_plane_construction(groups_per_round, group_spec):
+        return FinitePlaneMatcher.create_matcher(groups_per_round, group_spec, participant_labels=participant_labels)
+
+
+    return ColumnShiftMatcher(groups_per_round, group_spec, participant_labels=participant_labels)
+
+def matcher_factory(groups_per_round: int,
+                    group_spec: GroupSpec,
+                    tried_sub_bibds: list[tuple[int, int]] | None=None,
+                    participant_labels: Sequence | None=None) -> BaseMatcher:
+    """
+    Create a groups matcher for the given experiment parameters.
+
+    :param groups_per_round: The number of groups per round of the experiment.
+    :param group_spec: The group specification, as per create_matcher().
+    :param participant_labels: Participant labels, as per create_matcher().
+
+    :return: A matcher object of a type which inherits from [`BaseMatcher`][perfect_strangers.BaseMatcher].
+    """
+    if isinstance(group_spec, int):
+        return _full_matcher_factory(groups_per_round, group_spec, tried_sub_bibds, participant_labels)
+
+    return _typed_matcher_factory(groups_per_round, group_spec, participant_labels)

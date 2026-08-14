@@ -5,7 +5,7 @@
 import galois
 import pytest
 
-from perfect_strangers.column_shift_matcher import ColumnShiftMatcher
+from perfect_strangers.matchers import ColumnShiftMatcher
 from perfect_strangers.util import sequence_length_upper_bound, x_is_power_of_y
 from tests.matcher_validation import validate_matcher
 

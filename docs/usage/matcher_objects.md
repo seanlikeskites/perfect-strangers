@@ -28,8 +28,7 @@ All matching methods inherit the interface of the `BaseMatcher` class.
         show_root_heading: true
         heading_level: 3
 
-:::perfect_strangers.types.ParticipantLabels
+:::perfect_strangers.types.GroupSpec
     options:
         show_root_heading: true
         heading_level: 3
-

@@ -96,4 +96,4 @@ url = "https://test.pypi.org/legacy/"
 
 [tool.ruff.lint.extend-per-file-ignores]
 "src/perfect_strangers/factory.py" = ["PLR2004"]
-"src/perfect_strangers/sub_bibd_matcher.py" = ["N802", "N803", "N806", "PLR2004", "RUF002", "PERF401", "PLC0415"]
+"src/perfect_strangers/matchers/sub_bibd_matcher.py" = ["N802", "N803", "N806", "PLR2004", "RUF002", "PERF401", "PLC0415"]

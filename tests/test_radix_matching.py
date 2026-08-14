@@ -4,7 +4,7 @@
 
 import pytest
 
-from perfect_strangers.radix_matcher import RadixMatcher
+from perfect_strangers.matchers import RadixMatcher
 from tests.matcher_validation import validate_matcher
 
 

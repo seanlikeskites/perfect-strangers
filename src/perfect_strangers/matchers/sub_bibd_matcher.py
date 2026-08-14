@@ -3,12 +3,13 @@
 # SPDX-License-Identifier: MIT
 
 import math
+from collections.abc import Sequence
 
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RBIBDType
-from perfect_strangers.types import GroupingMatrix, ParticipantLabels, RoundSequence
+from perfect_strangers.matchers.base_matcher import BaseMatcher
+from perfect_strangers.types import GroupingMatrix, RoundSequence
 from perfect_strangers.util import round_to_lists, round_to_sets
 
 
@@ -248,7 +249,7 @@ class SubBIBDMatcher(BaseMatcher):
                  V: RoundSequence,
                  W: RoundSequence,
                  roa: RoundSequence,
-                 participant_labels: ParticipantLabels=None):
+                 participant_labels: Sequence | None=None):
         self._v1 = v1
         self._v2 = v2
         self._m = m
@@ -396,7 +397,7 @@ class SubBIBDMatcher(BaseMatcher):
                        groups_per_round: int,
                        group_size: int,
                        tried_sub_bibds: list[tuple[int, int]],
-                       participant_labels: ParticipantLabels=None):
+                       participant_labels: Sequence | None=None):
         n_participants = groups_per_round * group_size
 
         v2 = 1

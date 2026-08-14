@@ -10,12 +10,14 @@ from typing import TYPE_CHECKING
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RTDType
+from perfect_strangers.matchers.typed_matcher import TypedMatcher
 from perfect_strangers.util import least_prime_factor, submatrix_transpositions
 
 if TYPE_CHECKING:
-    from perfect_strangers.types import NumpyRounds, ParticipantLabels
+    from collections.abc import Sequence
+
+    from perfect_strangers.types import GroupSpec, NumpyRounds
 
 
 def _apply_sequential_shifts(base_matrix: np.typing.NDArray, n_shifts: int, stride: int) -> NumpyRounds:
@@ -59,11 +61,11 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> NumpyRounds:
 
     return _apply_sequential_shifts(g, n_shifts, stride)
 
-class ColumnShiftMatcher(BaseMatcher):
-    def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
+class ColumnShiftMatcher(TypedMatcher):
+    def __init__(self, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None=None):
         self._performed_transposition = False
 
-        super().__init__(groups_per_round, group_size, participant_labels=participant_labels)
+        super().__init__(groups_per_round, group_spec, participant_labels=participant_labels)
 
     def _generate_rounds(self):
         # Apply initial column shifts.

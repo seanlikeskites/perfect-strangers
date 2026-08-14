@@ -2,23 +2,20 @@
 #
 # SPDX-License-Identifier: MIT
 
+from collections.abc import Sequence
+
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RTDType
-from perfect_strangers.types import NumpyRounds, ParticipantLabels
-from perfect_strangers.util import finite_field_elements, least_prime_factor, submatrix_transpositions
+from perfect_strangers.matchers.typed_matcher import TypedMatcher
+from perfect_strangers.types import GroupSpec, NumpyRounds
+from perfect_strangers.util import (
+    finite_field_elements,
+    group_size_from_spec,
+    submatrix_transpositions,
+)
 
-
-def use_finite_plane_construction(groups_per_round: int, group_size: int) -> bool:
-    prime_power_test = galois.is_prime_power(groups_per_round)
-    group_size_upper_bound = group_size <= groups_per_round
-
-    lpf = least_prime_factor(groups_per_round)
-    group_size_lower_bound = lpf is not None and group_size > lpf
-
-    return prime_power_test and group_size_upper_bound and group_size_lower_bound
 
 def _match_on_finite_plane(participants: np.typing.NDArray, stride: int=1) -> NumpyRounds:
     n_blocks = participants.shape[0] // stride
@@ -43,9 +40,9 @@ def _match_on_finite_plane(participants: np.typing.NDArray, stride: int=1) -> Nu
 
     return [np.array(r) for r in rounds]
 
-class FinitePlaneMatcher(BaseMatcher):
-    def __init__(self, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
-        super().__init__(groups_per_round, group_size, participant_labels=participant_labels)
+class FinitePlaneMatcher(TypedMatcher):
+    def __init__(self, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None=None):
+        super().__init__(groups_per_round, group_spec, participant_labels=participant_labels)
 
     def _generate_rounds(self):
         participants = self._group_matrices[0].copy()
@@ -67,8 +64,10 @@ class FinitePlaneMatcher(BaseMatcher):
         return None
 
     @classmethod
-    def create_matcher(cls, groups_per_round: int, group_size: int, participant_labels: ParticipantLabels=None):
+    def create_matcher(cls, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None=None):
+        group_size = group_size_from_spec(group_spec)
+
         if galois.is_prime_power(groups_per_round) and group_size <= groups_per_round:
-            return cls(groups_per_round, group_size, participant_labels)
+            return cls(groups_per_round, group_spec, participant_labels)
 
         return None

@@ -4,14 +4,14 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 
 import galois
 import numpy as np
 
-from perfect_strangers.base_matcher import BaseMatcher
 from perfect_strangers.design_types import DesignType, RBIBDType
-from perfect_strangers.types import NumpyRounds, ParticipantLabels
+from perfect_strangers.matchers.base_matcher import BaseMatcher
+from perfect_strangers.types import NumpyRounds
 from perfect_strangers.util import finite_field_elements
 
 ParameterFuncReturn = tuple[int, int] | None
@@ -144,7 +144,7 @@ def _two_q_less_one_rounds(t: int, q: int) -> NumpyRounds:
 class KirkmanTripleMatcher(BaseMatcher):
     """ Implementation as per https://math.stackexchange.com/a/4510645"""
     def __init__(self, groups_per_round: int, t: int, q: int,
-                 round_generator: RoundGenerator, participant_labels: ParticipantLabels=None):
+                 round_generator: RoundGenerator, participant_labels: Sequence | None=None):
         self.t = t
         self.q = q
         self.round_generator = round_generator
@@ -158,7 +158,7 @@ class KirkmanTripleMatcher(BaseMatcher):
         return RBIBDType(self.n_participants, 3)
 
     @classmethod
-    def create_matcher(cls, groups_per_round: int, participant_labels: ParticipantLabels=None):
+    def create_matcher(cls, groups_per_round: int, participant_labels: Sequence | None=None):
         methods = [
             (_three_q_params, _three_q_rounds),
             (_two_q_less_one_params, _two_q_less_one_rounds)

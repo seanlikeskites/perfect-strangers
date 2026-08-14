@@ -9,4 +9,4 @@ import numpy.typing as npt
 GroupingMatrix = Sequence[Sequence]
 RoundSequence = Sequence[GroupingMatrix]
 NumpyRounds = Sequence[npt.NDArray]
-ParticipantLabels = Sequence | None
+GroupSpec = int | Sequence[int]
