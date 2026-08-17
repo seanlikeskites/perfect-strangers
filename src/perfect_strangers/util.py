@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 import math
-from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
 import galois
@@ -16,11 +15,8 @@ if TYPE_CHECKING:
     from perfect_strangers.types import GroupingMatrix, GroupSpec
 
 
-def group_size_from_spec(group_spec: GroupSpec | int) -> int:
-    if isinstance(group_spec, Sequence):
-        return sum(group_spec)
-
-    return int(group_spec)
+def group_size_from_spec(group_spec: GroupSpec) -> int:
+    return sum(group_spec)
 
 def sequence_length_upper_bound(groups_per_round: int, group_size: int) -> int:
     if groups_per_round < group_size:
@@ -121,7 +117,7 @@ def round_to_sets(r: GroupingMatrix):
 def round_to_lists(r: GroupingMatrix):
     return [list(g) for g in r]
 
-def use_finite_plane_construction(groups_per_round: int, group_spec: GroupSpec | int) -> bool:
+def use_finite_plane_construction(groups_per_round: int, group_spec: GroupSpec) -> bool:
     group_size = group_size_from_spec(group_spec)
 
     prime_power_test = galois.is_prime_power(groups_per_round)

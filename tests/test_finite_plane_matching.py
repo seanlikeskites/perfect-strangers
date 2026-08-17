@@ -11,7 +11,7 @@ from tests.matcher_validation import validate_matcher
 @pytest.mark.parametrize("group_size", range(3, 7))
 @pytest.mark.parametrize("groups_per_round", range(2, 31))
 def test_finite_plane(groups_per_round, group_size):
-    matcher = FinitePlaneMatcher.create_matcher(groups_per_round, group_size)
+    matcher = FinitePlaneMatcher.create_matcher(groups_per_round, [group_size])
 
     if matcher is not None:
         if groups_per_round == group_size:

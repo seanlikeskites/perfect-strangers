@@ -54,8 +54,12 @@ def matcher_factory(groups_per_round: int,
             algo_matcher = NearlyKirkmanTripleMatcher.create_matcher(groups_per_round, participant_labels=participant_labels)
 
     # Try finite plane construction.
-    if algo_matcher is None and use_finite_plane_construction(groups_per_round, group_size):
-        algo_matcher = FinitePlaneMatcher.create_matcher(groups_per_round, group_size, participant_labels=participant_labels)
+    participant_labels_list = [participant_labels] if participant_labels is not None else None
+
+    if algo_matcher is None and use_finite_plane_construction(groups_per_round, [group_size]):
+        algo_matcher = FinitePlaneMatcher.create_matcher(groups_per_round,
+                                                         [group_size],
+                                                         participant_labels=participant_labels_list)
 
     # Try Theorem 4 from Ray-Chaudhuri and Wilson (1971).
     if algo_matcher is None and (groups_per_round, group_size) not in tried_sub_bibds:
@@ -67,7 +71,7 @@ def matcher_factory(groups_per_round: int,
 
     # Default to column shift matching.
     if algo_matcher is None:
-        algo_matcher = ColumnShiftMatcher(groups_per_round, group_size, participant_labels=participant_labels)
+        algo_matcher = ColumnShiftMatcher(groups_per_round, [group_size], participant_labels=participant_labels_list)
 
     # If predefined sequences perform better use those.
     if lookup_matcher is not None and lookup_matcher.max_rounds > algo_matcher.max_rounds:
@@ -80,7 +84,7 @@ def _validate_typed_matcher_spec(groups_per_round: int, group_spec: GroupSpec, p
 
 def typed_matcher_factory(groups_per_round: int,
                            group_spec: GroupSpec,
-                           participant_labels: Sequence | None) -> TypedMatcher:
+                           participant_labels: Sequence[Sequence] | None) -> TypedMatcher:
     _validate_typed_matcher_spec(groups_per_round, group_spec, participant_labels)
 
     if use_finite_plane_construction(groups_per_round, group_spec):

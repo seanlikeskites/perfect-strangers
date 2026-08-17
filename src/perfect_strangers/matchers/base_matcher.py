@@ -31,6 +31,8 @@ class BaseMatcher:
                  group_size: int | None=None,
                  round_sequence: RoundSequence | None=None,
                  participant_labels: Sequence | None=None):
+        self._participant_labels = participant_labels
+
         if round_sequence is not None:
             self._from_round_sequence(round_sequence)
         elif groups_per_round is not None and group_size is not None:
@@ -39,15 +41,19 @@ class BaseMatcher:
             error = "Construction of BaseMatcher requires either experiment parameters or a round_sequnce."
             raise TypeError(error)
 
-        if participant_labels is not None or not hasattr(self, "_participant_labels"):
-            self._participant_labels = participant_labels
+        self._init_participant_label_map(self._initial_groupings)
 
         self.shuffle_sequence()
+
+    def _init_participant_ids(self):
+        self._participant_ids = np.arange(self.n_participants)
+        self._initial_groupings = self._participant_ids.reshape(self.groups_per_round, self.group_size)
 
     def _from_round_sequence(self, round_sequence: RoundSequence):
         self.groups_per_round = len(round_sequence[0])
         self.group_size = len(round_sequence[0][0])
         self.n_participants = self.groups_per_round * self.group_size
+        self._init_participant_ids()
 
         participants = {
             participant: ID
@@ -61,7 +67,8 @@ class BaseMatcher:
             ]) for g in round_sequence
         ]
 
-        self._participant_labels = [p for p, _ in sorted(participants.items(), key=lambda x: x[1])]
+        if self._participant_labels is None:
+            self._participant_labels = [p for p, _ in sorted(participants.items(), key=lambda x: x[1])]
 
         if not self.validate_rounds():
             error = "Provided round sequence incorrect."
@@ -72,15 +79,15 @@ class BaseMatcher:
         self.group_size = group_size
         self.n_participants = self.groups_per_round * self.group_size
 
-        initial_groupings = np.arange(self.n_participants).reshape(self.groups_per_round, self.group_size)
+        self._init_participant_ids()
 
         if groups_per_round >= self.group_size:
-            self._group_matrices = self._generate_rounds(initial_groupings)
+            self._group_matrices = self._generate_rounds(self._initial_groupings)
         else:
-            self._group_matrices = [initial_groupings]
+            self._group_matrices = [self._initial_groupings]
 
-    def _generate_rounds(self, initial_groupings: np.typing.NDArray) -> NumpyRounds:
-        return [initial_groupings]
+    def _generate_rounds(self, _initial_groupings: np.typing.NDArray) -> NumpyRounds:
+        return []
 
     def _append_round(self, g):
         if not is_round_valid(g, self.groups_per_round, self.group_size):
@@ -92,6 +99,14 @@ class BaseMatcher:
 
         self._group_matrices.append(g)
         return True
+
+    def _init_participant_label_map(self, _initial_groupings: np.typing.NDArray):
+        self._participant_label_map = None # type: dict | None
+
+        if self._participant_labels is not None:
+            self._participant_label_map = {
+                self._participant_ids[i]: self._participant_labels[i] for i in range(self.n_participants)
+            }
 
     ##################################################################
     # Experiment Rounds
@@ -131,9 +146,9 @@ class BaseMatcher:
         """
         g = self._group_matrices[round_index].tolist()
 
-        if self._participant_labels is not None:
+        if self._participant_label_map is not None:
             g = [
-                [self._participant_labels[p] for p in r]
+                [self._participant_label_map[p] for p in r]
                 for r in g
             ]
 

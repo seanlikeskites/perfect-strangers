@@ -27,9 +27,9 @@ def test_benchmarks(groups_per_round, group_size):
 
     # Check create_matcher selected the best performing algorithm.
     algorithms = [
-        ColumnShiftMatcher(groups_per_round, group_size),
+        ColumnShiftMatcher(groups_per_round, [group_size]),
         LookupMatcher.create_matcher(groups_per_round, group_size),
-        FinitePlaneMatcher.create_matcher(groups_per_round, group_size),
+        FinitePlaneMatcher.create_matcher(groups_per_round, [group_size]),
         SubBIBDMatcher.create_matcher(groups_per_round, group_size, [])
     ]
 
