@@ -62,23 +62,27 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> NumpyRounds:
     return _apply_sequential_shifts(g, n_shifts, stride)
 
 class ColumnShiftMatcher(TypedMatcher):
-    def __init__(self, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None=None):
+    def __init__(self, groups_per_round: int, group_spec: GroupSpec | int, participant_labels: Sequence | None=None):
         self._performed_transposition = False
 
         super().__init__(groups_per_round, group_spec, participant_labels=participant_labels)
 
-    def _generate_rounds(self):
+    def _generate_rounds(self, initial_groupings: np.typing.NDArray) -> NumpyRounds:
+        rounds = [initial_groupings]
+
         # Apply initial column shifts.
-        self._group_matrices += _shift_columns(self._group_matrices[0], 1)
+        rounds += _shift_columns(initial_groupings, 1)
 
         # Apply submatrix transposition.
-        transpositions = submatrix_transpositions(self._group_matrices[0])
+        transpositions = submatrix_transpositions(initial_groupings)
 
         self._performed_transposition = len(transpositions) > 0
 
         for t, stride in transpositions:
-            self._group_matrices.append(t)
-            self._group_matrices += _shift_columns(t, stride)
+            rounds.append(t)
+            rounds += _shift_columns(t, stride)
+
+        return rounds
 
     def _design_type(self) -> DesignType | None:
         if not self._performed_transposition and self.max_rounds == self.groups_per_round:

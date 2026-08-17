@@ -7,11 +7,21 @@
         show_root_heading: true
         heading_level: 3
 
-## Base Class
+:::perfect_strangers.create_typed_matcher
+    options:
+        show_root_heading: true
+        heading_level: 3
+
+## Base Classes
 
 All matching methods inherit the interface of the `BaseMatcher` class.
 
 :::perfect_strangers.BaseMatcher
+    options:
+        show_root_heading: true
+        heading_level: 3
+
+:::perfect_strangers.TypedMatcher
     options:
         show_root_heading: true
         heading_level: 3

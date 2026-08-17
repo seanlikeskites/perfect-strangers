@@ -56,3 +56,6 @@ th.vertical-title div {
   white-space: nowrap;
 }
 
+.md-toc {
+  overflow: visible;
+}

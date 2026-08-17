@@ -11,7 +11,7 @@ from perfect_strangers.types import GroupSpec
 class TypedMatcher(BaseMatcher):
     def __init__(self,
                  groups_per_round: int,
-                 group_spec: GroupSpec,
+                 group_spec: GroupSpec | int,
                  participant_labels: Sequence | None=None):
 
         if isinstance(group_spec, Sequence):

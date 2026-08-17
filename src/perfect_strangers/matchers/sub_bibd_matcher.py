@@ -9,7 +9,7 @@ import numpy as np
 
 from perfect_strangers.design_types import DesignType, RBIBDType
 from perfect_strangers.matchers.base_matcher import BaseMatcher
-from perfect_strangers.types import GroupingMatrix, RoundSequence
+from perfect_strangers.types import GroupingMatrix, NumpyRounds, RoundSequence
 from perfect_strangers.util import round_to_lists, round_to_sets
 
 
@@ -330,7 +330,7 @@ class SubBIBDMatcher(BaseMatcher):
 
         return P_j_of_B + W_i_j
 
-    def _generate_rounds(self):
+    def _generate_rounds(self, _initial_groupings: np.typing.NDArray) -> NumpyRounds:
         self._theta = self._v1 - 1
         self._X_prime = list(range(self._theta))
         self._I_m = list(range(self._m))
@@ -357,7 +357,7 @@ class SubBIBDMatcher(BaseMatcher):
             for j in range(self._m):
                 rounds.append(self._roa_round(i, j))
 
-        self._group_matrices = [np.array(r) for r in rounds]
+        return [np.array(r) for r in rounds]
 
     def _design_type(self) -> DesignType:
         return RBIBDType(self.n_participants, self.group_size)

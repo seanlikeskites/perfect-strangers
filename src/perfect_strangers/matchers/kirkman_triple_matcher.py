@@ -151,8 +151,8 @@ class KirkmanTripleMatcher(BaseMatcher):
 
         super().__init__(groups_per_round, 3, participant_labels=participant_labels)
 
-    def _generate_rounds(self):
-        self._group_matrices = self.round_generator(self.t, self.q)
+    def _generate_rounds(self, _initial_groupings: np.typing.NDArray) -> NumpyRounds:
+        return self.round_generator(self.t, self.q)
 
     def _design_type(self) -> DesignType:
         return RBIBDType(self.n_participants, 3)

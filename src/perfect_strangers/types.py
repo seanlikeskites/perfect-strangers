@@ -6,7 +6,7 @@ from collections.abc import Sequence
 
 import numpy.typing as npt
 
-GroupingMatrix = Sequence[Sequence]
-RoundSequence = Sequence[GroupingMatrix]
-NumpyRounds = Sequence[npt.NDArray]
-GroupSpec = int | Sequence[int]
+GroupingMatrix = list[list]
+RoundSequence = list[GroupingMatrix]
+NumpyRounds = list[npt.NDArray]
+GroupSpec = Sequence[int]

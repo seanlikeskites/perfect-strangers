@@ -15,13 +15,17 @@ from perfect_strangers.util import is_round_pair_valid, is_round_valid
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
-    from perfect_strangers.types import GroupingMatrix, RoundSequence
+    from perfect_strangers.types import GroupingMatrix, NumpyRounds, RoundSequence
 
 
 class BaseMatcher:
     """
     Base class for all group matching methods.
     """
+
+    ##################################################################
+    # Initialisation
+    ##################################################################
     def __init__(self,
                  groups_per_round: int | None=None,
                  group_size: int | None=None,
@@ -68,19 +72,54 @@ class BaseMatcher:
         self.group_size = group_size
         self.n_participants = self.groups_per_round * self.group_size
 
-        self._group_matrices = [
-            np.arange(self.n_participants).reshape(self.groups_per_round, self.group_size)
-        ]
+        initial_groupings = np.arange(self.n_participants).reshape(self.groups_per_round, self.group_size)
 
         if groups_per_round >= self.group_size:
-            self._generate_rounds()
+            self._group_matrices = self._generate_rounds(initial_groupings)
+        else:
+            self._group_matrices = [initial_groupings]
 
+    def _generate_rounds(self, initial_groupings: np.typing.NDArray) -> NumpyRounds:
+        return [initial_groupings]
+
+    def _append_round(self, g):
+        if not is_round_valid(g, self.groups_per_round, self.group_size):
+            return False
+
+        for r in self._group_matrices:
+            if not is_round_pair_valid(r, g):
+                return False
+
+        self._group_matrices.append(g)
+        return True
+
+    ##################################################################
+    # Experiment Rounds
+    ##################################################################
     @property
     def max_rounds(self) -> int:
         """
         The maximum number of rounds this matcher will produce under perfect stranger matching conditions.
         """
         return len(self._group_matrices)
+
+    @property
+    def rounds(self) -> RoundSequence:
+        """
+        A list of participant groupings for all rounds constructed by this matcher.
+        """
+        return [self.groups_for_round(i) for i in range(self.max_rounds)]
+
+    def __iter__(self):
+        """
+        Allow for iterating over rounds in a for loop. For example:
+
+            matcher = create_matcher(groups_per_round, group_size)
+
+            for round in matcher:
+                print(round)
+        """
+        return iter(self.rounds)
 
     def groups_for_round(self, round_index: int) -> GroupingMatrix:
         """
@@ -119,24 +158,6 @@ class BaseMatcher:
         """
         self.next_round = 0
 
-    @property
-    def rounds(self) -> RoundSequence:
-        """
-        A list of participant groupings for all rounds constructed by this matcher.
-        """
-        return [self.groups_for_round(i) for i in range(self.max_rounds)]
-
-    def __iter__(self):
-        """
-        Allow for iterating over rounds in a for loop. For example:
-
-            matcher = create_matcher(groups_per_round, group_size)
-
-            for round in matcher:
-                print(round)
-        """
-        return iter(self.rounds)
-
     def shuffle_sequence(self):
         """
         Shuffle the list of rounds produced by this matcher.
@@ -144,20 +165,9 @@ class BaseMatcher:
         shuffle(self._group_matrices)
         self.restart()
 
-    def _generate_rounds(self):
-        pass
-
-    def _append_round(self, g):
-        if not is_round_valid(g, self.groups_per_round, self.group_size):
-            return False
-
-        for r in self._group_matrices:
-            if not is_round_pair_valid(r, g):
-                return False
-
-        self._group_matrices.append(g)
-        return True
-
+    ##################################################################
+    # Sub-Matchers
+    ##################################################################
     def _available_sub_matchers(self) -> set[int]:
         return set()
 
@@ -170,7 +180,7 @@ class BaseMatcher:
         """
         return {1} | self._available_sub_matchers()
 
-    def _sub_matcher(self, groups_per_round: int) -> BaseMatcher | None:
+    def _sub_matcher(self, _groups_per_round: int) -> BaseMatcher | None:
         return None
 
     def sub_matcher(self, groups_per_round: int) -> BaseMatcher | None:
@@ -193,6 +203,9 @@ class BaseMatcher:
 
         return None
 
+    ##################################################################
+    # Block Design Information
+    ##################################################################
     def _design_type(self) -> DesignType | None:
         return None
 
@@ -216,6 +229,9 @@ class BaseMatcher:
 
         return PartialType()
 
+    ##################################################################
+    # Validation
+    ##################################################################
     def validate_rounds(self) -> bool:
         for i, current_round in enumerate(self._group_matrices):
             # Check current round include all participants.
@@ -231,4 +247,3 @@ class BaseMatcher:
                     return False
 
         return True
-

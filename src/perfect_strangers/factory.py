@@ -14,12 +14,13 @@ from perfect_strangers.matchers import (
     NearlyKirkmanTripleMatcher,
     RoundRobinMatcher,
     SubBIBDMatcher,
+    TypedMatcher,
 )
 from perfect_strangers.types import GroupSpec
 from perfect_strangers.util import use_finite_plane_construction
 
 
-def _validate_full_matcher_spec(groups_per_round: int, group_size: int, participant_labels: Sequence | None):
+def _validate_matcher_spec(groups_per_round: int, group_size: int, participant_labels: Sequence | None):
     if participant_labels is not None:
         n_participants = groups_per_round * group_size
         n_labels = len(participant_labels)
@@ -31,11 +32,11 @@ def _validate_full_matcher_spec(groups_per_round: int, group_size: int, particip
             raise NonUniqueParticipantLabelsError(n_participants, len(set(participant_labels)))
 
 
-def _full_matcher_factory(groups_per_round: int,
+def matcher_factory(groups_per_round: int,
                          group_size: int,
                          tried_sub_bibds: list[tuple[int, int]] | None=None,
                          participant_labels: Sequence | None=None) -> BaseMatcher:
-    _validate_full_matcher_spec(groups_per_round, group_size, participant_labels)
+    _validate_matcher_spec(groups_per_round, group_size, participant_labels)
 
     if tried_sub_bibds is None:
         tried_sub_bibds = []
@@ -77,9 +78,9 @@ def _full_matcher_factory(groups_per_round: int,
 def _validate_typed_matcher_spec(groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None):
     pass
 
-def _typed_matcher_factory(groups_per_round: int,
+def typed_matcher_factory(groups_per_round: int,
                            group_spec: GroupSpec,
-                           participant_labels: Sequence | None) -> BaseMatcher:
+                           participant_labels: Sequence | None) -> TypedMatcher:
     _validate_typed_matcher_spec(groups_per_round, group_spec, participant_labels)
 
     if use_finite_plane_construction(groups_per_round, group_spec):
@@ -87,21 +88,3 @@ def _typed_matcher_factory(groups_per_round: int,
 
 
     return ColumnShiftMatcher(groups_per_round, group_spec, participant_labels=participant_labels)
-
-def matcher_factory(groups_per_round: int,
-                    group_spec: GroupSpec,
-                    tried_sub_bibds: list[tuple[int, int]] | None=None,
-                    participant_labels: Sequence | None=None) -> BaseMatcher:
-    """
-    Create a groups matcher for the given experiment parameters.
-
-    :param groups_per_round: The number of groups per round of the experiment.
-    :param group_spec: The group specification, as per create_matcher().
-    :param participant_labels: Participant labels, as per create_matcher().
-
-    :return: A matcher object of a type which inherits from [`BaseMatcher`][perfect_strangers.BaseMatcher].
-    """
-    if isinstance(group_spec, int):
-        return _full_matcher_factory(groups_per_round, group_spec, tried_sub_bibds, participant_labels)
-
-    return _typed_matcher_factory(groups_per_round, group_spec, participant_labels)

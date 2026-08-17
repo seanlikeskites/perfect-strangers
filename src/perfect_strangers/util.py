@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from perfect_strangers.types import GroupingMatrix, GroupSpec
 
 
-def group_size_from_spec(group_spec: GroupSpec) -> int:
+def group_size_from_spec(group_spec: GroupSpec | int) -> int:
     if isinstance(group_spec, Sequence):
         return sum(group_spec)
 
@@ -121,7 +121,7 @@ def round_to_sets(r: GroupingMatrix):
 def round_to_lists(r: GroupingMatrix):
     return [list(g) for g in r]
 
-def use_finite_plane_construction(groups_per_round: int, group_spec: GroupSpec) -> bool:
+def use_finite_plane_construction(groups_per_round: int, group_spec: GroupSpec | int) -> bool:
     group_size = group_size_from_spec(group_spec)
 
     prime_power_test = galois.is_prime_power(groups_per_round)

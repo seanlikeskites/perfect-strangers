@@ -42,6 +42,7 @@ theme:
     - navigation.tabs.sticky
   palette:
     scheme: default
+  custom_dir: docs/overrides
 
 markdown_extensions:
   - attr_list

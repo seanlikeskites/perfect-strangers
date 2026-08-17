@@ -16,6 +16,8 @@ from perfect_strangers.matchers.base_matcher import BaseMatcher
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
+    from perfect_strangers.types import NumpyRounds
+
 
 #######################################################################
 # Matcher
@@ -44,13 +46,10 @@ class NearlyKirkmanTripleMatcher(BaseMatcher):
 
         return np.array(shifts)
 
-    def _generate_rounds(self):
+    def _generate_rounds(self, _initial_groupings: np.typing.NDArray) -> NumpyRounds:
         n_rounds = self.n_participants // 2 - 1
 
-        self._group_matrices = []
-
-        for round_index in range(n_rounds):
-            self._group_matrices.append(self._round_groups(round_index))
+        return [self._round_groups(round_index) for round_index in range(n_rounds)]
 
     def _design_type(self) -> DesignType:
         return RGDDType(3, 2, self.n_participants // 2)
