@@ -73,6 +73,9 @@ class ColumnShiftMatcher(TypedMatcher):
         # Apply initial column shifts.
         rounds += _shift_columns(initial_groupings, 1)
 
+        if self._more_than_one_participant_type():
+            return rounds
+
         # Apply submatrix transposition.
         transpositions = submatrix_transpositions(initial_groupings)
 

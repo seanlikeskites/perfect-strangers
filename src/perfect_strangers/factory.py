@@ -4,7 +4,6 @@
 
 from collections.abc import Sequence
 
-from perfect_strangers.exceptions import IncorrectParticipantLabelsError, NonUniqueParticipantLabelsError
 from perfect_strangers.matchers import (
     BaseMatcher,
     ColumnShiftMatcher,
@@ -20,24 +19,10 @@ from perfect_strangers.types import GroupSpec
 from perfect_strangers.util import use_finite_plane_construction
 
 
-def _validate_matcher_spec(groups_per_round: int, group_size: int, participant_labels: Sequence | None):
-    if participant_labels is not None:
-        n_participants = groups_per_round * group_size
-        n_labels = len(participant_labels)
-
-        if n_labels != n_participants:
-            raise IncorrectParticipantLabelsError(n_participants, n_labels)
-
-        if len(set(participant_labels)) != n_participants:
-            raise NonUniqueParticipantLabelsError(n_participants, len(set(participant_labels)))
-
-
 def matcher_factory(groups_per_round: int,
                          group_size: int,
                          tried_sub_bibds: list[tuple[int, int]] | None=None,
                          participant_labels: Sequence | None=None) -> BaseMatcher:
-    _validate_matcher_spec(groups_per_round, group_size, participant_labels)
-
     if tried_sub_bibds is None:
         tried_sub_bibds = []
 
@@ -79,16 +64,10 @@ def matcher_factory(groups_per_round: int,
 
     return algo_matcher
 
-def _validate_typed_matcher_spec(groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None):
-    pass
-
 def typed_matcher_factory(groups_per_round: int,
                            group_spec: GroupSpec,
                            participant_labels: Sequence[Sequence] | None) -> TypedMatcher:
-    _validate_typed_matcher_spec(groups_per_round, group_spec, participant_labels)
-
     if use_finite_plane_construction(groups_per_round, group_spec):
         return FinitePlaneMatcher.create_matcher(groups_per_round, group_spec, participant_labels=participant_labels)
-
 
     return ColumnShiftMatcher(groups_per_round, group_spec, participant_labels=participant_labels)

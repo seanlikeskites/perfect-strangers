@@ -48,6 +48,9 @@ class FinitePlaneMatcher(TypedMatcher):
         participants = initial_groupings.copy()
         rounds = _match_on_finite_plane(participants)
 
+        if self._more_than_one_participant_type():
+            return rounds
+
         # Apply submatrix transposition.
         # For square matrices, transposition is equivalent to using the vertical lines of the finite plane.
         transpositions = submatrix_transpositions(participants)

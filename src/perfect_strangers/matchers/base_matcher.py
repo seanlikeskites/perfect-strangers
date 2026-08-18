@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING
 import numpy as np
 
 from perfect_strangers.design_types import DesignType, PartialType, RBIBDType, RGDDType
+from perfect_strangers.exceptions import IncorrectParticipantLabelsError, NonUniqueParticipantLabelsError
 from perfect_strangers.util import is_round_pair_valid, is_round_valid
 
 if TYPE_CHECKING:
@@ -41,6 +42,7 @@ class BaseMatcher:
             error = "Construction of BaseMatcher requires either experiment parameters or a round_sequnce."
             raise TypeError(error)
 
+        self._validate_participant_labels()
         self._init_participant_label_map(self._initial_groupings)
 
         self.shuffle_sequence()
@@ -53,6 +55,7 @@ class BaseMatcher:
         self.groups_per_round = len(round_sequence[0])
         self.group_size = len(round_sequence[0][0])
         self.n_participants = self.groups_per_round * self.group_size
+
         self._init_participant_ids()
 
         participants = {
@@ -71,7 +74,7 @@ class BaseMatcher:
             self._participant_labels = [p for p, _ in sorted(participants.items(), key=lambda x: x[1])]
 
         if not self.validate_rounds():
-            error = "Provided round sequence incorrect."
+            error = "Provided round sequence is not valid under perfect stranger matching conditions."
             raise ValueError(error)
 
     def _from_experiment_parameters(self, groups_per_round: int, group_size: int):
@@ -107,6 +110,19 @@ class BaseMatcher:
             self._participant_label_map = {
                 self._participant_ids[i]: self._participant_labels[i] for i in range(self.n_participants)
             }
+
+    def _validate_participant_labels(self):
+        if self._participant_labels is not None:
+            n_labels = len(self._participant_labels)
+
+            if n_labels != self.n_participants:
+                raise IncorrectParticipantLabelsError(self.n_participants, n_labels)
+
+            n_unique_labels = len(set(self._participant_labels))
+
+            if n_unique_labels != self.n_participants:
+                raise NonUniqueParticipantLabelsError(self.n_participants, n_unique_labels)
+
 
     ##################################################################
     # Experiment Rounds
@@ -247,10 +263,13 @@ class BaseMatcher:
     ##################################################################
     # Validation
     ##################################################################
+    def _is_round_valid(self, g: np.typing.NDArray) -> bool:
+        return is_round_valid(g, self.groups_per_round, self.group_size)
+
     def validate_rounds(self) -> bool:
         for i, current_round in enumerate(self._group_matrices):
-            # Check current round include all participants.
-            if not is_round_valid(current_round, self.groups_per_round, self.group_size):
+            # Check current round includes all participants.
+            if not self._is_round_valid(current_round):
                 return False
 
             # Check all subsequent rounds preserve perfect stranger matching with

@@ -18,15 +18,26 @@ if TYPE_CHECKING:
 def group_size_from_spec(group_spec: GroupSpec) -> int:
     return sum(group_spec)
 
-def sequence_length_upper_bound(groups_per_round: int, group_size: int) -> int:
+def sequence_length_upper_bound(groups_per_round: int, group_spec: GroupSpec | int) -> int:
+    if isinstance(group_spec, int):
+        group_size = group_spec
+        n_types = 1
+    else:
+        group_size = group_size_from_spec(group_spec)
+        n_types = len(group_spec)
+
     if groups_per_round < group_size:
         return 1
+
+    if n_types > 1:
+        return groups_per_round
 
     # (3, 1)-RGGD of type 2^6 does not exist.
     if groups_per_round == 4 and group_size == 3:
         return 4
 
     return (groups_per_round * group_size - 1) // (group_size - 1)
+
 
 def is_round_valid(g: npt.NDArray, groups_per_round: int, group_size: int) -> bool:
     n_groups_check = g.shape[0] == groups_per_round
@@ -127,3 +138,26 @@ def use_finite_plane_construction(groups_per_round: int, group_spec: GroupSpec) 
     group_size_lower_bound = lpf is not None and group_size > lpf
 
     return prime_power_test and group_size_upper_bound and group_size_lower_bound
+
+def unique_integers_summing_to_n(n: int) -> list[list[int]]:
+    def sums_from_the_left(values: list[int], max_sum=None) -> list[list[int]]:
+        if len(values) <= 1:
+            return [values]
+
+        sums = []
+
+        loop_end = len(values) + 1
+
+        if max_sum is not None:
+            loop_end = min(loop_end, max_sum)
+
+        for i in range(1, loop_end):
+            left = [sum(values[0:i])]
+            right = values[i:]
+
+            sums.extend(left + r for r in sums_from_the_left(right, i + 1))
+
+        return sums
+
+    all_ones = [1] * n
+    return sums_from_the_left(all_ones)

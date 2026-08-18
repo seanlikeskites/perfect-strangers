@@ -6,8 +6,10 @@ from collections.abc import Sequence
 
 import numpy as np
 
+from perfect_strangers.exceptions import IncorrectParticipantLabelsError, NonUniqueParticipantLabelsError
 from perfect_strangers.matchers.base_matcher import BaseMatcher
 from perfect_strangers.types import GroupSpec, NumpyRounds
+from perfect_strangers.util import is_round_valid
 
 
 class TypedMatcher(BaseMatcher):
@@ -46,3 +48,42 @@ class TypedMatcher(BaseMatcher):
             }
         else:
             self._participant_label_map = None
+
+    def _validate_participant_labels(self):
+        if self._participant_labels is not None:
+            if len(self._participant_labels) != len(self.group_spec):
+                error = "Participant labels should contain one sequence per type of participant."
+                raise ValueError(error)
+
+            type_counts = [t * self.groups_per_round for t in self.group_spec]
+
+            try:
+                label_counts = [len(t) for t in self._participant_labels]
+            except TypeError:
+                error = "Participant labels should be a sequence of sequences."
+                raise ValueError(error) from None
+
+            if label_counts != type_counts:
+                raise IncorrectParticipantLabelsError(type_counts, label_counts)
+
+            n_unique_labels = len({
+                l for t in self._participant_labels for l in t
+            })
+
+            if n_unique_labels != self.n_participants:
+                raise NonUniqueParticipantLabelsError(self.n_participants, n_unique_labels)
+
+    def _is_round_valid(self, g: np.typing.NDArray) -> bool:
+        participant_types_sets = [set(p) for p in self._participant_types]
+
+        for group in g:
+            group_set = set(group)
+
+            for i, count in enumerate(self.group_spec):
+                if len(group_set & participant_types_sets[i]) != count:
+                    return False
+
+        return is_round_valid(g, self.groups_per_round, self.group_size)
+
+    def _more_than_one_participant_type(self) -> bool:
+        return len(self.group_spec) > 1
