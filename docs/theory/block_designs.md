@@ -141,10 +141,12 @@ As with other block designs, a resolvable $\mathrm{TD}$ $\left(\mathrm{RTD}\righ
 partitioned into parallel classes. For perfect stranger matching we consider resolvable transversal designs
 $\mathrm{RTD}_{1}(\beta, \alpha)$.
 
-$\mathrm{RTD}$s are particularly useful in experiments where we need perfect stranger matching and each participant grouping
-should contain one participant from each of a set of classes (these classes may represent different demographic categories for
-instance). In such an experiment, the participant classes and groupings would correspond to the groups and blocks of the
-$\mathrm{RTD}$ respectively.
+If an $\mathrm{RTD}_{1}(k, \alpha)$ exists it serves as an optimal solution for [typed perfect stranger
+matching](./overview#typed-perfect-stranger-matching) where the total number of participants $\sum_{n = 0}^{N - 1} \beta_{n}
+= k$, the number of participant groupings per round is equal to $\alpha$, and there is more than 1 type of participant. In
+such an experiment, the participant types and groupings would correspond to the groups and blocks of the $\mathrm{RTD}$
+respectively. Where $\beta_{n}$ participants of a given type are in each participant grouping, the participants of that type
+are given by $\beta_{n}$ of the groups from the $\mathrm{RTD}$.
 
 The method of [truncating lines of a finite affine plane](finite_planes#truncating-lines), before any submatrix
 transposition, provides a way of constructing $\mathrm{RTD}$s. Using this method, the groups of the $\mathrm{RTD}$ are given

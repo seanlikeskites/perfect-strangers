@@ -22,6 +22,8 @@
 }
 
 .centre-table table {
+  display: block;
+  overflow-x: auto;
   margin-right: 2em;
 }
 
@@ -33,6 +35,10 @@
   font-weight: bold;
   min-width: 2em;
   vertical-align: middle;
+  white-space: nowrap;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  background: white;
 }
 
 .data-table td {
@@ -45,7 +51,8 @@
 }
 
 th.vertical-title {
-  position: relative;
+  position: sticky;
+  left: 0;
 }
 
 th.vertical-title div {
@@ -54,6 +61,20 @@ th.vertical-title div {
   top: 50%;
   left: 50%;
   white-space: nowrap;
+}
+
+th.horizontal-title {
+  position: sticky;
+}
+
+th.row-title {
+  position: sticky;
+  left: 2em;
+}
+
+th.static-spacer-head {
+  position: sticky;
+  left: 0;
 }
 
 .md-toc {
