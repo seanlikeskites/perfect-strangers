@@ -144,7 +144,7 @@ def unique_integers_summing_to_n(n: int) -> list[list[int]]:
         if len(values) <= 1:
             return [values]
 
-        sums = []
+        sums = [] # type: list[list[int]]
 
         loop_end = len(values) + 1
 

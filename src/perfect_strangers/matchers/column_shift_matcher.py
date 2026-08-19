@@ -62,7 +62,7 @@ def _shift_columns(base_matrix: np.typing.NDArray, stride: int) -> NumpyRounds:
     return _apply_sequential_shifts(g, n_shifts, stride)
 
 class ColumnShiftMatcher(TypedMatcher):
-    def __init__(self, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence[Sequence] | None=None):
+    def __init__(self, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None=None):
         self._performed_transposition = False
 
         super().__init__(groups_per_round, group_spec, participant_labels=participant_labels)

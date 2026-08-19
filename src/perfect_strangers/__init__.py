@@ -41,8 +41,14 @@ def create_typed_matcher(groups_per_round: int,
     defines the number of different types of participant. The values in the sequence give the number of participants of that
     type in each group. The total number of participants per groups is given by the sum of the values in the sequence.
 
-    :param participant_labels: Unique labels for the experiment participants. This should be a sequence of sequences of
-    participant labels. The n^th^ element of this sequence should have `groups_per_round * group_spec[n]` unique elements.
+    :param participant_labels: Unique labels for the experiment participants. Either a sequence of labels, or a sequence of
+    sequences of labels.
+
+      * If a sequence of labels is provided it should contain as many unique labels as there are total participants in the
+      experiment. These labels will be assigned to different participant types automatically.
+      * To specify participant typings yourself, provide a sequence of sequences. There should be as many sequences as there
+      are participant types (i.e. elements of `group_spec`). The n^th^ sequence should have `groups_per_round *
+      group_spec[n]` unique elements.
 
     :return: A matcher object of a type which inherits from [`TypedMatcher`][perfect_strangers.TypedMatcher].
     """

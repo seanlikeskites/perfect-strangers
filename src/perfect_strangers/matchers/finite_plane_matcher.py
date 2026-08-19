@@ -41,7 +41,7 @@ def _match_on_finite_plane(participants: np.typing.NDArray, stride: int=1) -> Nu
     return [np.array(r) for r in rounds]
 
 class FinitePlaneMatcher(TypedMatcher):
-    def __init__(self, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence[Sequence] | None=None):
+    def __init__(self, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None=None):
         super().__init__(groups_per_round, group_spec, participant_labels=participant_labels)
 
     def _generate_typed_rounds(self, initial_groupings: np.typing.NDArray) -> NumpyRounds:

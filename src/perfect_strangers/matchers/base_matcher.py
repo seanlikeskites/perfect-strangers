@@ -111,19 +111,6 @@ class BaseMatcher:
                 self._participant_ids[i]: self._participant_labels[i] for i in range(self.n_participants)
             }
 
-    def _validate_participant_labels(self):
-        if self._participant_labels is not None:
-            n_labels = len(self._participant_labels)
-
-            if n_labels != self.n_participants:
-                raise IncorrectParticipantLabelsError(self.n_participants, n_labels)
-
-            n_unique_labels = len(set(self._participant_labels))
-
-            if n_unique_labels != self.n_participants:
-                raise NonUniqueParticipantLabelsError(self.n_participants, n_unique_labels)
-
-
     ##################################################################
     # Experiment Rounds
     ##################################################################
@@ -281,3 +268,15 @@ class BaseMatcher:
                     return False
 
         return True
+
+    def _validate_participant_labels(self):
+        if self._participant_labels is not None:
+            n_labels = len(self._participant_labels)
+
+            if n_labels != self.n_participants:
+                raise IncorrectParticipantLabelsError(self.n_participants, n_labels)
+
+            n_unique_labels = len(set(self._participant_labels))
+
+            if n_unique_labels != self.n_participants:
+                raise NonUniqueParticipantLabelsError(self.n_participants, n_unique_labels)
