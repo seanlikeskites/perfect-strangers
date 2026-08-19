@@ -38,7 +38,7 @@ def create_typed_matcher(groups_per_round: int,
     :param groups_per_round: The number of groups per round of the experiment.
 
     :param group_spec: A sequence of integers specifying the composition of each group. The length of the provided sequence
-    defines the number of different types of participant. The values in the sequence give the number of participants of that
+    defines the number of different types of participant. The values in the sequence give the number of participants of each
     type in each group. The total number of participants per groups is given by the sum of the values in the sequence.
 
     :param participant_labels: Unique labels for the experiment participants. Either a sequence of labels, or a sequence of
