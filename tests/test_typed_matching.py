@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 
+import galois
 import pytest
 
 from perfect_strangers import create_typed_matcher
@@ -9,7 +10,12 @@ from perfect_strangers.matchers import (
     ColumnShiftMatcher,
     FinitePlaneMatcher,
 )
-from perfect_strangers.util import unique_integers_summing_to_n
+from perfect_strangers.util import (
+    group_size_from_spec,
+    least_prime_factor,
+    sequence_length_upper_bound,
+    unique_integers_summing_to_n,
+)
 from tests.matcher_validation import validate_matcher
 
 group_specs = [
@@ -33,3 +39,16 @@ def test_typed_matching(groups_per_round, group_spec):
     ]
 
     assert matcher.max_rounds == max(a.max_rounds for a in algorithms if a is not None)
+
+    # Check typed matching respects returned typings.
+    for r in matcher.rounds:
+        for g in r:
+            for i, n in enumerate(group_spec):
+                assert len(set(g) & set(matcher.participant_types[i])) == n
+
+    # Test optimal situations
+    group_size = group_size_from_spec(group_spec)
+
+    if len(group_spec) > 1 and (group_size <= least_prime_factor(groups_per_round) or
+                                galois.is_prime_power(groups_per_round)):
+        assert matcher.max_rounds == sequence_length_upper_bound(groups_per_round, group_spec)

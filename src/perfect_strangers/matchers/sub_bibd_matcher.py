@@ -367,8 +367,6 @@ class SubBIBDMatcher(BaseMatcher):
             (self._m * (self.group_size - 1) + self._v2) // self.group_size
         }
 
-        sizes = set()
-
         if self._v2 > 1:
             sizes.add(self._v2 // self.group_size)
 
