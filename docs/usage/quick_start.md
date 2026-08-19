@@ -1,7 +1,7 @@
 # Quick Start
 ## Installation
 
-```Shell
+```Shell { .copy }
 pip install perfect-strangers
 ```
 
@@ -9,7 +9,7 @@ pip install perfect-strangers
 To perform [perfect stranger matching](../theory/overview.md#perfect-stranger-matching) import the
 [`create_matcher()`](matcher_objects.md#perfect_strangers.create_matcher) function:
 
-```Python
+```Python { .copy }
 from perfect_strangers import create_matcher
 ```
 
@@ -75,7 +75,7 @@ Participant groupings are then returned from the matcher using these labels.
 For [typed perfect stranger matching](../theory/overview.md#typed-perfect-stranger-matching) use the
 [`create_typed_matcher()`](matcher_objects.md#perfect_strangers.create_typed_matcher) function.
 
-```Python
+```Python { .copy }
 from perfect_strangers import create_typed_matcher
 ```
 
