@@ -17,8 +17,9 @@
 }
 
 .centre-table {
-  display: flex;
-  justify-content: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .centre-table table {
@@ -42,7 +43,7 @@
 }
 
 .data-table td {
-  min-width: 4em;
+  min-width: 3em;
   border: 2px solid transparent;
 }
 
