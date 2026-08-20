@@ -17,28 +17,28 @@ from perfect_strangers.util import finite_field_elements
 ParameterFuncReturn = tuple[int, int] | None
 RoundGenerator = Callable[[int, int], NumpyRounds]
 
+def _t_from_q(q: int, n: int) -> ParameterFuncReturn:
+    """
+    Check q is a prime power of the form nt + 1 and return t and q if it is.
+
+    :return: Tuple of (t, q) if q is a prime power of the form nt + 1, None otherwise.
+    """
+    if not galois.is_prime_power(q) or q % n != 1:
+        return None
+
+    t = (q - 1) // n
+
+    return t, q
+
 #######################################################################
 # Theorem 5 from Ray-Chaudhuri and Wilson (1971):
 #   Where q = 6t + 1 is a prime power construct a Kirkman triple
 #   system for 3q total participants.
 #######################################################################
-def _get_t_from_q(q: int) -> ParameterFuncReturn:
-    """
-    Check q is a prime power of the form 6t + 1 and return t and q if it is.
+def _rw_theorem5_params(groups_per_round: int) -> ParameterFuncReturn:
+    return _t_from_q(groups_per_round, 6)
 
-        :return: Tuple of (t, q) if q is a prime power of the form 6t + 1, None otherwise.
-    """
-    if not galois.is_prime_power(q) or q % 6 != 1:
-        return None
-
-    t = (q - 1) // 6
-
-    return t, q
-
-def _three_q_params(groups_per_round: int) -> ParameterFuncReturn:
-    return _get_t_from_q(groups_per_round)
-
-def _three_q_rounds(t: int, q: int) -> NumpyRounds:
+def _rw_theorem5_rounds(t: int, q: int) -> NumpyRounds:
     labels = np.arange(3 * q).reshape(q, 3)
     field_elements, g = finite_field_elements(q)
 
@@ -84,15 +84,15 @@ def _three_q_rounds(t: int, q: int) -> NumpyRounds:
 #   Where q = 6t + 1 is a prime power construct a Kirkman triple
 #   system for 2q + 1 total participants.
 #######################################################################
-def _two_q_less_one_params(groups_per_round: int) -> ParameterFuncReturn:
+def _rw_theorem6_params(groups_per_round: int) -> ParameterFuncReturn:
     if groups_per_round % 2 == 0:
         return None
 
     q = (3 * groups_per_round - 1) // 2
 
-    return _get_t_from_q(q)
+    return _t_from_q(q, 6)
 
-def _two_q_less_one_rounds(t: int, q: int) -> NumpyRounds:
+def _rw_theorem6_rounds(t: int, q: int) -> NumpyRounds:
     groups_per_round = (2 * q + 1) // 3
     labels = np.arange(2 * q).reshape(q, 2)
     inf = 2 * q
@@ -139,36 +139,99 @@ def _two_q_less_one_rounds(t: int, q: int) -> NumpyRounds:
     return rounds
 
 #######################################################################
+# Lemma 3 from Hanani et. al. (1972):
+#   Where q = 4t + 1 is a prime power construct a (3q + 1, 4, 1)-RBIBD.
+#######################################################################
+def _hrw_lemma3_params(groups_per_round: int) -> ParameterFuncReturn:
+    if groups_per_round % 3 != 1:
+        return None
+
+    q = (4 * groups_per_round - 1) // 3
+
+    return _t_from_q(q, 4)
+
+def _hrw_lemma3_rounds(t: int, q: int) -> NumpyRounds:
+    groups_per_round = (3 * q + 1) // 4
+    labels = np.arange(3 * q).reshape(q, 3)
+    inf = 3 * q
+
+    field_elements, g = finite_field_elements(q)
+
+    rounds = []
+
+    for shift in field_elements:
+        new_round = np.empty((groups_per_round, 4), dtype="int")
+
+        new_round[0, :] = [
+            labels[shift, 0],
+            labels[shift, 1],
+            labels[shift, 2],
+            inf
+        ]
+
+        group_idx = 1
+
+        for i in range(t):
+            for j in range(3):
+                new_round[group_idx, :] = [
+                    labels[shift + g ** i, (0 + j) % 3],
+                    labels[shift + g ** (i + 2 * t), (0 + j) % 3],
+                    labels[shift + g ** (i + t), (1 + j) % 3],
+                    labels[shift + g ** (i + 3 * t), (1 + j) % 3],
+                ]
+
+                group_idx += 1
+
+        rounds.append(new_round)
+
+    return rounds
+
+#######################################################################
 # Matcher
 #######################################################################
-class KirkmanTripleMatcher(BaseMatcher):
-    """ Implementation as per https://math.stackexchange.com/a/4510645"""
-    def __init__(self, groups_per_round: int, t: int, q: int,
-                 round_generator: RoundGenerator, participant_labels: Sequence | None=None):
+class PrimitiveElementMatcher(BaseMatcher):
+    def __init__(self,
+                 groups_per_round: int,
+                 group_size: int,
+                 t: int,
+                 q: int,
+                 round_generator: RoundGenerator,
+                 participant_labels: Sequence | None=None):
         self.t = t
         self.q = q
         self.round_generator = round_generator
 
-        super().__init__(groups_per_round, 3, participant_labels=participant_labels)
+        super().__init__(groups_per_round, group_size, participant_labels=participant_labels)
 
     def _generate_rounds(self, _initial_groupings: np.typing.NDArray) -> NumpyRounds:
         return self.round_generator(self.t, self.q)
 
     def _design_type(self) -> DesignType:
-        return RBIBDType(self.n_participants, 3)
+        return RBIBDType(self.n_participants, self.group_size)
 
     @classmethod
-    def create_matcher(cls, groups_per_round: int, participant_labels: Sequence | None=None):
-        methods = [
-            (_three_q_params, _three_q_rounds),
-            (_two_q_less_one_params, _two_q_less_one_rounds)
-        ]
+    def create_matcher(cls,
+                       groups_per_round: int,
+                       group_size: int,
+                       participant_labels: Sequence | None=None):
+        methods = {
+            3: [
+                (_rw_theorem5_params, _rw_theorem5_rounds),
+                (_rw_theorem6_params, _rw_theorem6_rounds)
+            ],
+            4: [
+                (_hrw_lemma3_params, _hrw_lemma3_rounds)
+            ]
+        }
 
-        for parameter_func, round_generator in methods:
+        if group_size not in methods:
+            return None
+
+        for parameter_func, round_generator in methods[group_size]:
             params = parameter_func(groups_per_round)
 
             if params is not None:
                 t, q = params
-                return cls(groups_per_round, t, q, round_generator, participant_labels)
+                return cls(groups_per_round, group_size, t, q, round_generator, participant_labels)
 
         return None

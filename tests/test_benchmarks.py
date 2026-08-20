@@ -8,9 +8,9 @@ from perfect_strangers import create_matcher
 from perfect_strangers.matchers import (
     ColumnShiftMatcher,
     FinitePlaneMatcher,
-    KirkmanTripleMatcher,
     LookupMatcher,
     NearlyKirkmanTripleMatcher,
+    PrimitiveElementMatcher,
     RoundRobinMatcher,
     SubBIBDMatcher,
 )
@@ -28,8 +28,9 @@ def test_benchmarks(groups_per_round, group_size):
     # Check create_matcher selected the best performing algorithm.
     algorithms = [
         ColumnShiftMatcher(groups_per_round, [group_size]),
-        LookupMatcher.create_matcher(groups_per_round, group_size),
         FinitePlaneMatcher.create_matcher(groups_per_round, [group_size]),
+        LookupMatcher.create_matcher(groups_per_round, group_size),
+        PrimitiveElementMatcher.create_matcher(groups_per_round, group_size),
         SubBIBDMatcher.create_matcher(groups_per_round, group_size, [])
     ]
 
@@ -38,9 +39,7 @@ def test_benchmarks(groups_per_round, group_size):
             algorithms.append(RoundRobinMatcher(groups_per_round))
 
         case 3:
-            if groups_per_round % 2:
-                algorithms.append(KirkmanTripleMatcher.create_matcher(groups_per_round))
-            else:
+            if groups_per_round % 2 == 0:
                 algorithms.append(NearlyKirkmanTripleMatcher.create_matcher(groups_per_round))
 
     assert matcher.max_rounds == max(a.max_rounds for a in algorithms if a is not None)

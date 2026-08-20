@@ -4,9 +4,9 @@ from perfect_strangers import create_matcher, create_typed_matcher
 from perfect_strangers.matchers import (
     ColumnShiftMatcher,
     FinitePlaneMatcher,
-    KirkmanTripleMatcher,
     LookupMatcher,
     NearlyKirkmanTripleMatcher,
+    PrimitiveElementMatcher,
     RoundRobinMatcher,
     SubBIBDMatcher,
 )
@@ -25,7 +25,7 @@ def format_cell(data):
 
     if data["method"] == RoundRobinMatcher:
         link = "./theory/round_robin"
-    elif data["method"] == KirkmanTripleMatcher:
+    elif data["method"] == PrimitiveElementMatcher:
         link = "./theory/kirkman"
     elif data["method"] == NearlyKirkmanTripleMatcher:
         link = "./theory/nearly_kirkman"

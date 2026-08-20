@@ -8,9 +8,9 @@ from perfect_strangers.matchers import (
     BaseMatcher,
     ColumnShiftMatcher,
     FinitePlaneMatcher,
-    KirkmanTripleMatcher,
     LookupMatcher,
     NearlyKirkmanTripleMatcher,
+    PrimitiveElementMatcher,
     RoundRobinMatcher,
     SubBIBDMatcher,
     TypedMatcher,
@@ -32,11 +32,12 @@ def matcher_factory(groups_per_round: int,
     # Try algorithms for specified group sizes.
     if group_size == 2:
         algo_matcher = RoundRobinMatcher(groups_per_round, participant_labels=participant_labels)
-    elif group_size == 3:
-        if groups_per_round % 2:
-            algo_matcher = KirkmanTripleMatcher.create_matcher(groups_per_round, participant_labels=participant_labels)
-        else:
-            algo_matcher = NearlyKirkmanTripleMatcher.create_matcher(groups_per_round, participant_labels=participant_labels)
+    elif group_size == 3 and groups_per_round % 2 == 0:
+        algo_matcher = NearlyKirkmanTripleMatcher.create_matcher(groups_per_round, participant_labels=participant_labels)
+
+    # Try primitive element construction.
+    if algo_matcher is None:
+        algo_matcher = PrimitiveElementMatcher.create_matcher(groups_per_round, group_size, participant_labels=participant_labels)
 
     if algo_matcher is None and use_finite_plane_construction(groups_per_round, [group_size]):
         algo_matcher = FinitePlaneMatcher.create_matcher(groups_per_round,
