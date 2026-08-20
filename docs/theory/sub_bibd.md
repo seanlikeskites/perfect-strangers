@@ -18,13 +18,13 @@ from the points of three other sets:
 
   * $X$: a set of $v_{1}$ points.
   * $Y$: a set of $v_{2}$ points.
-  * $I_m$: the set of integers from 0 to $m - 1$.
+  * $\mathbb{Z}_{m}$: the set of integers from 0 to $m - 1$.
 
 First we define $\theta$ to be a fixed point from $X$. Removing this point from $X$ yields the set $X'$, i.e.  $X' = X -
 \{\theta\}$. The full set of points for the $\mathrm{RBIBD}$ under construction is then:
 
 $$
-  X^{*} = X' \times I_{m} \cup Y
+  X^{*} = X' \times \mathbb{Z}_{m} \cup Y
 $$
 
 This set has $m(v_{1} - 1) + v_{2}$ elements, hence the $\mathrm{RBIBD}$ under construction is an $\left(m(v_{1} - 1) +
@@ -43,7 +43,7 @@ $B_{i}'$ denote this block with $\theta$ removed, i.e. $B_{i}' = B_{i} - \{\thet
 
 #### • $(m(k - 1) + v{2}, k, 1)$-$\mathrm{RBIBD}$
 For each of the blocks $B_{i}'$ from the parallel classes of $\left(X, \mathcal{B}\right)$, define the point set ${Q^{i} =
-B_{i}' \times I_{m} + Y}$. Construct $\left(Q^{i}, \mathcal{S}^{i}\right)$, an ${(m(k - 1) + v_{2}, k, 1)}$-$\mathrm{RBIBD}$
+B_{i}' \times \mathbb{Z}_{m} + Y}$. Construct $\left(Q^{i}, \mathcal{S}^{i}\right)$, an ${(m(k - 1) + v_{2}, k, 1)}$-$\mathrm{RBIBD}$
 on this point set, with the set of blocks $\mathcal{S}^{i}$. Each of these $\mathrm{RBIBD}$s has $r_{2} + m$ parallel
 classes, where $r_{2} = \frac{v_{2} - 1}{k - 1}$. We denote these parallel classes
 $\mathcal{S}^{i}_{0},\mathcal{S}^{i}_{1},\dots,\mathcal{S}^{i}_{r_{2} + m - 1}$.
@@ -71,7 +71,7 @@ $$
 $$
 
 #### • $\mathrm{ROA}\left(m^{2}, k, m, 2\right)$
-Construct an orthogonal array of type $\left(m^{2}, k, m, 2\right)$ with elements taken from the set $I_{m}$ which can be
+Construct an orthogonal array of type $\left(m^{2}, k, m, 2\right)$ with elements taken from the set $\mathbb{Z}_{m}$ which can be
 resolved into $m$ orthogonal arrays of type $(m, k, m, 1)$. Denote these smaller orthogonal arrays
 $\mathbf{P}^{0},\mathbf{P}^{1},\dots,\mathbf{P}^{m - 1}$.
 
