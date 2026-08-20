@@ -75,6 +75,11 @@ For some specific groups sizes there are known optimal solutions to the perfect 
   * When $\beta = 3$ and $\alpha$ is odd $~$---$~$ [Kirkman Triple Matching](./kirkman)
   * When $\beta = 3$ and $\alpha$ is even $~$---$~$ [Nearly Kirkman Triple Matching](./nearly_kirkman) 
 
+Other optimal construction methods apply to a variety of group sizes:
+
+  * [Primitive Element Matching](./primitive_element)
+  * [Sub-RBIBD Matching](./sub_bibd)
+
 #### Generic Construction Methods
 Where no optimal solution is known we must rely on generic construction methods to form sequences of grouping matrices. The
 perfect-strangers package uses the following construction methods.

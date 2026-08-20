@@ -26,7 +26,7 @@ def format_cell(data):
     if data["method"] == RoundRobinMatcher:
         link = "./theory/round_robin"
     elif data["method"] == PrimitiveElementMatcher:
-        link = "./theory/kirkman"
+        link = "./theory/primitive_element"
     elif data["method"] == NearlyKirkmanTripleMatcher:
         link = "./theory/nearly_kirkman"
     elif data["method"] == FinitePlaneMatcher:
