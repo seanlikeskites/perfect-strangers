@@ -139,7 +139,7 @@ def _rw_theorem6_rounds(t: int, q: int) -> NumpyRounds:
     return rounds
 
 #######################################################################
-# Lemma 3 from Hanani et. al. (1972):
+# Lemma 3 from Hanani et al. (1972):
 #   Where q = 4t + 1 is a prime power construct a (3q + 1, 4, 1)-RBIBD.
 #######################################################################
 def _hrw_lemma3_params(groups_per_round: int) -> ParameterFuncReturn:
