@@ -2,10 +2,9 @@
 A Kirkman Triple System is a <a style="text-decoration: none;"
 href="./block_designs#balanced-incomplete-block-designs">$\left(v, 3, 1\right)$-$\mathrm{RBIBD}$ </a> named for [Kirkman's
 schoolgirl problem](https://en.wikipedia.org/wiki/Kirkman%27s_schoolgirl_problem): a special case of perfect stranger
-matching where $\alpha = 5$ and $\beta = 3$. It was shown by [Ray-Chaudhuri and Wilson
-(1971)](https://doi.org/10.1090%2Fpspum%2F019%2F9959) that such systems are constructible where the total number of elements
-is an odd multiple of 3. This is equivalent to saying that $l_{\max}(\alpha, 3)$ is equal to the [trivial upper
-bound](./overview.md#trivial-upper-bound) when $\alpha$ is odd.
+matching where $\alpha = 5$ and $\beta = 3$. It was shown by Ray-Chaudhuri and Wilson (1971)[^1] that such systems are
+constructible where the total number of elements is an odd multiple of 3. This is equivalent to saying that
+$l_{\max}(\alpha, 3)$ is equal to the [trivial upper bound](./overview.md#trivial-upper-bound) when $\alpha$ is odd.
 
 ## Constructions
 Ray-Chaudhuri and Wilson (1971) detail several theorems which can be used to construct Kirkman triple systems for different
@@ -88,3 +87,6 @@ $$
 $$
 
 This method also provides a number of rounds equal to the trivial upper bound.
+
+[^1]: Ray-Chaudhuri, D.K. and Wilson, R.M., 1971. Solution of Kirkman’s schoolgirl problem. In Proc. symp. pure Math (Vol.
+  19, pp. 187-203). DOI: [10.1090/pspum/019/9959](https://doi.org/10.1090/pspum/019/9959)
