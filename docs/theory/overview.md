@@ -36,6 +36,9 @@ $$
     \end{bmatrix}
 $$
 
+The elements of a grouping matrix must comprise every participant exactly once. That is, all participant must be assigned to
+exactly one group.
+
 In an $N$ round experiment we'd have a sequence of such grouping matrices:
 
 $$
