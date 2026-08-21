@@ -178,7 +178,7 @@ class BaseMatcher:
 
     def shuffle_sequence(self):
         """
-        Shuffle the list of rounds produced by this matcher.
+        Shuffle the list of rounds produced by this matcher and restart the sequence.
         """
         shuffle(self._group_matrices)
         self.restart()

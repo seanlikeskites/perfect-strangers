@@ -16,7 +16,7 @@ def create_matcher(groups_per_round: int,
                    group_size: int,
                    participant_labels: Sequence | None=None) -> BaseMatcher:
     """
-    Create a group matcher for the given experiment parameters.
+    Create a perfect stranger matcher for the given experiment parameters.
 
     :param groups_per_round: The number of groups per round of the experiment.
 
@@ -33,7 +33,7 @@ def create_typed_matcher(groups_per_round: int,
                          group_spec: GroupSpec,
                          participant_labels: Sequence | None=None) -> TypedMatcher:
     """
-    Create a group matcher for the given experiment parameters.
+    Create a typed perfect stranger matcher for the given experiment parameters.
 
     :param groups_per_round: The number of groups per round of the experiment.
 
@@ -45,7 +45,8 @@ def create_typed_matcher(groups_per_round: int,
     sequences of labels.
 
       * If a sequence of labels is provided it should contain as many unique labels as there are total participants in the
-      experiment. These labels will be assigned to different participant types automatically.
+      experiment (i.e. `groups_per_round * sum(group_spec)`). These labels will be assigned to different participant types
+      automatically.
       * To specify participant typings yourself, provide a sequence of sequences. There should be as many sequences as there
       are participant types (i.e. elements of `group_spec`). The n^th^ sequence should have `groups_per_round *
       group_spec[n]` unique elements.

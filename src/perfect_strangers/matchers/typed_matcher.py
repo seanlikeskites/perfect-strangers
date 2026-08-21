@@ -69,7 +69,7 @@ class TypedMatcher(BaseMatcher):
     @property
     def participant_types(self) -> list[list]:
         """
-        A list of lists detailing which participants are of witch type. The n^th^ list contains the participants identifiers
+        A list of lists detailing which participants are of which type. The n^th^ list contains the participants identifiers
         for the n^th^ participant type.
         """
         if self._participant_label_map is None:

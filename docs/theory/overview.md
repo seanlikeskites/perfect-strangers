@@ -1,9 +1,9 @@
 # Overview
-The perfect-strangers package performs [perfect stranger matching](#perfect-stranger-matching) for defining groups of
-participants in an experiment. This is a computationally complex problem in the field of combinatorial design, meaning
-search algorithms can run for very long times without finding a suitable solution. For this reason, perfect-strangers
-focuses on explicit constructions of solutions. While these may not always be optimal, it is quick to check if a suitable
-solution for a given set of experiment parameters is available.
+The perfect-strangers package performs perfect stranger matching for defining groups of participants in an experiment. This
+is a computationally complex problem in the field of combinatorial design meaning search algorithms can run for very long
+times without finding a suitable solution. For this reason, perfect-strangers focuses on explicit constructions of
+solutions. While these may not always be optimal, it is quick to check if a suitable solution for a given set of experiment
+parameters is available.
 
 This document provides some basic analysis of this problem and an introduction to some of the constructions used to form
 solutions.
@@ -36,12 +36,23 @@ $$
     \end{bmatrix}
 $$
 
-In an $n$ round experiment we'd have a sequence of such grouping matrices which satisfies the perfect stranger matching
-criteria:
+In an $N$ round experiment we'd have a sequence of such grouping matrices:
 
 $$
-    \mathbf{G}^{0}, \mathbf{G}^{1}, \dots, \mathbf{G}^{n - 1}
+    \mathbf{G}^{0}, \mathbf{G}^{1}, \dots, \mathbf{G}^{N - 1}
 $$
+
+#### Perfect Stranger Matching Condition
+The condition of perfect stranger matching requires that any pair of rows taken from two different grouping matrices in the
+sequence have at most one element in common. That is:
+
+$$
+	\bigwedge_{n = 0}^{N - 2} \bigwedge_{m = n + 1}^{N - 1}
+	\bigwedge_{i = 0}^{\alpha - 1} \bigwedge_{j = 0}^{\alpha - 1}
+    \left| \Psi_{i}\left(\mathbf{G}^{n}\right) \cap \Psi_{j}\left(\mathbf{G}^{m}\right) \right| \leq 1
+$$
+
+Where $\Psi_{i}(\mathbf{G})$ is the set of all elements from the $i$^th^ row of the matrix $\mathbf{G}$.
 
 ### Maximum Sequence Length
 Given the above parameters, we denote the maximum number of rounds possible under the perfect stranger matching criteria as
@@ -94,34 +105,34 @@ types of participant. It is assumed that the type of a given participant is the 
 
 ### Experiment Parameters
 In place of the perfect stranger matching group size parameter $\beta$, typed perfect stranger matching has a series of
-parameters, each define the number of a particular type of participant in each group. Where $N$ is the number of different
+parameters, each defining the number of a particular type of participant in each group. Where $T$ is the number of different
 participant types we have the following experiment parameters:
 
   * $\alpha$: The number of groups in each round of the experiment.
-  * $\beta_{0},\beta_{1},\dots,\beta_{N - 1}$: The numbers of each type of participant in each group.
+  * $\beta_{0},\beta_{1},\dots,\beta_{T - 1}$: The numbers of each type of participant in each group.
 
 The number of participants in each group is then:
 
 $$
-    \sum_{n = 0}^{N - 1} \beta_{n}
+    \sum_{t = 0}^{T - 1} \beta_{t}
 $$
 
 ### Maximum Sequence Length
 We denote the maximum typed perfect stranger matching sequence length for the given parameters as $l_{\max}(\alpha,
-\beta_{0}, \beta_{1}, \dots, \beta_{N - 1})$. If there is only a single participant type, typed perfect stranger matching is
+\beta_{0}, \beta_{1}, \dots, \beta_{T - 1})$. If there is only a single participant type, typed perfect stranger matching is
 equivalent to perfect stranger matching and the bounds on the maximum sequence length are as
-[above](#maximum-sequence-length). When the number of types of participants $N > 1$, things are different.
+[above](#maximum-sequence-length). When the number of types of participants $T > 1$ fewer rounds are possible.
 
-#### Upper Bound when $N > 1$
-Consider an experiment where each group has $\beta_{n}$ of one type of participant and $\beta_{m}$ of another. A single
+#### Upper Bound when $T > 1$
+Consider an experiment where each group has $\beta_{t}$ of one type of participant and $\beta_{m}$ of another. A single
 participant of the first type must match with $\beta_{m}$ of the second type in each round. As there are only
 $\alpha\beta_{m}$ participants of the second type in total, only $\alpha$ rounds are possible before they would meet the same
 participant again.
 
 $$
-    l_{\max}(\alpha, \beta_{0}, \beta_{1}, \dots, \beta_{N - 1}) \leq \alpha, \quad \text{if} ~ N > 1
+    l_{\max}(\alpha, \beta_{0}, \beta_{1}, \dots, \beta_{T - 1}) \leq \alpha, \quad \text{if} ~ T > 1
 $$
 
 ### Construction Methods
 The [finite affine plane](./finite_planes) and [column shift](./column_shift) matching methods can be used for typed perfect
-stranger matching by excluding rounds in which participants of the same type would be grouped together.
+stranger matching by excluding rounds formed by transposition.

@@ -13,8 +13,8 @@ To perform [perfect stranger matching](../theory/overview.md#perfect-stranger-ma
 from perfect_strangers import create_matcher
 ```
 
-This function returns a group matcher object which will produce the longest sequence of perfect stranger matched rounds for
-the given experiment parameters.
+This function returns a group matcher object which will construct a sequence of perfect stranger matched rounds for the
+given experiment parameters.
 
 ```Python
 groups_per_round = 5 # Number of groups per round of the experiment.
@@ -47,12 +47,13 @@ members of a single group.
 ```
 
 #### Participant Labels
-By default, the experiment participants are identified by the integers between `0` and `N - 1` where `N` is the total number
-of participants. If your participants are otherwise identified, you can provide a list of participant labels to the
+By default the experiment participants are identified by the integers between `0` and `N - 1`, where `N` is the total number
+of participants. If your participants are otherwise identified you can provide a list of participant labels to the
 `participant_labels` parameter of [`create_matcher()`](matcher_objects.md#perfect_strangers.create_matcher). This must be a
 list of `N` unique values.
 
-For example, to label the participants from `1` to `N` (as oTree does) we can define the participant labels like so.
+For example, to label the participants from `1` to `N` (as [oTree](https://www.otree.org/) does) we can define the
+participant labels like so.
 
 ```Python
 groups_per_round = 5 # Number of groups per round of the experiment.
@@ -96,7 +97,7 @@ matcher = create_typed_matcher(groups_per_round, group_spec)
 ```
 
 By default participants are automatically sorted into types. The `participant_types` property of the matcher details which
-participants have been assigned to each type. To specify which participants are or which type, provide `participant_labels`
+participants have been assigned to each type. To specify which participants are of which type provide `participant_labels`
 as shown in [Specified Participant Types](#specified-participant-types).
 
 ```Python
@@ -104,8 +105,8 @@ as shown in [Specified Participant Types](#specified-participant-types).
 [[0, 3, 6, 9, 12], [1, 2, 4, 5, 7, 8, 10, 11, 13, 14]]
 ```
 
-Participant groupings returned from the matcher will then be composed of the relevant number of participants from each of
-these types.
+Participant groupings returned from the matcher will be composed of the relevant number of participants from each of these
+types.
 
 ```Python
 print(matcher.groups_for_next_round())
