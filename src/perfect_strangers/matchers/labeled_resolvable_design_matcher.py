@@ -60,12 +60,12 @@ class LRBMatcher(BaseMatcher):
     """
     Class to construct a (k, 1)-RGDD of type (k-1)^v from a LRB(k, k - 1, v) as per Shen (1992).
     """
-    def __init__(self, k: int, v: int, lrb: dict, participant_labels: Sequence | None=None):
-        self._lrb_lambda = k - 1
+    def __init__(self, k: int, m: int, v: int, lrb: dict, participant_labels: Sequence | None=None):
+        self._lrb_lambda = m
         self._lrb_n_points = v
         self._lrb = lrb
 
-        super().__init__((v * (k - 1)) // k, k, participant_labels=participant_labels)
+        super().__init__((v * m) // k, k, participant_labels=participant_labels)
 
     def _generate_rounds(self, _initial_groupings: np.typing.NDArray) -> NumpyRounds:
         gdd_points = np.arange(self.n_participants).reshape(self._lrb_n_points, self._lrb_lambda)
@@ -85,18 +85,20 @@ class LRBMatcher(BaseMatcher):
             design_data = json.loads(f.read())
 
         lrb_block_size = group_size
-        lrb_lambda = lrb_block_size - 1
 
         n_participants = groups_per_round * group_size
 
-        if n_participants % lrb_lambda != 0:
-            return None
+        for lrb_lambda in range(1, lrb_block_size):
+            if n_participants % lrb_lambda != 0:
+                continue
 
-        lrb_n_points = n_participants // lrb_lambda
+            lrb_n_points = n_participants // lrb_lambda
 
-        try:
-            lrb = design_data[str(lrb_block_size)][str(lrb_lambda)][str(lrb_n_points)]
-            return cls(lrb_block_size, lrb_n_points, lrb, participant_labels=participant_labels)
+            try:
+                lrb = design_data[str(lrb_block_size)][str(lrb_lambda)][str(lrb_n_points)]
+                return cls(lrb_block_size, lrb_lambda, lrb_n_points, lrb, participant_labels=participant_labels)
 
-        except KeyError:
-            return None
+            except KeyError:
+                continue
+
+        return None

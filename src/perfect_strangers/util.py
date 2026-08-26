@@ -36,6 +36,10 @@ def sequence_length_upper_bound(groups_per_round: int, group_spec: GroupSpec | i
     if groups_per_round == 4 and group_size == 3:
         return 4
 
+    # (4, 1)-RGGD of type 2^10 does not exist.
+    if groups_per_round == 5 and group_size == 4:
+        return 5
+
     return (groups_per_round * group_size - 1) // (group_size - 1)
 
 

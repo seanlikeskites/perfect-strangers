@@ -10,6 +10,7 @@ from tests.matcher_validation import validate_matcher
 
 test_cases = [
     (6, 4),
+    (8, 4),
     (9, 4),
     (12, 4),
     (18, 4)

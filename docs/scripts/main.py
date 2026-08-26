@@ -5,6 +5,7 @@ from perfect_strangers.matchers import (
     ColumnShiftMatcher,
     FinitePlaneMatcher,
     LookupMatcher,
+    LRBMatcher,
     NearlyKirkmanTripleMatcher,
     PrimitiveElementMatcher,
     RoundRobinMatcher,
@@ -35,6 +36,8 @@ def format_cell(data):
         link = "./theory/sub_bibd"
     elif data["method"] == ColumnShiftMatcher:
         link = "./theory/column_shift"
+    elif data["method"] == LRBMatcher:
+        link = "."
     else:
         link = "https://doi.org/10.1016/j.econlet.2016.06.028"
 
