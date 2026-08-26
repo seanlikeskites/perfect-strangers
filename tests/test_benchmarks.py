@@ -9,6 +9,7 @@ from perfect_strangers.matchers import (
     ColumnShiftMatcher,
     FinitePlaneMatcher,
     LookupMatcher,
+    LRBMatcher,
     NearlyKirkmanTripleMatcher,
     PrimitiveElementMatcher,
     RoundRobinMatcher,
@@ -30,6 +31,7 @@ def test_benchmarks(groups_per_round, group_size):
         ColumnShiftMatcher(groups_per_round, [group_size]),
         FinitePlaneMatcher.create_matcher(groups_per_round, [group_size]),
         LookupMatcher.create_matcher(groups_per_round, group_size),
+        LRBMatcher.create_matcher(groups_per_round, group_size),
         PrimitiveElementMatcher.create_matcher(groups_per_round, group_size),
         SubBIBDMatcher.create_matcher(groups_per_round, group_size, [])
     ]

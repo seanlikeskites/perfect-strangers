@@ -9,6 +9,7 @@ from perfect_strangers.matchers import (
     ColumnShiftMatcher,
     FinitePlaneMatcher,
     LookupMatcher,
+    LRBMatcher,
     NearlyKirkmanTripleMatcher,
     PrimitiveElementMatcher,
     RoundRobinMatcher,
@@ -39,11 +40,6 @@ def matcher_factory(groups_per_round: int,
     if algo_matcher is None:
         algo_matcher = PrimitiveElementMatcher.create_matcher(groups_per_round, group_size, participant_labels=participant_labels)
 
-    if algo_matcher is None and use_finite_plane_construction(groups_per_round, [group_size]):
-        algo_matcher = FinitePlaneMatcher.create_matcher(groups_per_round,
-                                                         [group_size],
-                                                         participant_labels=participant_labels)
-
     # Try Theorem 4 from Ray-Chaudhuri and Wilson (1971).
     if algo_matcher is None and (groups_per_round, group_size) not in tried_sub_bibds:
         tried_sub_bibds.append((groups_per_round, group_size))
@@ -51,6 +47,16 @@ def matcher_factory(groups_per_round: int,
                                                      group_size,
                                                      tried_sub_bibds,
                                                      participant_labels=participant_labels)
+
+    # Try NKS construction from LRB.
+    if algo_matcher is None:
+        algo_matcher = LRBMatcher.create_matcher(groups_per_round, group_size, participant_labels=participant_labels)
+
+    # Try finite plane construction.
+    if algo_matcher is None:
+        algo_matcher = FinitePlaneMatcher.create_matcher(groups_per_round,
+                                                         [group_size],
+                                                         participant_labels=participant_labels)
 
     # Default to column shift matching.
     if algo_matcher is None:

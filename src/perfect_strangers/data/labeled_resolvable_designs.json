@@ -1,0 +1,162 @@
+{
+  "4": {
+    "3": {
+      "8": {
+	"classes": [
+	  {
+            "blocks": [
+	      {
+	        "points": [0, 1, 3, 6],
+	        "labels": [0, 0, 1, 0, 1, 1]
+	      },
+	      {
+	        "points": [2, 4, 5, 7],
+	        "labels": [1, 2, 0, 1, 2, 1]
+	      }
+	    ]
+	  },
+	  {
+            "blocks": [
+	      {
+	        "points": [0, 1, 2, 4],
+	        "labels": [2, 2, 2, 0, 0, 0]
+	      },
+              {
+	        "points": [3, 5, 6, 7],
+	        "labels": [1, 2, 0, 1, 2, 1]
+	      }
+	    ]
+	  },
+	  {
+            "blocks": [
+	      {
+	        "points": [1, 2, 3, 5],
+	        "labels": [2, 2, 2, 0, 0, 0]
+	      },
+              {
+	        "points": [0, 4, 6, 7],
+	        "labels": [1, 2, 1, 1, 0, 2]
+	      }
+	    ]
+	  },
+	  {
+            "blocks": [
+	      {
+	        "points": [2, 3, 4, 6],
+	        "labels": [2, 2, 2, 0, 0, 0]
+	      },
+              {
+	        "points": [0, 1, 5, 7],
+	        "labels": [1, 2, 2, 1, 1, 0]
+	      }
+	    ]
+	  },
+	  {
+            "blocks": [
+	      {
+	        "points": [0, 3, 4, 5],
+	        "labels": [1, 0, 0, 2, 2, 0]
+	      },
+              {
+	        "points": [1, 2, 6, 7],
+	        "labels": [1, 2, 2, 1, 1, 0]
+	      }
+	    ]
+	  },
+	  {
+            "blocks": [
+	      {
+	        "points": [1, 4, 5, 6],
+	        "labels": [1, 0, 0, 2, 2, 0]
+	      },
+              {
+	        "points": [0, 2, 3, 7],
+	        "labels": [1, 2, 0, 1, 2, 1]
+	      }
+	    ]
+	  },
+	  {
+            "blocks": [
+	      {
+	        "points": [0, 2, 5, 6],
+	        "labels": [0, 1, 0, 1, 0, 2]
+	      },
+              {
+	        "points": [1, 3, 4, 7],
+	        "labels": [1, 2, 0, 1, 2, 1]
+	      }
+	    ]
+	  }
+	]
+      },
+      "12": {
+        "base_blocks": [
+	  {
+            "points": [0, 1, 4, 10],
+	    "labels": [2, 2, 0, 0, 1, 1]
+	  },
+	  {
+            "points": [2, 5, 6, 8],
+	    "labels": [2, 0, 0, 1, 1, 0]
+	  },
+	  {
+            "points": [3, 7, 9, 11],
+	    "labels": [1, 2, 1, 1, 0, 2]
+	  }
+	],
+	"mod": 11
+      },
+      "16": {
+        "base_blocks": [
+	  {
+            "points": [0, 1, 2, 5],
+	    "labels": [0, 1, 0, 1, 0, 2]
+	  },
+	  {
+            "points": [8, 9, 12, 3],
+	    "labels": [2, 2, 1, 0, 2, 2]
+	  },
+	  {
+            "points": [4, 6, 11, 13],
+	    "labels": [0, 1, 0, 1, 0, 2]
+	  },
+	  {
+            "points": [7, 10, 14, 15],
+	    "labels": [1, 2, 0, 1, 2, 1]
+	  }
+	],
+	"mod": 15,
+	"notes": "LRB given in \"On the Existence of Nearly Kirkman Systems\" is incorrect. This construction from \"Existence of resolvable group divisible designs with block size four I\"."
+      },
+      "24": {
+        "base_blocks": [
+	  {
+            "points": [0, 2, 9, 13],
+	    "labels": [1, 1, 0, 0, 2, 2]
+	  },
+	  {
+            "points": [1, 8, 11, 23],
+	    "labels": [1, 2, 0, 1, 2, 1]
+	  },
+	  {
+            "points": [3, 6, 7, 12],
+	    "labels": [0, 1, 2, 1, 2, 1]
+	  },
+	  {
+            "points": [4, 10, 15, 19],
+	    "labels": [0, 0, 0, 0, 0, 0]
+	  },
+	  {
+            "points": [5, 17, 18, 20],
+	    "labels": [2, 2, 1, 0, 2, 2]
+	  },
+	  {
+            "points": [14, 16, 21, 22],
+	    "labels": [0, 2, 1, 2, 1, 2]
+	  }
+	],
+	"mod": 23
+      }
+    }
+  }
+}
