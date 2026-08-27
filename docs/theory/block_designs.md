@@ -142,11 +142,11 @@ partitioned into parallel classes. For perfect stranger matching we consider res
 $\mathrm{RTD}_{1}(\beta, \alpha)$.
 
 If an $\mathrm{RTD}_{1}(k, \alpha)$ exists it serves as an optimal solution for [typed perfect stranger
-matching](./overview#typed-perfect-stranger-matching) where the total number of participants $\sum_{n = 0}^{T - 1} \beta_{t}
-= k$, the number of participant groupings per round is equal to $\alpha$, and there is more than 1 type of participant. In
-such an experiment, the participant types and groupings would correspond to the groups and blocks of the $\mathrm{RTD}$
-respectively. Where $\beta_{t}$ participants of a given type are in each participant grouping, the participants of that type
-are given by $\beta_{t}$ of the groups from the $\mathrm{RTD}$.
+matching](./overview#typed-perfect-stranger-matching) where the total number of participants per group $\sum_{n = 0}^{T - 1}
+\beta_{t} = k$, the number of participant groupings per round is equal to $\alpha$, and there is more than 1 type of
+participant. In such an experiment, the participant types and groupings would correspond to the groups and blocks of the
+$\mathrm{RTD}$ respectively. Where $\beta_{t}$ participants of a given type are in each participant grouping, the
+participants of that type are given by $\beta_{t}$ of the groups from the $\mathrm{RTD}$.
 
 The method of [truncating lines of a finite affine plane](finite_planes#truncating-lines), before any submatrix
 transposition, provides a way of constructing $\mathrm{RTD}$s. Using this method, the groups of the $\mathrm{RTD}$ are given
