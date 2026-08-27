@@ -40,6 +40,11 @@ def sequence_length_upper_bound(groups_per_round: int, group_spec: GroupSpec | i
     if groups_per_round == 5 and group_size == 4:
         return 5
 
+    # 4 rounds under these parameters would imply the existence of a pair of
+    # MOLS of order 6. These are known not to exist.
+    if groups_per_round == 6 and group_size == 6:
+        return 3
+
     return (groups_per_round * group_size - 1) // (group_size - 1)
 
 
