@@ -9,6 +9,7 @@ from perfect_strangers.matchers import (
     NearlyKirkmanTripleMatcher,
     PrimitiveElementMatcher,
     RoundRobinMatcher,
+    RTDMatcher,
     SubBIBDMatcher,
 )
 from perfect_strangers.util import sequence_length_upper_bound, unique_integers_summing_to_n
@@ -37,11 +38,16 @@ def format_cell(data):
     elif data["method"] == ColumnShiftMatcher:
         link = "./theory/column_shift"
     elif data["method"] == LRBMatcher:
-        link = "."
+        link = None
+    elif data["method"] == RTDMatcher:
+        link = None
     else:
         link = "https://doi.org/10.1016/j.econlet.2016.06.028"
 
-    return f'<td class="{cell_class} benchmark-cell" onclick="location.href = \'{link}\';">{data["sequence_length"]}</td>'
+    if link is not None:
+        return f'<td class="{cell_class} benchmark-cell" onclick="location.href = \'{link}\';">{data["sequence_length"]}</td>'
+    else:
+        return f'<td class="{cell_class} benchmark-cell">{data["sequence_length"]}</td>'
 
 
 def format_row(row):
@@ -103,7 +109,7 @@ def create_benchmark_table():
     return create_table(sequence_lengths)
 
 def create_typed_benchmark_table():
-    num_groups_range = range(2, 13)
+    num_groups_range = range(2, 14)
     group_size_range = range(2, 6)
 
     group_specs = [

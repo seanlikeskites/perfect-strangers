@@ -13,6 +13,7 @@ from perfect_strangers.matchers import (
     NearlyKirkmanTripleMatcher,
     PrimitiveElementMatcher,
     RoundRobinMatcher,
+    RTDMatcher,
     SubBIBDMatcher,
     TypedMatcher,
 )
@@ -58,6 +59,11 @@ def matcher_factory(groups_per_round: int,
                                                          [group_size],
                                                          participant_labels=participant_labels)
 
+    if algo_matcher is None:
+        algo_matcher = RTDMatcher.create_matcher(groups_per_round,
+                                                 [group_size],
+                                                 participant_labels=participant_labels)
+
     # Default to column shift matching.
     if algo_matcher is None:
         algo_matcher = ColumnShiftMatcher(groups_per_round, [group_size], participant_labels=participant_labels)
@@ -69,8 +75,13 @@ def matcher_factory(groups_per_round: int,
     return algo_matcher
 
 def typed_matcher_factory(groups_per_round: int,
-                           group_spec: GroupSpec,
-                           participant_labels: Sequence | None) -> TypedMatcher:
+                          group_spec: GroupSpec,
+                          participant_labels: Sequence | None) -> TypedMatcher:
+    m = RTDMatcher.create_matcher(groups_per_round, group_spec, participant_labels=participant_labels)
+
+    if m is not None:
+        return m
+
     if use_finite_plane_construction(groups_per_round, group_spec):
         return FinitePlaneMatcher.create_matcher(groups_per_round, group_spec, participant_labels=participant_labels)
 

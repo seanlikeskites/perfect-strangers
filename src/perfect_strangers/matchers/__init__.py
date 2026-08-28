@@ -10,16 +10,20 @@ from perfect_strangers.matchers.lookup_matcher import LookupMatcher
 from perfect_strangers.matchers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
 from perfect_strangers.matchers.primitive_element_matcher import PrimitiveElementMatcher
 from perfect_strangers.matchers.round_robin_matcher import RoundRobinMatcher
+from perfect_strangers.matchers.rtd_matcher import RTDMatcher
 from perfect_strangers.matchers.sub_bibd_matcher import SubBIBDMatcher
 from perfect_strangers.matchers.typed_matcher import TypedMatcher
 
-__all__ = ("BaseMatcher",
+__all__ = (
+           "BaseMatcher",
            "ColumnShiftMatcher",
            "FinitePlaneMatcher",
            "LRBMatcher",
            "LookupMatcher",
            "NearlyKirkmanTripleMatcher",
            "PrimitiveElementMatcher",
+           "RTDMatcher",
            "RoundRobinMatcher",
            "SubBIBDMatcher",
-           "TypedMatcher")
+           "TypedMatcher",
+)
