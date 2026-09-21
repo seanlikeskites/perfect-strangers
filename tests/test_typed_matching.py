@@ -9,7 +9,8 @@ from perfect_strangers import create_typed_matcher
 from perfect_strangers.matchers import (
     ColumnShiftMatcher,
     FinitePlaneMatcher,
-    RTDMatcher,
+    MOLSMatcher,
+    TransversalAndTransposeMatcher,
 )
 from perfect_strangers.util import (
     group_size_from_spec,
@@ -37,7 +38,8 @@ def test_typed_matching(groups_per_round, group_spec):
     algorithms = [
         ColumnShiftMatcher(groups_per_round, group_spec),
         FinitePlaneMatcher.create_matcher(groups_per_round, group_spec),
-        RTDMatcher.create_matcher(groups_per_round, group_spec)
+        MOLSMatcher.create_matcher(groups_per_round, group_spec),
+        TransversalAndTransposeMatcher(groups_per_round, group_spec)
     ]
 
     assert matcher.max_rounds == max(a.max_rounds for a in algorithms if a is not None)

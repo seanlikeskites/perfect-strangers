@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
-from perfect_strangers.matchers.typed_matcher import TypedMatcher
+from perfect_strangers.matchers.transversal_matcher import TransversalMatcher
 from perfect_strangers.util import group_size_from_spec
 
 if TYPE_CHECKING:
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from perfect_strangers.types import GroupSpec, NumpyRounds
 
 
-class RTDMatcher(TypedMatcher):
+class MOLSMatcher(TransversalMatcher):
     """
     Class to construct an RTD(k, n) from k - 1 MOLS of order N.
     """
@@ -50,7 +50,7 @@ class RTDMatcher(TypedMatcher):
 
         return p
 
-    def _generate_rounds(self, initial_groupings: np.typing.NDArray) -> NumpyRounds:
+    def _generate_typed_rounds(self, initial_groupings: np.typing.NDArray) -> NumpyRounds:
         block_squares = self._mols[0:self.group_size - 1]
         class_square = self._mols[-1]
 

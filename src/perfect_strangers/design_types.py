@@ -33,6 +33,16 @@ class RTDType(DesignType):
     def __repr__(self):
         return f"RTD_{self._lambd}({self._k}, {self._n})"
 
+class IRTDType(DesignType):
+    def __init__(self, k: int, n1: int, n2: int, lambd: int=1):
+        self._k = k
+        self._n1 = n1
+        self._n2 = n2
+        self._lambd = lambd
+
+    def __repr__(self):
+        return f"RTD_{self._lambd}({self._k}, {self._n1}) - RTD_{self._lambd}({self._k}, {self._n2})"
+
 class PartialType(DesignType):
     def __init__(self):
         pass

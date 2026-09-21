@@ -6,11 +6,12 @@ from perfect_strangers.matchers import (
     FinitePlaneMatcher,
     LookupMatcher,
     LRBMatcher,
+    MOLSMatcher,
     NearlyKirkmanTripleMatcher,
     PrimitiveElementMatcher,
     RoundRobinMatcher,
-    RTDMatcher,
     SubBIBDMatcher,
+    TransversalAndTransposeMatcher,
 )
 from perfect_strangers.util import sequence_length_upper_bound, unique_integers_summing_to_n
 
@@ -37,17 +38,14 @@ def format_cell(data):
         link = "./theory/sub_bibd"
     elif data["method"] == ColumnShiftMatcher:
         link = "./theory/column_shift"
-    elif data["method"] == LRBMatcher:
-        link = None
-    elif data["method"] == RTDMatcher:
+    elif data["method"] == LRBMatcher or data["method"] == MOLSMatcher or data["method"] == TransversalAndTransposeMatcher:
         link = None
     else:
         link = "https://doi.org/10.1016/j.econlet.2016.06.028"
 
     if link is not None:
         return f'<td class="{cell_class} benchmark-cell" onclick="location.href = \'{link}\';">{data["sequence_length"]}</td>'
-    else:
-        return f'<td class="{cell_class} benchmark-cell">{data["sequence_length"]}</td>'
+    return f'<td class="{cell_class} benchmark-cell">{data["sequence_length"]}</td>'
 
 
 def format_row(row):

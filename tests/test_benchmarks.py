@@ -10,11 +10,12 @@ from perfect_strangers.matchers import (
     FinitePlaneMatcher,
     LookupMatcher,
     LRBMatcher,
+    MOLSMatcher,
     NearlyKirkmanTripleMatcher,
     PrimitiveElementMatcher,
     RoundRobinMatcher,
-    RTDMatcher,
     SubBIBDMatcher,
+    TransversalAndTransposeMatcher,
 )
 from tests.matcher_validation import validate_matcher
 
@@ -35,7 +36,8 @@ def test_benchmarks(groups_per_round, group_size):
         LRBMatcher.create_matcher(groups_per_round, group_size),
         PrimitiveElementMatcher.create_matcher(groups_per_round, group_size),
         SubBIBDMatcher.create_matcher(groups_per_round, group_size, []),
-        RTDMatcher.create_matcher(groups_per_round, [group_size])
+        MOLSMatcher.create_matcher(groups_per_round, [group_size]),
+        TransversalAndTransposeMatcher(groups_per_round, [group_size])
     ]
 
     match group_size:

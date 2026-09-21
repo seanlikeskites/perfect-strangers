@@ -4,7 +4,7 @@
 
 import pytest
 
-from perfect_strangers.matchers import RTDMatcher
+from perfect_strangers.matchers import MOLSMatcher
 from tests.matcher_validation import validate_matcher
 
 test_cases = [
@@ -16,8 +16,8 @@ test_cases = [
 ]
 
 @pytest.mark.parametrize(("groups_per_round", "group_size"), test_cases)
-def test_rtd(groups_per_round, group_size):
-    matcher = RTDMatcher.create_matcher(groups_per_round, [group_size])
+def test_mols(groups_per_round, group_size):
+    matcher = MOLSMatcher.create_matcher(groups_per_round, [group_size])
 
     # LBR matching should always give the maximum possible rounds.
     assert matcher.max_rounds == groups_per_round
