@@ -15,7 +15,7 @@ construction.
 
 ### When $\beta = 3$
 Let $q$ be a prime power of the form $6t + 1$, for some integer $t$. Theorems 5 and 6 from Ray-Chaudhuri and Wilson
-(1971)[^1] give primitive element constructions for $\left(\alpha\beta, 3, 1\right)$-$\mathrm{RBIBD}$s when $\alpha\beta =
+(1971)[^1] give primitive element constructions for $\left(\alpha\beta, 3\right)$-$\mathrm{RBIBD}$s when $\alpha\beta =
 3q$ and $\alpha\beta = 2q + 1$ respectively.
 
 #### Ray-Chaudhuri and Wilson Theorem 5
@@ -62,7 +62,7 @@ triples: $A_{0}(a)$, $B_{j}^{i}(a)$, $A^{i}(a)$, for the given value $a$.
 ### When $\beta = 4$
 #### Hanani et al. Lemma 3
 Let $q$ be a prime power of the form $4t + 1$, for some integer $t$. Lemma 3 from Hanani et al.  (1972)[^2] provides a
-primitive element construction for a $\left(3q + 1, 4, 1\right)$-$\mathrm{RBIBD}$.
+primitive element construction for a $\left(3q + 1, 4\right)$-$\mathrm{RBIBD}$.
 
 Associate the first $3q$ participants with an element in the set $\mathbb{F}_{q} \times \mathbb{Z}_{3}$ and label the final
 participant $\infty$. Grouping matrices are constructed from the following families of quadruples:

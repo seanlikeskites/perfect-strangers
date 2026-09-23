@@ -1,6 +1,6 @@
 # Kirkman Triple Matching
 A Kirkman Triple System is a <a style="text-decoration: none;"
-href="./block_designs#balanced-incomplete-block-designs">$\left(v, 3, 1\right)$-$\mathrm{RBIBD}$ </a> named for [Kirkman's
+href="./block_designs#balanced-incomplete-block-designs">$\left(v, 3\right)$-$\mathrm{RBIBD}$ </a> named for [Kirkman's
 schoolgirl problem](https://en.wikipedia.org/wiki/Kirkman%27s_schoolgirl_problem): a special case of perfect stranger
 matching where $\alpha = 5$ and $\beta = 3$. It was shown by Ray-Chaudhuri and Wilson (1971)[^1] that such systems are
 constructible where the total number of elements is an odd multiple of 3. This is equivalent to saying that

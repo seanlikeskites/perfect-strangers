@@ -4,7 +4,7 @@
 
 from collections.abc import Sequence
 
-from perfect_strangers.design_types import DesignType, IRTDType, RTDType
+from perfect_strangers.design_types import DesignType, RTDType
 from perfect_strangers.matchers.typed_matcher import TypedMatcher
 from perfect_strangers.types import GroupSpec
 
@@ -23,6 +23,6 @@ class TransversalMatcher(TypedMatcher):
     def _design_type(self) -> DesignType | None:
         if self.max_rounds == self.groups_per_round:
             return RTDType(self.group_size, self.groups_per_round)
-        return IRTDType(self.group_size, self.groups_per_round, self.groups_per_round - self.max_rounds)
 
         return None
+

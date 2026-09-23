@@ -1,10 +1,10 @@
 # Sub-RBIBD Matching
 Theorem 4 from Ray-Chaudhuri and Wilson (1971)[^1] states that an $\left(m(v_{1}
-- 1) + v_{2}, k, 1\right)$-$\mathrm{RBIBD}$ can be constructed from the following elements:
+- 1) + v_{2}, k\right)$-$\mathrm{RBIBD}$ can be constructed from the following elements:
 
-  * A <a style="text-decoration: none;" href="./block_designs#balanced-incomplete-block-designs">$(v_{1}, k, 1)$-$\mathrm{RBIBD}$</a>
-  * An $(m(k - 1) + v_{2}, k, 1)$-$\mathrm{RBIBD}$ with a <a style="text-decoration: none;"
-    href="./block_designs#sub-rbibds">$(v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$</a> $\left(\text{or }v_{2} = 1\right)$.
+  * A <a style="text-decoration: none;" href="./block_designs#balanced-incomplete-block-designs">$(v_{1}, k)$-$\mathrm{RBIBD}$</a>
+  * An $(m(k - 1) + v_{2}, k)$-$\mathrm{RBIBD}$ with a <a style="text-decoration: none;"
+    href="./block_designs#sub-rbibds">$(v_{2}, k)$-$\mathrm{sub}$-$\mathrm{RBIBD}$</a> $\left(\text{or }v_{2} = 1\right)$.
   * An <a style="text-decoration: none;" href="./orthogonal_arrays#resolvable-orthogonal-arrays">$\mathrm{ROA}\left(m^{2}, k, m, 2\right)$</a>[^2]
 
 ## Construction
@@ -16,37 +16,37 @@ from the points of three other sets:
   * $Y$: a set of $v_{2}$ points.
   * $\mathbb{Z}_{m}$: the set of integers from 0 to $m - 1$.
 
-First we define $\theta$ to be a fixed point from $X$. Removing this point from $X$ yields the set $X'$, i.e.  $X' = X -
-\{\theta\}$. The full set of points for the $\mathrm{RBIBD}$ under construction is then:
+First we define $\theta$ to be a fixed point from $X$. Removing this point from $X$ yields the set $X'$, i.e.  $X' = X
+\setminus \{\theta\}$. The full set of points for the $\mathrm{RBIBD}$ under construction is then:
 
 $$
   X^{*} = X' \times \mathbb{Z}_{m} \cup Y
 $$
 
 This set has $m(v_{1} - 1) + v_{2}$ elements, hence the $\mathrm{RBIBD}$ under construction is an $\left(m(v_{1} - 1) +
-v_{2}, k, 1\right)$-$\mathrm{RBIBD}$.
+v_{2}, k\right)$-$\mathrm{RBIBD}$.
 
 For perfect stranger matching we associate each of the experiment participants with a point in the set $X^{*}$.
 
 ### Construction Elements
-#### • $(v_{1}, k, 1)$-$\mathrm{RBIBD}$ 
-Construct $\left(X, \mathcal{B}\right)$, a $(v_{1}, k, 1)$-$\mathrm{RBIBD}$ on the point set $X$ with the set of blocks $\mathcal{B}$. This
+#### • $(v_{1}, k)$-$\mathrm{RBIBD}$ 
+Construct $\left(X, \mathcal{B}\right)$, a $(v_{1}, k)$-$\mathrm{RBIBD}$ on the point set $X$ with the set of blocks $\mathcal{B}$. This
 $\mathrm{RBIBD}$ has $r_{1} = \frac{v_{1} - 1}{k - 1}$ parallel classes, denoted
 $\mathcal{B}_{0},\mathcal{B}_{1},\dots,\mathcal{B}_{r_{1} - 1}$.
 
 Let $B_{i}$ denote the block from the parallel class $\mathcal{B}_{i}$ which contains the fixed point $\theta$. Then let
-$B_{i}'$ denote this block with $\theta$ removed, i.e. $B_{i}' = B_{i} - \{\theta\}$.
+$B_{i}'$ denote this block with $\theta$ removed, i.e. $B_{i}' = B_{i} \setminus \{\theta\}$.
 
-#### • $(m(k - 1) + v{2}, k, 1)$-$\mathrm{RBIBD}$
+#### • $(m(k - 1) + v{2}, k)$-$\mathrm{RBIBD}$
 For each of the blocks $B_{i}'$ from the parallel classes of $\left(X, \mathcal{B}\right)$, define the point set ${Q^{i} =
-B_{i}' \times \mathbb{Z}_{m} + Y}$. Construct $\left(Q^{i}, \mathcal{S}^{i}\right)$, an ${(m(k - 1) + v_{2}, k, 1)}$-$\mathrm{RBIBD}$
+B_{i}' \times \mathbb{Z}_{m} + Y}$. Construct $\left(Q^{i}, \mathcal{S}^{i}\right)$, an ${(m(k - 1) + v_{2}, k)}$-$\mathrm{RBIBD}$
 on this point set, with the set of blocks $\mathcal{S}^{i}$. Each of these $\mathrm{RBIBD}$s has $r_{2} + m$ parallel
 classes, where $r_{2} = \frac{v_{2} - 1}{k - 1}$. We denote these parallel classes
 $\mathcal{S}^{i}_{0},\mathcal{S}^{i}_{1},\dots,\mathcal{S}^{i}_{r_{2} + m - 1}$.
 
-#### • $(v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ 
-When $v_{2} > 1$ the construction requires that each of the $\mathrm{RBIBD}$s, $\left(Q^{i}, \mathcal{S}^{i}\right)$, have a $(v_{2}, k,
-1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points $Y$. Since $Y \subset Q^{i}$ this is the same
+#### • $(v_{2}, k)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ 
+When $v_{2} > 1$ the construction requires that each of the $\mathrm{RBIBD}$s, $\left(Q^{i}, \mathcal{S}^{i}\right)$, have a
+$(v_{2}, k)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points $Y$. Since $Y \subset Q^{i}$ this is the same
 $\mathrm{sub}$-$\mathrm{RBIBD}$ for all $i = 0,1,\dots,r_{2} + m - 1$. Denote this $\mathrm{sub}$-$\mathrm{RBIBD}$ $\left(Y,
 \mathcal{S}'\right)$ and denote its $r_{2}$ parallel classes $\mathcal{S}_{0}',\mathcal{S}_{1}',\dots,\mathcal{S}_{r_{2} -
 1}'$, where ${\mathcal{S}_{j}' \subset \mathcal{S}^{i}_{j}}$.
@@ -55,7 +55,7 @@ Further, let $\mathcal{V}^{i}_{j}$ be the set of blocks from $\mathcal{S}^{i}_{j
 is:
 
 $$
-  \mathcal{V}^{i}_{j} = \mathcal{S}^{i}_{j} - \mathcal{S}_{j}' \quad \text{for} \; j = 0,1,\dots,r_{2} - 1
+  \mathcal{V}^{i}_{j} = \mathcal{S}^{i}_{j} \setminus \mathcal{S}_{j}' \quad \text{for} \; j = 0,1,\dots,r_{2} - 1
 $$
 
 The remaining $S^{i}_{j}$ for $j = r_{2},r_{2} + 1,\dots,r_{2} + m - 1$ are the parallel classes from $\left(Q^{i},
@@ -84,7 +84,7 @@ indices starting at 0), and $b_{n}$ is the $n^{\text{th}}$ element of $B$.
 
 ### Grouping Matrices
 The above components can be used to construct the $mr_{1} + r_{2}$ parallel classes of blocks for an $(m(v_{1} - 1) + v_{2},
-k, 1)$-$\mathrm{RBIBD}$ on the point set $X'$. These parallel classes give the grouping matrices for the experiment
+k)$-$\mathrm{RBIBD}$ on the point set $X'$. These parallel classes give the grouping matrices for the experiment
 participants. Parallel classes are constrcuted using two different methods.
 
 #### From Sub-RBIBD
@@ -109,7 +109,7 @@ $$
 $\mathrm{RBIBD}$s constructed using this method contain $\mathrm{sub}$-$\mathrm{RBIBDS}$ on different sets of points.
 
 #### On the Set of Points $Y$
-Parallel classes of a $(v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points $Y$ are given by the sets of
+Parallel classes of a $(v_{2}, k)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on the set of points $Y$ are given by the sets of
 blocks:
 
 $$
@@ -117,7 +117,7 @@ $$
 $$
 
 #### On the Set of points $Q^{i}$
-For any given $i$ from 0 to $r_{1} - 1$, parallel classes of a $(m(k - 1) + v_{2}, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on
+For any given $i$ from 0 to $r_{1} - 1$, parallel classes of a $(m(k - 1) + v_{2}, k)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ on
 the set of points $Q^{i}$ are given by the sets of blocks:
 
 $$

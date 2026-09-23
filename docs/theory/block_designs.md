@@ -38,7 +38,8 @@ A balanced incomplete block design $\left(\mathrm{BIBD}\right)$ with parameters 
 The design is balanced in that each unordered pair of points occurs in the same number of blocks, and incomplete in that $k
 < v$ so the blocks do not contain every point from $X$. A $\mathrm{BIBD}$ for a given set of parameters is referred to as a
 $\left(v, k, \lambda\right)$-$\mathrm{BIBD}$. If the design is resolvable it is a $\left(v, k,
-\lambda\right)$-$\mathrm{RBIBD}$.
+\lambda\right)$-$\mathrm{RBIBD}$. If $\lambda = 1$ it is usually omitted from the notation, i.e. $\left(v, k\right)$-$\mathrm{RBIBD}$
+refers to a $\left(v, k, 1\right)$-$\mathrm{RBIBD}$.
 
 For perfect stranger matching applications we consider $\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$s for which:
 
@@ -46,16 +47,16 @@ For perfect stranger matching applications we consider $\left(v, k, \lambda\righ
   * $k = \beta$
   * $\lambda = 1$
 
-Setting $\lambda = 1$ ensures perfect stranger matching. If an $\left(\alpha\beta, \beta, 1\right)$-$\mathrm{RBIBD}$ exists
+Setting $\lambda = 1$ ensures perfect stranger matching. If an $\left(\alpha\beta, \beta\right)$-$\mathrm{RBIBD}$ exists
 for the given experiment parameters, every participant will meet every other participant exactly once if all possible rounds
 are conducted. The maximum number of rounds is therefore equal to the [trivial upper bound](overview#trivial-upper-bound).
 
-For a $\left(v, k, 1\right)$-$\mathrm{RBIBD}$ to exist, $v$ must be divisible by $k$ and $v - 1$ must be divisible by $k -
+For a $\left(v, k\right)$-$\mathrm{RBIBD}$ to exist, $v$ must be divisible by $k$ and $v - 1$ must be divisible by $k -
 1$. In terms of experiment parameters that means that $\frac{\alpha\beta - 1}{\beta - 1}$ must be an integer. This does not
-guarantee existence of the design however, for example a (36, 6, 1)-$\mathrm{RBIBD}$ does not exist.
+guarantee existence of the design however, for example a (36, 6)-$\mathrm{RBIBD}$ does not exist.
 
-A class of easily constructible $\mathrm{RBIBD}$s are the [finite affine planes](finite_planes). A $\left(k^{2}, k,
-1\right)$-$\mathrm{RBIBD}$ exists whenever the finite affine plane of order $k$ exists.
+A class of easily constructible $\mathrm{RBIBD}$s are the [finite affine planes](finite_planes). A $\left(k^{2},
+k\right)$-$\mathrm{RBIBD}$ exists whenever the finite affine plane of order $k$ exists.
 
 ### Sub-BIBDs
 Given a $\left(v, k, \lambda\right)$-$\mathrm{BIBD}$ with points from the set $X$ and blocks from the set $\mathcal{B}$, a
@@ -79,10 +80,10 @@ classes given by the sets of blocks $\mathcal{B}_{0},\mathcal{B}_{1},\dots,\math
 That is, a $\mathrm{sub}$-$\mathrm{RBIBD}$ is an $\mathrm{RBIBD}$ for which the parallel classes are constructed by taking
 the same number of blocks from a each of a subset of the parallel classes of another $\mathrm{RBIBD}$.
 
-For any $(v, k, 1)$-$\mathrm{BIBD}$, a $(k, k, 1)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ always exists. This
+For any $(v, k)$-$\mathrm{BIBD}$, a $(k, k)$-$\mathrm{sub}$-$\mathrm{RBIBD}$ always exists. This
 $\mathrm{sub}$-$\mathrm{RBIBD}$ has a single parallel class containing a single block from the parent $\mathrm{BIBD}$. More
-complicated $\mathrm{sub}$-$\mathrm{RBIBD}$s require specialised construction methods (for example, <a style="text-decoration:
-none;" href="./sub_bibd#sub-rbibds">$\mathrm{Sub}$-$\mathrm{RBIBD}$ matching</a>).
+complicated $\mathrm{sub}$-$\mathrm{RBIBD}$s require specialised construction methods (for example, <a
+style="text-decoration: none;" href="./sub_bibd#sub-rbibds">$\mathrm{Sub}$-$\mathrm{RBIBD}$ matching</a>).
 
 ## Group Divisible Designs
 Another type of block design is the Group Divisible Design $\left(\mathrm{GDD}\right)$. A $\mathrm{GDD}$ with parameters
@@ -110,11 +111,11 @@ classes. For the purposes of perfect stranger matching we will only consider $\m
   * All blocks are of the same size.
   * $\lambda = 1$
 
-We refer to such an $\mathrm{RGDD}$ as a $\left(k, 1\right)$-$\mathrm{RGDD}$ of type $g^{n}$: an $\mathrm{RGDD}$ with $n$
-groups of size $g$ and blocks of size $k$. 
+We refer to such an $\mathrm{RGDD}$ as a $k$-$\mathrm{RGDD}$ of type $g^{n}$: an $\mathrm{RGDD}$ with $n$ groups of size $g$
+and blocks of size $k$. 
 
-A $\left(v, k, 1\right)$-$\mathrm{RBIBD}$ can be considered a $\left(k, 1\right)$-$\mathrm{RGDD}$ of type $k^{v/k}$. One of
-the parallel classes of the $\mathrm{RBIBD}$ form the groups of the $\mathrm{RGDD}$.
+A $\left(v, k\right)$-$\mathrm{RBIBD}$ can be considered a $k$-$\mathrm{RGDD}$ of type $k^{v/k}$. One of the parallel
+classes of the $\mathrm{RBIBD}$ forms the groups of the $\mathrm{RGDD}$.
 
 $\mathrm{RGDD}$s can be useful in situations where the number of participants and participant grouping size do not allow a
 participant to meet all other participants over the course of an experiment. Take the [social golfer
@@ -122,9 +123,9 @@ problem](https://en.wikipedia.org/wiki/Social_golfer_problem) as an example. Thi
 matching where $\alpha = 8$ and $\beta = 4$. With 32 total participants this means there are 31 others each individual could
 be matched with. 10 rounds are possible in which each individual will match with 3 other participants they have not met
 before. This means each individual will match with 30 others over the course of the experiment and never meet the final
-participant. A (4, 1)-$\mathrm{RGDD}$ of type 2^16^ provides a [solution to the social golfer
+participant. A $4$-$\mathrm{RGDD}$ of type $2^{16}$ provides a [solution to the social golfer
 problem](https://www.mathpuzzle.com/MAA/54-Golf%20Tournaments/socgolf1.pdf), the groups of size 2 giving the pairs of
-participants who never meet.  **N.B. this construction is yet to be implemented in the perfect-strangers package.**
+participants who never meet. 
 
 ## Transversal Designs
 A transversal design $\left(\mathrm{TD}\right)$ is a type of $\mathrm{GDD}$ with additional properties:
@@ -134,20 +135,18 @@ A transversal design $\left(\mathrm{TD}\right)$ is a type of $\mathrm{GDD}$ with
   * Any pair of a group and block intersects at _exactly_ one point.
 
 A transversal design with groups of size $n$ and blocks of size $k$ is typically written $\mathrm{TD}_{\lambda}(k, n)$. This
-is a $\left(k, \lambda\right)$-$\mathrm{GDD}$ of type $n^{k}$ with the additional property that every block intersect every
-group at exactly one point.
+is a $\left(k, \lambda\right)$-$\mathrm{GDD}$ of type $n^{k}$ with the additional property that each block intersects every
+group at exactly one point. If $\lambda = 1$ it is omitted from the notation.
 
-As with other block designs, a resolvable $\mathrm{TD}$ $\left(\mathrm{RTD}\right)$ is one in which the blocks can be
-partitioned into parallel classes. For perfect stranger matching we consider resolvable transversal designs
-$\mathrm{RTD}_{1}(\beta, \alpha)$.
+As with other block designs, a resolvable transversal design $\left(\mathrm{RTD}\right)$ is one in which the blocks can be
+partitioned into parallel classes. An $\mathrm{RTD}(k, n)$ can be constructed by removing a group from a $\mathrm{TD}(k + 1,
+n)$. Each parallel class is constructed from the blocks which contain the same element of the removed group. 
 
-If an $\mathrm{RTD}_{1}(k, \alpha)$ exists it serves as an optimal solution for [typed perfect stranger
+For perfect stranger matching we consider the resolvable transversal designs: $\mathrm{RTD}(\beta, \alpha)$.
+
+If an $\mathrm{RTD}(k, \alpha)$ exists, it serves as an optimal solution for [typed perfect stranger
 matching](./overview#typed-perfect-stranger-matching) where the total number of participants per group $\sum_{n = 0}^{T - 1}
 \beta_{t} = k$, the number of participant groupings per round is equal to $\alpha$, and there is more than 1 type of
 participant. In such an experiment, the participant types and groupings would correspond to the groups and blocks of the
 $\mathrm{RTD}$ respectively. Where $\beta_{t}$ participants of a given type are in each participant grouping, the
 participants of that type are given by $\beta_{t}$ of the groups from the $\mathrm{RTD}$.
-
-The method of [truncating lines of a finite affine plane](finite_planes#truncating-lines), before any submatrix
-transposition, provides a way of constructing $\mathrm{RTD}$s. Using this method, the groups of the $\mathrm{RTD}$ are given
-by the vertical lines of the finite affine plane.
