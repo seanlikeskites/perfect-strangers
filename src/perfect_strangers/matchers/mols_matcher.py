@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
+from perfect_strangers.design_types import DesignType, RITDType, RTDType
 from perfect_strangers.matchers.transversal_matcher import TransversalMatcher
 from perfect_strangers.util import group_size_from_spec
 
@@ -27,8 +28,10 @@ class MOLSMatcher(TransversalMatcher):
                  groups_per_round: int,
                  group_spec: GroupSpec,
                  mols: list[np.typing.NDArray],
+                 hole_order: int,
                  participant_labels: Sequence | None=None):
         self._mols = mols
+        self._hole_order = hole_order
         super().__init__(groups_per_round, group_spec, participant_labels=participant_labels)
 
     def _construct_parallel_class(self,
@@ -59,8 +62,14 @@ class MOLSMatcher(TransversalMatcher):
                                            class_square,
                                            initial_groupings,
                                            i)
-            for i in range(self.groups_per_round)
+            for i in range(self.groups_per_round - self._hole_order)
         ]
+
+    def _design_type(self) -> DesignType | None:
+        if self._hole_order == 0:
+            return RTDType(self.group_size, self.groups_per_round)
+
+        return RITDType(self.group_size, self.groups_per_round, self._hole_order)
 
     @classmethod
     def create_matcher(cls, groups_per_round: int, group_spec: GroupSpec, participant_labels: Sequence | None=None):
@@ -73,15 +82,19 @@ class MOLSMatcher(TransversalMatcher):
             data = json.loads(f.read())
 
         try:
-            mols = data[str(groups_per_round)]["matrices"]
+            candidate_mols = data[str(groups_per_round)]
 
         except KeyError:
             return None
 
-        if len(mols) >= group_size - 1:
-            return cls(groups_per_round,
-                       group_spec,
-                       [np.array(m) for m in mols],
-                       participant_labels=participant_labels)
+        for m in candidate_mols:
+            mols = m["matrices"]
+
+            if len(mols) >= group_size - 1:
+                return cls(groups_per_round,
+                           group_spec,
+                           [np.array(n) for n in mols],
+                           m["hole_order"],
+                           participant_labels=participant_labels)
 
         return None
