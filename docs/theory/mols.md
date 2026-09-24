@@ -22,13 +22,13 @@ symbol set of the second square.
 Below is an example of a pair of orthogonal Latin squares of order 4.
 
 <div style="display: flex; justify-content: center;">
-  <div style="width: 40%">
+  <div style="width: 30%">
     <figure markdown="span">
       <p><img alt="Latin Square 2" src="../diagrams/mols/ls2.svg"></p>
     </figure>
   </div>
 
-  <div style="width: 40%">
+  <div style="width: 30%">
     <figure markdown="span">
       <p><img alt="Latin Square 3" src="../diagrams/mols/ls3.svg"></p>
     </figure>
