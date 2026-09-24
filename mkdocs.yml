@@ -25,7 +25,7 @@ nav:
   - Theory:
     - theory/overview.md
     - theory/block_designs.md
-    #- theory/mols.md
+    - theory/mols.md
     - theory/orthogonal_arrays.md
     - Construction Methods:
       - RBIBDs:

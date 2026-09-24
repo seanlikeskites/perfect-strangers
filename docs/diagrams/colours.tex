@@ -1,6 +1,15 @@
-\tikzstyle{blue cells}=[{nodes={draw, minimum size=0.65cm, fill=blue!60!white}}]
-\tikzstyle{red cells}=[{nodes={draw, minimum size=0.65cm, fill=red!60!white}}]
-\tikzstyle{green cells}=[{nodes={draw, minimum size=0.65cm, fill=green!75!black}}]
-\tikzstyle{yellow cells}=[{nodes={draw, minimum size=0.65cm, fill=yellow}}]
-\tikzstyle{grey cells}=[{nodes={draw, minimum size=0.65cm, fill=black!20!white}}]
-\tikzstyle{brown cells}=[{nodes={draw, minimum size=0.65cm, fill=brown}}]
+\usepackage{xcolor}
+
+\colorlet{dblue}{blue!60!white}
+\colorlet{dred}{red!60!white}
+\colorlet{dgreen}{green!75!black}
+\colorlet{dyellow}{yellow}
+\colorlet{dgrey}{black!20!white}
+\colorlet{dbrown}{brown}
+
+\tikzstyle{blue cells}=[{nodes={draw, minimum size=0.65cm, fill=dblue}}]
+\tikzstyle{red cells}=[{nodes={draw, minimum size=0.65cm, fill=dred}}]
+\tikzstyle{green cells}=[{nodes={draw, minimum size=0.65cm, fill=dgreen}}]
+\tikzstyle{yellow cells}=[{nodes={draw, minimum size=0.65cm, fill=dyellow}}]
+\tikzstyle{grey cells}=[{nodes={draw, minimum size=0.65cm, fill=dgrey}}]
+\tikzstyle{brown cells}=[{nodes={draw, minimum size=0.65cm, fill=dbrown}}]
