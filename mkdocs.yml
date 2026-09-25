@@ -38,6 +38,7 @@ nav:
       - Transversal Designs:
         - theory/finite_planes.md
         - theory/column_shift.md
+        - theory/td_from_mols.md
       - theory/submatrix_transposition.md
 
 theme:
