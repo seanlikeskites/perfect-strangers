@@ -81,3 +81,8 @@ th.static-spacer-head {
 .md-toc {
   overflow: visible;
 }
+
+figure.subfig {
+  margin-left: 15px;
+  margin-right: 15px;
+}

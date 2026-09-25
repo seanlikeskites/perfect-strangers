@@ -12,19 +12,14 @@ When $\alpha$ is an integer multiple of $\beta$ we can transpose submatrices of 
 in the sequence. For example, consider the following $6{\times}3$ matrix:
 
 <div style="display: flex; justify-content: center;">
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_before.svg"></p>
-      <figcaption>Before Transposition</figcaption>
+      <figcaption>Before <br/> Transposition</figcaption>
     </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="After Transpiosition" src="../diagrams/submatrix_transposition/submatrix_after.svg"></p>
-      <figcaption>After Transposition</figcaption>
+      <figcaption>After <br/> Transposition</figcaption>
     </figure>
-  </div>
 </div>
 
 ## Multiple Sets of Submatrices
@@ -46,24 +41,16 @@ An example sequence for a $4{\times}2$ matrix is shown below. Elements which mak
 boxed in the same colour.
 
 <div style="display: flex; justify-content: center;">
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_zero.svg"></p>
-      <figcaption>Before Transposition</figcaption>
+      <figcaption>Before <br/> Transposition</figcaption>
     </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="First Transpiosition" src="../diagrams/submatrix_transposition/submatrix_one.svg"></p>
-      <figcaption>First Transposition </br> $b = 2$</figcaption>
+      <figcaption>First <br/> Transposition </br> $b = 2$</figcaption>
     </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Second Transpiosition" src="../diagrams/submatrix_transposition/submatrix_two.svg"></p>
-      <figcaption>Second Transposition </br> $b = 4$</figcaption>
+      <figcaption>Second <br/> Transposition </br> $b = 4$</figcaption>
     </figure>
-  </div>
 </div>

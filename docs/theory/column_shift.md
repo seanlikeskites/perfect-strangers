@@ -21,19 +21,14 @@ The next two matrices in the sequence are as follows. Note that between each mat
 shifted 1 position and that at position 2 is shifted 2 positions.
 
 <div style="display: flex; justify-content: center;">
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="One Shift" src="../diagrams/column_shift/one_shift.svg"></p>
       <figcaption>$\mathbf{G}^{1}$</figcaption>
     </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Two Shifts" src="../diagrams/column_shift/two_shifts.svg"></p>
       <figcaption>$\mathbf{G}^{2}$</figcaption>
     </figure>
-  </div>
 </div>
 
 At a minimum we can continue generating new matrices in this way until the element which started at the top of the rightmost
@@ -52,19 +47,14 @@ In our example $\alpha = 5$ and $\beta = 3$, which are coprime. We can therefore
 grouping matrices.
 
 <div style="display: flex; justify-content: center;">
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Three Shifts" src="../diagrams/column_shift/three_shifts.svg"></p>
       <figcaption>$\mathbf{G}^{3}$</figcaption>
     </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Four Shifts" src="../diagrams/column_shift/four_shifts.svg"></p>
       <figcaption>$\mathbf{G}^{4}$</figcaption>
     </figure>
-  </div>
 </div>
 
 ## Transpositions
@@ -81,26 +71,17 @@ Taking the $4{\times}2$ example given in the description of submatrix transposit
 constructed by shifting columns of the matrix created by transposition with a block size of 2.
 
 <div style="display: flex; justify-content: center;">
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_zero.svg"></p>
-      <figcaption>Before Transposition</figcaption>
+      <figcaption>Before <br/> Transposition</figcaption>
     </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Transpiosition" src="../diagrams/column_shift/submatrix_one.svg"></p>
       <figcaption>Transposition </br> $b = 2$</figcaption>
     </figure>
-  </div>
-
-  <div style="width: 30%">
-    <figure markdown="span">
+    <figure class="subfig" markdown="span">
       <p><img alt="Second Transpiosition" src="../diagrams/column_shift/transpose_and_shift.svg"></p>
-      <figcaption>Shifting Between Blocks</figcaption>
-    </figure>
-  </div>
+      <figcaption>Shifting <br/> Between <br/> Blocks</figcaption>
 </div>
 
 The number of column shifts which can be applied to each transposed matrix depends on the number of blocks the matrix has
