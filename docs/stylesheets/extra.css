@@ -85,4 +85,5 @@ th.static-spacer-head {
 figure.subfig {
   margin-left: 3%;
   margin-right: 3%;
+  flex: none;
 }

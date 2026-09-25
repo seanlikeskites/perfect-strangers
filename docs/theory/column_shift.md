@@ -82,6 +82,7 @@ constructed by shifting columns of the matrix created by transposition with a bl
     <figure class="subfig" markdown="span">
       <p><img alt="Second Transpiosition" src="../diagrams/column_shift/transpose_and_shift.svg"></p>
       <figcaption>Shifting <br/> Between <br/> Blocks</figcaption>
+    </figure>
 </div>
 
 The number of column shifts which can be applied to each transposed matrix depends on the number of blocks the matrix has
