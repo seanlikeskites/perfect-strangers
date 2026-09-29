@@ -9,6 +9,7 @@ from perfect_strangers import create_typed_matcher
 from perfect_strangers.matchers import (
     ColumnShiftMatcher,
     FinitePlaneMatcher,
+    MOLRMatcher,
     MOLSMatcher,
     TransversalAndTransposeMatcher,
 )
@@ -38,6 +39,7 @@ def test_typed_matching(groups_per_round, group_spec):
     algorithms = [
         ColumnShiftMatcher(groups_per_round, group_spec),
         FinitePlaneMatcher.create_matcher(groups_per_round, group_spec),
+        MOLRMatcher.create_matcher(groups_per_round, group_spec),
         MOLSMatcher.create_matcher(groups_per_round, group_spec),
         TransversalAndTransposeMatcher(groups_per_round, group_spec)
     ]

@@ -7,6 +7,7 @@ from perfect_strangers.matchers.column_shift_matcher import ColumnShiftMatcher
 from perfect_strangers.matchers.finite_plane_matcher import FinitePlaneMatcher
 from perfect_strangers.matchers.labeled_resolvable_design_matcher import LRBMatcher
 from perfect_strangers.matchers.lookup_matcher import LookupMatcher
+from perfect_strangers.matchers.molr_matcher import MOLRMatcher
 from perfect_strangers.matchers.mols_matcher import MOLSMatcher
 from perfect_strangers.matchers.nearly_kirkman_triple_matcher import NearlyKirkmanTripleMatcher
 from perfect_strangers.matchers.primitive_element_matcher import PrimitiveElementMatcher
@@ -22,6 +23,7 @@ __all__ = (
            "FinitePlaneMatcher",
            "LRBMatcher",
            "LookupMatcher",
+           "MOLRMatcher",
            "MOLSMatcher",
            "NearlyKirkmanTripleMatcher",
            "PrimitiveElementMatcher",

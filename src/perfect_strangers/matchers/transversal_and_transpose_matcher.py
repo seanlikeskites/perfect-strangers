@@ -8,23 +8,29 @@ import numpy as np
 
 from perfect_strangers.matchers.column_shift_matcher import ColumnShiftMatcher
 from perfect_strangers.matchers.finite_plane_matcher import FinitePlaneMatcher
+from perfect_strangers.matchers.molr_matcher import MOLRMatcher
 from perfect_strangers.matchers.mols_matcher import MOLSMatcher
 from perfect_strangers.matchers.typed_matcher import TypedMatcher
 from perfect_strangers.types import GroupSpec, NumpyRounds
-from perfect_strangers.util import submatrix_transpositions, use_finite_plane_construction
+from perfect_strangers.util import submatrix_transpositions
 
 
 def _get_transversal_matcher_rounds(groups_per_round: int, group_size: int) -> NumpyRounds:
     group_spec = [group_size]
 
-    m = MOLSMatcher.create_matcher(groups_per_round, group_spec)
+    col_shift = ColumnShiftMatcher(groups_per_round, group_spec)
+
+    # Try finite plane matching as it should always give us the optimal result.
+    m = FinitePlaneMatcher.create_matcher(groups_per_round, group_spec)
 
     if m is None:
-        if use_finite_plane_construction(groups_per_round, group_spec):
-            m = FinitePlaneMatcher.create_matcher(groups_per_round, group_spec)
-        else:
-            m = ColumnShiftMatcher(groups_per_round, group_spec)
+        m = MOLSMatcher.create_matcher(groups_per_round, group_spec)
 
+    if m is None:
+        m = MOLRMatcher.create_matcher(groups_per_round, group_spec)
+
+    if m is None or col_shift.max_rounds > m.max_rounds:
+        return col_shift._group_matrices
     return m._group_matrices
 
 def _round_from_sub_matrices(round_template: np.typing.NDArray, sub_matrices: NumpyRounds) -> np.typing.NDArray:
@@ -39,7 +45,6 @@ def _round_from_sub_matrices(round_template: np.typing.NDArray, sub_matrices: Nu
         ])
 
     return np.array(r)
-
 
 def _get_transposition_rounds(transposed_matrix: np.typing.NDArray, block_size: int) -> NumpyRounds:
     n_blocks = transposed_matrix.shape[0] // block_size

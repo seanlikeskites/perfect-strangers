@@ -18,11 +18,22 @@ if TYPE_CHECKING:
 def group_size_from_spec(group_spec: GroupSpec) -> int:
     return sum(group_spec)
 
+def typed_sequence_length_upper_bound(groups_per_round: int, group_spec: GroupSpec) -> int:
+    group_size = group_size_from_spec(group_spec)
+
+    # 6 rounds under these parameters would imply the existence some number of
+    # MOLS of order 6.
+    if groups_per_round == 6 and group_size < 6 and group_size > 2 and set(group_spec) == {1}:
+        return 5
+
+    return groups_per_round
+
 def sequence_length_upper_bound(groups_per_round: int, group_spec: GroupSpec | int) -> int:
     if isinstance(group_spec, int):
         group_size = group_spec
         n_types = 1
     else:
+        proper_group_spec = group_spec # to please type checking
         group_size = group_size_from_spec(group_spec)
         n_types = len(group_spec)
 
@@ -30,7 +41,7 @@ def sequence_length_upper_bound(groups_per_round: int, group_spec: GroupSpec | i
         return 1
 
     if n_types > 1:
-        return groups_per_round
+        return typed_sequence_length_upper_bound(groups_per_round, proper_group_spec)
 
     # (3, 1)-RGGD of type 2^6 does not exist.
     if groups_per_round == 4 and group_size == 3:
