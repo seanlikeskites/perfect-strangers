@@ -9,6 +9,8 @@ from tests.matcher_validation import validate_matcher
 
 test_cases = [
     (10, 3),
+    (10, 4),
+    (10, 5),
     (12, 3),
     (12, 4),
     (12, 5),
@@ -19,8 +21,7 @@ test_cases = [
 def test_mols(groups_per_round, group_size):
     matcher = MOLSMatcher.create_matcher(groups_per_round, [group_size])
 
-    # LBR matching should always give the maximum possible rounds.
-    assert matcher.max_rounds == groups_per_round
+    assert matcher.max_rounds == groups_per_round - matcher._hole_order
 
     # Validate generated rounds
     validate_matcher(matcher)
