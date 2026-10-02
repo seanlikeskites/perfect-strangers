@@ -40,10 +40,7 @@ Superimposed Orthogonal Latin Squares
 
 ### Mutually Orthogonal Latin Squares
 A set of Latin squares of the same order are said to be mutually orthogonal if every pair of squares from the set is
-orthogonal. Mutually orthogonal Latin squares $\left(\mathrm{MOLS}\right)$ are closely related to [transversal
-designs](./block_designs#transversal-designs).
-
-The number of $\mathrm{MOLS}$ of a given order $n$ is at most $n - 1$. The three Latin squares of order 4 shown above
+orthogonal. The number of $\mathrm{MOLS}$ of a given order $n$ is at most $n - 1$. The three Latin squares of order 4 shown above
 constitute a complete set of $4 - 1 = 3$ $\mathrm{MOLS}$. A complete set of $n - 1$ $\mathrm{MOLS}$ is not always possible however. For
 example, it is known there are no orthogonal Latin squares of order 6.
 
