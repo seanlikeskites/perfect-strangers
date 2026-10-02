@@ -11,13 +11,13 @@ sequence.
 When $\alpha$ is an integer multiple of $\beta$ we can transpose submatrices of $\mathbf{G}^{0}$ to generate a new matrix
 in the sequence. For example, consider the following $6{\times}3$ matrix:
 
-<div style="display: flex; justify-content: center;">
-    <figure class="subfig" markdown="span">
-      <p><img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_before.svg"></p>
+<div class="fig">
+    <figure class="subfig">
+      <img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_before.svg">
       <figcaption>Before <br/> Transposition</figcaption>
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="After Transpiosition" src="../diagrams/submatrix_transposition/submatrix_after.svg"></p>
+    <figure class="subfig">
+      <img alt="After Transpiosition" src="../diagrams/submatrix_transposition/submatrix_after.svg">
       <figcaption>After <br/> Transposition</figcaption>
     </figure>
 </div>
@@ -40,17 +40,17 @@ constructed iteratively with the following steps:
 An example sequence for a $4{\times}2$ matrix is shown below. Elements which make up the submatrices being transposed are
 boxed in the same colour.
 
-<div style="display: flex; justify-content: center;">
-    <figure class="subfig" markdown="span">
-      <p><img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_zero.svg"></p>
+<div class="fig">
+    <figure class="subfig">
+      <img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_zero.svg">
       <figcaption>Before <br/> Transposition</figcaption>
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="First Transpiosition" src="../diagrams/submatrix_transposition/submatrix_one.svg"></p>
+    <figure class="subfig">
+      <img alt="First Transpiosition" src="../diagrams/submatrix_transposition/submatrix_one.svg">
       <figcaption>First <br/> Transposition </br> $b = 2$</figcaption>
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="Second Transpiosition" src="../diagrams/submatrix_transposition/submatrix_two.svg"></p>
+    <figure class="subfig">
+      <img alt="Second Transpiosition" src="../diagrams/submatrix_transposition/submatrix_two.svg">
       <figcaption>Second <br/> Transposition </br> $b = 4$</figcaption>
     </figure>
 </div>

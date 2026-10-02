@@ -20,13 +20,13 @@ $\mathbf{G}^{0}$
 The next two matrices in the sequence are as follows. Note that between each matrix in the sequence the column at index 1 is
 shifted 1 position and that at position 2 is shifted 2 positions.
 
-<div style="display: flex; justify-content: center;">
-    <figure class="subfig" markdown="span">
-      <p><img alt="One Shift" src="../diagrams/column_shift/one_shift.svg"></p>
+<div class="fig">
+    <figure class="subfig">
+      <img alt="One Shift" src="../diagrams/column_shift/one_shift.svg">
       <figcaption>$\mathbf{G}^{1}$</figcaption>
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="Two Shifts" src="../diagrams/column_shift/two_shifts.svg"></p>
+    <figure class="subfig">
+      <img alt="Two Shifts" src="../diagrams/column_shift/two_shifts.svg">
       <figcaption>$\mathbf{G}^{2}$</figcaption>
     </figure>
 </div>
@@ -46,13 +46,13 @@ after applying all shifts.
 In our example $\alpha = 5$ and $\beta = 3$, which are coprime. We can therefore continue shifting to generate 2 more valid
 grouping matrices.
 
-<div style="display: flex; justify-content: center;">
-    <figure class="subfig" markdown="span">
-      <p><img alt="Three Shifts" src="../diagrams/column_shift/three_shifts.svg"></p>
+<div class="fig">
+    <figure class="subfig">
+      <img alt="Three Shifts" src="../diagrams/column_shift/three_shifts.svg">
       <figcaption>$\mathbf{G}^{3}$</figcaption>
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="Four Shifts" src="../diagrams/column_shift/four_shifts.svg"></p>
+    <figure class="subfig">
+      <img alt="Four Shifts" src="../diagrams/column_shift/four_shifts.svg">
       <figcaption>$\mathbf{G}^{4}$</figcaption>
     </figure>
 </div>
@@ -70,17 +70,17 @@ the $j^{\text{th}}$ column of the transposed matrix is circularly shifted $njb$ 
 Taking the $4{\times}2$ example given in the description of submatrix transposition, an additional grouping matrix can be
 constructed by shifting columns of the matrix created by transposition with a block size of 2.
 
-<div style="display: flex; justify-content: center;">
-    <figure class="subfig" markdown="span">
-      <p><img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_zero.svg"></p>
+<div class="fig">
+    <figure class="subfig">
+      <img alt="Before Transposition" src="../diagrams/submatrix_transposition/submatrix_zero.svg">
       <figcaption>Before <br/> Transposition</figcaption>
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="Transpiosition" src="../diagrams/column_shift/submatrix_one.svg"></p>
+    <figure class="subfig">
+      <img alt="Transpiosition" src="../diagrams/column_shift/submatrix_one.svg">
       <figcaption>Transposition </br> $b = 2$</figcaption>
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="Second Transpiosition" src="../diagrams/column_shift/transpose_and_shift.svg"></p>
+    <figure class="subfig">
+      <img alt="Second Transpiosition" src="../diagrams/column_shift/transpose_and_shift.svg">
       <figcaption>Shifting <br/> Between <br/> Blocks</figcaption>
     </figure>
 </div>

@@ -82,13 +82,14 @@ th.static-spacer-head {
   overflow: visible;
 }
 
+.fig {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
 figure.subfig {
   margin-left: 3%;
   margin-right: 3%;
   flex: none;
-}
-
-figure p {
-  margin-top: 0px;
-  margin-bottom: 0px;
 }

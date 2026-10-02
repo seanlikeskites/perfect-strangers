@@ -21,12 +21,12 @@ symbol set of the second square.
 
 Below is an example of a pair of orthogonal Latin squares of order 4.
 
-<div style="display: flex; justify-content: center;">
-    <figure class="subfig" markdown="span">
-      <p><img alt="Latin Square 2" src="../diagrams/mols/ls2.svg"></p>
+<div class="fig">
+    <figure class="subfig">
+      <img alt="Latin Square 2" src="../diagrams/mols/ls2.svg">
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="Latin Square 3" src="../diagrams/mols/ls3.svg"></p>
+    <figure class="subfig">
+      <img alt="Latin Square 3" src="../diagrams/mols/ls3.svg">
     </figure>
 </div>
 
@@ -57,11 +57,11 @@ are all distinct. A set of mutually orthogonal Latin rectangles $\left(\mathrm{M
 constructed by removing $n - k$ rows from a set of $\mathrm{MOLS}$ of order $n$. However, such $\mathrm{MOLR}$ can exist
 where no $\mathrm{MOLS}$ do. For example, the following orthogonal Latin rectangles of size $5{\times}6$:
 
-<div style="display: flex; flex-wrap: wrap; justify-content: center;">
-    <figure class="subfig" markdown="span">
-      <p><img alt="Latin Rectangle 1" src="../diagrams/mols/lr1.svg"></p>
+<div class="fig">
+    <figure class="subfig">
+      <img alt="Latin Rectangle 1" src="../diagrams/mols/lr1.svg">
     </figure>
-    <figure class="subfig" markdown="span">
-      <p><img alt="Latin Rectangle 2" src="../diagrams/mols/lr2.svg"></p>
+    <figure class="subfig">
+      <img alt="Latin Rectangle 2" src="../diagrams/mols/lr2.svg">
     </figure>
 </div>
