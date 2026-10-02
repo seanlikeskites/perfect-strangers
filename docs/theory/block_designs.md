@@ -38,8 +38,8 @@ A balanced incomplete block design $\left(\mathrm{BIBD}\right)$ with parameters 
 The design is balanced in that each unordered pair of points occurs in the same number of blocks, and incomplete in that $k
 < v$ so the blocks do not contain every point from $X$. A $\mathrm{BIBD}$ for a given set of parameters is referred to as a
 $\left(v, k, \lambda\right)$-$\mathrm{BIBD}$. If the design is resolvable it is a $\left(v, k,
-\lambda\right)$-$\mathrm{RBIBD}$. If $\lambda = 1$ it is usually omitted from the notation, i.e. $\left(v, k\right)$-$\mathrm{RBIBD}$
-refers to a $\left(v, k, 1\right)$-$\mathrm{RBIBD}$.
+\lambda\right)$-$\mathrm{RBIBD}$. If $\lambda = 1$ it is usually omitted from the notation, i.e. $\left(v,
+k\right)$-$\mathrm{RBIBD}$ refers to a $\left(v, k, 1\right)$-$\mathrm{RBIBD}$.
 
 For perfect stranger matching applications we consider $\left(v, k, \lambda\right)$-$\mathrm{RBIBD}$s for which:
 
@@ -150,3 +150,28 @@ matching](./overview#typed-perfect-stranger-matching) where the total number of 
 participant. In such an experiment, the participant types and groupings would correspond to the groups and blocks of the
 $\mathrm{RTD}$ respectively. Where $\beta_{t}$ participants of a given type are in each participant grouping, the
 participants of that type are given by $\beta_{t}$ of the groups from the $\mathrm{RTD}$.
+
+### Incomplete Transversal Designs
+An incomplete transversal design $\left(\mathrm{ITD}\right)$ with parameters $k$, $n$, $h$, and $\lambda$ is a quadruple
+$\left(X, \mathcal{G}, \mathcal{B}, H\right)$ with the following properties:
+
+  * $X$ is a set of $kn$ points.
+  * $H$ is a subset of $X$ with $kh$ elements.
+  * $\mathcal{G}$ is a partition of $X$ into subsets called "groups" where $|G| = n$ for all $G \in \mathcal{G}$.
+  * $\mathcal{B}$ is a collection of subsets of $X$ called "blocks" where $|B| = k$ for all $B \in \mathcal{B}$.
+  * Any pair of a group and block intersects at exactly one point.
+  * Any unordered pair of points from different groups appears in either exactly $\lambda$ blocks or in $H$, but not both.
+
+$H$ is typically referred to as a "hole", being the set of points which never appear in any block together.
+
+An $\mathrm{ITD}$ with parameters $k$, $n$, $h$, and $\lambda$ can be considered a $\mathrm{TD}_{\lambda}(k, n)$ with the
+blocks of a $\mathrm{TD}_{\lambda}(k, h)$ removed. As such, it is usually written $\mathrm{TD}_{\lambda}(k, n) -
+\mathrm{TD}_{\lambda}(k, h)$. However, neither of the transversal designs implied by this notation need exist for the
+$\mathrm{ITD}$ itself to exist.
+
+By removing a group from a $\mathrm{TD}_{\lambda}(k, n) - \mathrm{TD}_{\lambda}(k, h)$, one can construct $n - h$ parallel
+classes of blocks, each containing every point in $X$. We refer to such a collection of parallel classes as an
+$\mathrm{RITD}_{\lambda}(k, n, h)$.
+
+For typed perfect stranger matching, if a full $\mathrm{TD}(k, n)$ doesn't exist a $\mathrm{RITD}(k, n, h)$ may provide a
+reasonable (but not necessarily optimal) solution with $n - h$ rounds.
