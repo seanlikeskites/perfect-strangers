@@ -1,4 +1,4 @@
-all: ls1.svg ls2.svg ls3.svg overlayed_squares.svg
+all: ls1.svg ls2.svg ls3.svg overlayed_squares.svg lr1.svg lr2.svg
 
 export TEXINPUTS := ../:${TEXINPUTS}
 

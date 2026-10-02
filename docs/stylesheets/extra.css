@@ -87,3 +87,8 @@ figure.subfig {
   margin-right: 3%;
   flex: none;
 }
+
+figure p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
